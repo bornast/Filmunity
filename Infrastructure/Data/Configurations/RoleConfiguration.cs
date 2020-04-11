@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Infrastructure.Configurations
+namespace Infrastructure.Data.Configurations
 {
     public class RoleConfiguration : IEntityTypeConfiguration<Role>
     {

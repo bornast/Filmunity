@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Infrastructure
+namespace Infrastructure.Data
 {
     public class FilmunityDataContext : DbContext
     {
