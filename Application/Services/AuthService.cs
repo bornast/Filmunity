@@ -23,8 +23,11 @@ namespace Application.Services
 
         public async Task Login(UserForLoginDto userForLogin)
         {
-            var user = await _uow.Repository<User>().FindOneAsync(new UserSpecification(userForLogin.Username));
+            // TODO: implement fluent validation
 
+            var user = await _uow.Repository<User>().FindOneAsync(new UserSpecification(userForLogin.Username));            
+
+            // TODO: implement guard method
             if (user == null)
                 throw new Exception();
 
@@ -36,6 +39,7 @@ namespace Application.Services
         {
             CreatePasswordHash(userForRegistration.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
+            // TODO: use autommaper
             var userToRegister = new User
             {
                 Username = userForRegistration.Username,
@@ -46,7 +50,7 @@ namespace Application.Services
             };
 
             _uow.Repository<User>().Add(userToRegister);
-            return await _uow.SaveAsync();
+            await _uow.SaveAsync();
         }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
