@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Data
 {
@@ -28,34 +29,39 @@ namespace Infrastructure.Data
             _context.Set<TEntity>().AddRange(entities);
         }
 
-        public bool Contains(ISpecification<TEntity> specification = null)
+        public async Task<bool> Contains(ISpecification<TEntity> specification = null)
         {
-            return Count(specification) > 0 ? true : false;
+            return await Count(specification) > 0 ? true : false;
         }
 
-        public bool Contains(Expression<Func<TEntity, bool>> predicate)
+        public async Task<bool> Contains(Expression<Func<TEntity, bool>> predicate)
         {
-            return Count(predicate) > 0 ? true : false;
+            return await Count(predicate) > 0 ? true : false;
         }
 
-        public int Count(ISpecification<TEntity> specification = null)
+        public async Task<int> Count(ISpecification<TEntity> specification = null)
         {
-            return ApplySpecification(specification).Count();
+            return await ApplySpecification(specification).CountAsync();
         }
 
-        public int Count(Expression<Func<TEntity, bool>> predicate)
+        public async Task<int> Count(Expression<Func<TEntity, bool>> predicate)
         {
-            return _context.Set<TEntity>().Where(predicate).Count();
+            return await _context.Set<TEntity>().Where(predicate).CountAsync();
         }
 
-        public IEnumerable<TEntity> Find(ISpecification<TEntity> specification = null)
+        public async Task<IEnumerable<TEntity>> FindAsync(ISpecification<TEntity> specification = null)
         {
-            return ApplySpecification(specification);
+            return await ApplySpecification(specification).ToListAsync();
         }
 
-        public TEntity FindById(int id)
+        public async Task<TEntity> FindOneAsync(ISpecification<TEntity> specification = null)
         {
-            return _context.Set<TEntity>().Find(id);
+            return await ApplySpecification(specification).FirstOrDefaultAsync();
+        }
+
+        public async Task<TEntity> FindById(int id)
+        {
+            return await _context.Set<TEntity>().FindAsync(id);
         }
 
         public void Remove(TEntity entity)

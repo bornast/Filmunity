@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Application.Services
 {
@@ -20,9 +21,9 @@ namespace Application.Services
             _uow = uow;
         }
 
-        public void Login(UserForLoginDto userForLogin)
+        public async Task Login(UserForLoginDto userForLogin)
         {
-            var user = _uow.Repository<User>().Find(new UserSpecification(userForLogin.Username)).FirstOrDefault();
+            var user = await _uow.Repository<User>().FindOneAsync(new UserSpecification(userForLogin.Username));
 
             if (user == null)
                 throw new Exception();
@@ -31,7 +32,7 @@ namespace Application.Services
                 throw new Exception();
         }
 
-        public void Register(UserForRegistrationDto userForRegistration)
+        public async Task Register(UserForRegistrationDto userForRegistration)
         {
             CreatePasswordHash(userForRegistration.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
@@ -45,7 +46,7 @@ namespace Application.Services
             };
 
             _uow.Repository<User>().Add(userToRegister);
-            var result = _uow.Save();
+            return await _uow.SaveAsync();
         }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)

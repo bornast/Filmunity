@@ -4,10 +4,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Data
 {
-    public class UnitOfWork : IUnitOfWork
+    public sealed class UnitOfWork : IUnitOfWork
     {
         private readonly FilmunityDataContext _context;
         private Hashtable _repositories;
@@ -16,10 +17,15 @@ namespace Infrastructure.Data
         {
             _context = context;
         }
-
         public int Save()
         {
-            return _context.SaveChanges();
+            var result = _context.SaveChanges();
+            return result;
+        }
+        public async Task<int> SaveAsync()
+        {
+            var result = await _context.SaveChangesAsync();
+            return result;
         }
 
         public IRepository<TEntity> Repository<TEntity>() where TEntity : BaseEntity

@@ -3,12 +3,13 @@ using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Application.Interfaces
 {
     public interface IAuthService
     {
-        public void Login(UserForLoginDto userForLogin);
-        public void Register(UserForRegistrationDto userForRegistration);
+        public Task Login(UserForLoginDto userForLogin);
+        public Task Register(UserForRegistrationDto userForRegistration);
     }
 }

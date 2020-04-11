@@ -22,14 +22,14 @@ namespace Web.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLogin)
         {
-            _authService.Login(userForLogin);
+            await _authService.Login(userForLogin);
             return Ok();            
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegistrationDto userForRegistration)
         {
-            _authService.Register(userForRegistration);
+            await _authService.Register(userForRegistration);
             return Ok();
         }
 
