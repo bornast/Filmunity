@@ -1,11 +1,8 @@
 ﻿using Application.Dtos.User;
 using Application.Interfaces;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Application.User.Validators
+namespace Application.Validators
 {
     public class UserForLoginDtoValidator : AbstractValidator<UserForLoginDto>, IObjectValidator<UserForLoginDtoValidator>
     {

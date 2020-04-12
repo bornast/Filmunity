@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Domain.Entities;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Application.Services
     public class JwtService : IJwtService
     {
 
-        public string GenerateJwtToken(Domain.Entities.User user)
+        public string GenerateJwtToken(User user)
         {
             var claims = new List<Claim>
             {

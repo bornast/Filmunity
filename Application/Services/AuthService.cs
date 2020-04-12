@@ -1,18 +1,10 @@
 ﻿using Application.Dtos.User;
 using Application.Extensions;
 using Application.Interfaces;
-using Application.User.Specifications;
+using Application.Specifications;
 using Ardalis.GuardClauses;
 using AutoMapper;
-using Common.Enums;
-using Common.Exceptions;
 using Domain.Entities;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,7 +26,7 @@ namespace Application.Services
 
         public async Task<string> Login(UserForLoginDto userForLogin)
         {
-            var user = await _uow.Repository<Domain.Entities.User>().FindOneAsync(new UserWithRolesSpecification(userForLogin.Username));
+            var user = await _uow.Repository<User>().FindOneAsync(new UserWithRolesSpecification(userForLogin.Username));
 
             Guard.Against.Unauthorized(user);
 
@@ -46,13 +38,13 @@ namespace Application.Services
 
         public async Task Register(UserForRegistrationDto userForRegistration)
         {            
-            var user = _mapper.Map<Domain.Entities.User>(userForRegistration);
+            var user = _mapper.Map<User>(userForRegistration);
 
             CreatePasswordHash(userForRegistration.Password, out byte[] passwordHash, out byte[] passwordSalt);
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            _uow.Repository<Domain.Entities.User>().Add(user);
+            _uow.Repository<User>().Add(user);
             await _uow.SaveAsync();
         }
 

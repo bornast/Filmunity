@@ -1,9 +1,8 @@
 ﻿using Application.Dtos.User;
 using Application.Interfaces;
-using Application.User.Specifications;
+using Application.Specifications;
+using Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Services
@@ -26,7 +25,7 @@ namespace Application.Services
         {
             Validate(userForRegistration);
 
-            var existingUser = await _uow.Repository<Domain.Entities.User>()
+            var existingUser = await _uow.Repository<User>()
                 .FindOneAsync(new UserWithRolesSpecification(userForRegistration.Username));
 
             if (existingUser != null)

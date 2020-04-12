@@ -1,12 +1,9 @@
-﻿using Application.Extensions;
-using Application.Interfaces;
+﻿using Application.Interfaces;
 using Application.Services;
-using Application.User.Validators;
+using Application.Validators;
 using AutoMapper;
-using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.ComponentModel.DataAnnotations;
 
 namespace Application
 {

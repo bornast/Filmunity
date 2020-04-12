@@ -1,9 +1,8 @@
-﻿using Application.Specifications;
-using System.Security.Cryptography.X509Certificates;
+﻿using Domain.Entities;
 
-namespace Application.User.Specifications
+namespace Application.Specifications
 {
-    public class UserWithRolesSpecification : BaseSpecification<Domain.Entities.User>
+    public class UserWithRolesSpecification : BaseSpecification<User>
     {
         public UserWithRolesSpecification(string username) : base (x => x.Username == username)
         {

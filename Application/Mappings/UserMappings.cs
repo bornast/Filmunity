@@ -1,9 +1,6 @@
 ﻿using Application.Dtos.User;
 using AutoMapper;
-using Common.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Domain.Entities;
 
 namespace Application.Mappings
 {
@@ -11,7 +8,7 @@ namespace Application.Mappings
     {
         public UserMappings()
         {
-            CreateMap<UserForRegistrationDto, Domain.Entities.User>();
+            CreateMap<UserForRegistrationDto, User>();
                 
         }
     }
