@@ -2,6 +2,7 @@
 using Application.Interfaces;
 using Application.Services;
 using Application.User.Validators;
+using AutoMapper;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +13,8 @@ namespace Application
     public static class DependencyInjection
     {
         public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
-        {            
+        {
+            services.AddAutoMapper(typeof(IAuthService).Assembly);
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IValidatorService, ValidatorService>();
             services.AddValidation();

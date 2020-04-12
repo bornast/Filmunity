@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Common.Enums;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -18,6 +19,8 @@ namespace Infrastructure.Data.Configurations
             builder.Property(u => u.Username).IsRequired();
 
             builder.Property(u => u.Email).IsRequired();
+
+            builder.Property(u => u.Status).HasDefaultValue(Status.WaitingActivation);
         }
     }
 }

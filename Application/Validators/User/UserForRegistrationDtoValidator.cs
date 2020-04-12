@@ -13,6 +13,8 @@ namespace Application.User.Validators
         {
             RuleFor(x => x.Username).NotEmpty().MinimumLength(5);
             RuleFor(x => x.Password).NotEmpty().MinimumLength(5);
+            //RuleFor(x => x.Email).NotEmpty().EmailAddress();
+            RuleFor(x => x.Email).NotEmpty();
         }
     }
 }

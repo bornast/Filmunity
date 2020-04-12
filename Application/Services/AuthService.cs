@@ -3,8 +3,10 @@ using Application.Extensions;
 using Application.Interfaces;
 using Application.User.Specifications;
 using Ardalis.GuardClauses;
+using AutoMapper;
 using Common.Enums;
 using Common.Exceptions;
+using Domain.Entities;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,11 +17,13 @@ namespace Application.Services
     {
         private readonly IUnitOfWork _uow;
         private readonly IValidatorService _validatorService;
+        private readonly IMapper _mapper;
 
-        public AuthService(IUnitOfWork uow, IValidatorService validatorService)
+        public AuthService(IUnitOfWork uow, IValidatorService validatorService, IMapper mapper)
         {
             _uow = uow;
             _validatorService = validatorService;
+            _mapper = mapper;
         }
 
         public async Task Login(UserForLoginDto userForLogin)
@@ -38,25 +42,18 @@ namespace Application.Services
         {
             _validatorService.Validate(userForRegistration);
 
-            var user = await _uow.Repository<Domain.Entities.User>()
+            var existingUser = await _uow.Repository<Domain.Entities.User>()
                 .FindOneAsync(new UserSpecification(userForRegistration.Username));
 
-            if (user != null)
+            if (existingUser != null)
                 _validatorService.ThrowValidationError("Username", "Username already exists!");
 
             CreatePasswordHash(userForRegistration.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            var user = _mapper.Map<Domain.Entities.User>(userForRegistration);
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
 
-            // TODO: use autommaper
-            var userToRegister = new Domain.Entities.User
-            {
-                Username = userForRegistration.Username,
-                Email = userForRegistration.Email,                
-                PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt,
-                Status = Status.Activated
-            };
-
-            _uow.Repository<Domain.Entities.User>().Add(userToRegister);
+            _uow.Repository<Domain.Entities.User>().Add(user);
             await _uow.SaveAsync();
         }
 
