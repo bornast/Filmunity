@@ -16,7 +16,8 @@ namespace Application
         {
             services.AddAutoMapper(typeof(IAuthService).Assembly);
             services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<IValidatorService, ValidatorService>();
+            services.AddScoped<IAuthValidatorService, AuthValidatorService>();
+            services.AddScoped<IJwtService, JwtService>();
             services.AddValidation();
         }
 

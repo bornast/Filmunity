@@ -13,22 +13,28 @@ namespace Web.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
+        private readonly IAuthValidatorService _authValidatorService;
 
-        public AuthController(IAuthService authService)
+        public AuthController(IAuthService authService, IAuthValidatorService authValidatorService)
         {
             _authService = authService;
+            _authValidatorService = authValidatorService;
         }        
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLogin)
         {
-            await _authService.Login(userForLogin);
-            return Ok();            
+            _authValidatorService.ValidateForLogin(userForLogin);
+
+            var token = await _authService.Login(userForLogin);
+
+            return Ok(token);            
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegistrationDto userForRegistration)
         {
+            await _authValidatorService.ValidateForRegistration(userForRegistration);
             await _authService.Register(userForRegistration);
             return Ok();
         }

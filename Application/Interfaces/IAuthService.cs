@@ -9,7 +9,7 @@ namespace Application.Interfaces
 {
     public interface IAuthService
     {
-        public Task Login(UserForLoginDto userForLogin);
+        public Task<string> Login(UserForLoginDto userForLogin);
         public Task Register(UserForRegistrationDto userForRegistration);
     }
 }

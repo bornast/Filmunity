@@ -1,7 +1,6 @@
 ﻿using Application.Helpers;
 using Application.Interfaces;
 using Ardalis.GuardClauses;
-using Common.Exceptions;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,25 +11,23 @@ using ValidationException = Common.Exceptions.ValidationException;
 
 namespace Application.Services
 {
-    public class ValidatorService : IValidatorService
+    public abstract class BaseValidatorService
     {
-        private readonly IEnumerable<IValidator> _validators;
         private readonly IServiceProvider _serviceProvider;
 
-        public ValidatorService(IEnumerable<IValidator> validators, IServiceProvider serviceProvider)
+        public BaseValidatorService(IServiceProvider serviceProvider)
         {
-            _validators = validators;
             _serviceProvider = serviceProvider;
         }
 
-        public void ThrowValidationError(string propertyName, string errorMsg)
+        protected static void ThrowValidationError(string propertyName, string errorMsg)
         {
             var validationErrors = new ValidationErrors();
             validationErrors.AddError(propertyName, errorMsg);
             throw new ValidationException(validationErrors.Errors);
         }
 
-        public void Validate(IObjectToValidate objectToValidate)
+        protected void Validate(IObjectToValidate objectToValidate)
         {
             var validator = GetValidatorFactory($"{objectToValidate.GetType().Name}Validator");
 

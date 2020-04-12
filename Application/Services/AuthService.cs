@@ -7,6 +7,12 @@ using AutoMapper;
 using Common.Enums;
 using Common.Exceptions;
 using Domain.Entities;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,40 +22,33 @@ namespace Application.Services
     public class AuthService : IAuthService
     {
         private readonly IUnitOfWork _uow;
-        private readonly IValidatorService _validatorService;
         private readonly IMapper _mapper;
+        private readonly IJwtService _jwtService;
 
-        public AuthService(IUnitOfWork uow, IValidatorService validatorService, IMapper mapper)
+        public AuthService(IUnitOfWork uow, IMapper mapper, IJwtService jwtService)
         {
             _uow = uow;
-            _validatorService = validatorService;
             _mapper = mapper;
+            _jwtService = jwtService;
         }
 
-        public async Task Login(UserForLoginDto userForLogin)
+        public async Task<string> Login(UserForLoginDto userForLogin)
         {
-            _validatorService.Validate(userForLogin);
+            var user = await _uow.Repository<Domain.Entities.User>().FindOneAsync(new UserWithRolesSpecification(userForLogin.Username));
 
-            var user = await _uow.Repository<Domain.Entities.User>().FindOneAsync(new UserSpecification(userForLogin.Username));
-            
-            Guard.Against.EntityNotFound(user, nameof(user));
+            Guard.Against.Unauthorized(user);
 
-            if (!VerifyPasswordHash(userForLogin.Password, user.PasswordHash, user.PasswordSalt))
-                throw new UnauthorizedException();
+            var passwordVerified = VerifyPasswordHash(userForLogin.Password, user.PasswordHash, user.PasswordSalt);
+            Guard.Against.Unauthorized(passwordVerified);
+
+            return _jwtService.GenerateJwtToken(user);
         }
 
         public async Task Register(UserForRegistrationDto userForRegistration)
-        {
-            _validatorService.Validate(userForRegistration);
-
-            var existingUser = await _uow.Repository<Domain.Entities.User>()
-                .FindOneAsync(new UserSpecification(userForRegistration.Username));
-
-            if (existingUser != null)
-                _validatorService.ThrowValidationError("Username", "Username already exists!");
+        {            
+            var user = _mapper.Map<Domain.Entities.User>(userForRegistration);
 
             CreatePasswordHash(userForRegistration.Password, out byte[] passwordHash, out byte[] passwordSalt);
-            var user = _mapper.Map<Domain.Entities.User>(userForRegistration);
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
@@ -76,7 +75,7 @@ namespace Application.Services
                 }
             }
             return true;
-        }
+        }        
 
     }
 }

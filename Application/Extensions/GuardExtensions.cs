@@ -13,5 +13,12 @@ namespace Application.Extensions
             if (input == null)
                 throw new NotFoundException(parameterName);
         }
+
+        public static void Unauthorized(this IGuardClause guardClause, object input)
+        {            
+            if (input == null || input is bool && (bool)input == false)
+                throw new UnauthorizedException();
+        }
+
     }
 }
