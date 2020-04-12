@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Infrastructure.Migrations
+namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(FilmunityDataContext))]
-    [Migration("20200411182222_UserAndRoleTableAdded")]
+    [Migration("20200412103240_UserAndRoleTableAdded")]
     partial class UserAndRoleTableAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

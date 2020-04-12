@@ -4,9 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -43,6 +40,10 @@ namespace Web.Middlewares
 
             switch (exception)
             {
+                case ValidationException validationException:
+                    code = HttpStatusCode.BadRequest;
+                    result = JsonConvert.SerializeObject(validationException.ValidationErrors);
+                    break;
                 case UnauthorizedException _:
                     code = HttpStatusCode.Unauthorized;
                     result = "";
