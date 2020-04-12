@@ -1,7 +1,10 @@
 ﻿using Application.Dtos.User;
+using Application.Extensions;
 using Application.Interfaces;
 using Application.Specifications;
+using Ardalis.GuardClauses;
 using Common.Enums;
+using Common.Exceptions;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -25,14 +28,12 @@ namespace Application.Services
         {
             // TODO: implement fluent validation
 
-            var user = await _uow.Repository<User>().FindOneAsync(new UserSpecification(userForLogin.Username));            
-
-            // TODO: implement guard method
-            if (user == null)
-                throw new Exception();
+            var user = await _uow.Repository<User>().FindOneAsync(new UserSpecification(userForLogin.Username));
+            
+            Guard.Against.EntityNotFound(user, nameof(user));            
 
             if (!VerifyPasswordHash(userForLogin.Password, user.PasswordHash, user.PasswordSalt))
-                throw new Exception();
+                throw new UnauthorizedException();
         }
 
         public async Task Register(UserForRegistrationDto userForRegistration)

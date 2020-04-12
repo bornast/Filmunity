@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Common.Exceptions;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
@@ -38,19 +39,24 @@ namespace Web.Middlewares
         {
             var code = HttpStatusCode.InternalServerError;
 
-            var result = string.Empty;
+            string result = null;
 
             switch (exception)
             {
-                // TODO: catch different kind of exceptions and adjust status code
-                default:
+                case UnauthorizedException _:
+                    code = HttpStatusCode.Unauthorized;
+                    result = "";
+                    break;
+                case NotFoundException _:
+                    code = HttpStatusCode.NotFound;
+                    result = "";
                     break;
             }
 
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
 
-            if (result == string.Empty)
+            if (result == null)
             {
                 var errorMessage = exception.Message;
 
