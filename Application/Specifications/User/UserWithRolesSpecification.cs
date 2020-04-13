@@ -6,7 +6,8 @@ namespace Application.Specifications
     {
         public UserWithRolesSpecification(string username) : base (x => x.Username == username)
         {
-            AddInclude(x => x.Roles);
+            // same as Include(Roles).ThenInclude(Role)
+            AddInclude($"{nameof(User.Roles)}.{nameof(UserRole.Role)}");
         }
     }
 }

@@ -15,6 +15,7 @@ namespace Application
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IAuthValidatorService, AuthValidatorService>();
             services.AddScoped<IJwtService, JwtService>();
+            services.AddScoped<IHashService, HashService>();
             services.AddValidation();
         }
 

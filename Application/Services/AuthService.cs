@@ -4,6 +4,7 @@ using Application.Interfaces;
 using Application.Specifications;
 using Ardalis.GuardClauses;
 using AutoMapper;
+using Common.Enums;
 using Domain.Entities;
 using System.Security.Cryptography;
 using System.Text;
@@ -16,12 +17,14 @@ namespace Application.Services
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
         private readonly IJwtService _jwtService;
+        private readonly IHashService _hashService;
 
-        public AuthService(IUnitOfWork uow, IMapper mapper, IJwtService jwtService)
+        public AuthService(IUnitOfWork uow, IMapper mapper, IJwtService jwtService, IHashService hashService)
         {
             _uow = uow;
             _mapper = mapper;
             _jwtService = jwtService;
+            _hashService = hashService;
         }
 
         public async Task<string> Login(UserForLoginDto userForLogin)
@@ -29,9 +32,7 @@ namespace Application.Services
             var user = await _uow.Repository<User>().FindOneAsync(new UserWithRolesSpecification(userForLogin.Username));
 
             Guard.Against.Unauthorized(user);
-
-            var passwordVerified = VerifyPasswordHash(userForLogin.Password, user.PasswordHash, user.PasswordSalt);
-            Guard.Against.Unauthorized(passwordVerified);
+            Guard.Against.Unauthorized(_hashService.VerifyPasswordHash(userForLogin.Password, user.PasswordHash, user.PasswordSalt));
 
             return _jwtService.GenerateJwtToken(user);
         }
@@ -40,33 +41,12 @@ namespace Application.Services
         {            
             var user = _mapper.Map<User>(userForRegistration);
 
-            CreatePasswordHash(userForRegistration.Password, out byte[] passwordHash, out byte[] passwordSalt);
-            user.PasswordHash = passwordHash;
-            user.PasswordSalt = passwordSalt;
+            var password = _hashService.CreatePasswordHash(userForRegistration.Password);
+            user.PasswordHash = password.PasswordHash;
+            user.PasswordSalt = password.PasswordSalt;
 
             _uow.Repository<User>().Add(user);
             await _uow.SaveAsync();
-        }
-
-        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-        {
-            using var hmac = new HMACSHA512();
-            passwordSalt = hmac.Key;
-            passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-        }
-
-        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
-        {
-            using (var hmac = new HMACSHA512(passwordSalt))
-            {
-                var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-                for (int i = 0; i < computedHash.Length; i++)
-                {
-                    if (computedHash[i] != passwordHash[i])
-                        return false;
-                }
-            }
-            return true;
         }        
 
     }
