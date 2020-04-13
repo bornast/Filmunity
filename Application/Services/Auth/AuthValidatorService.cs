@@ -11,7 +11,11 @@ namespace Application.Services
     {
         private readonly IUnitOfWork _uow;
 
-        public AuthValidatorService(IUnitOfWork uow, IServiceProvider serviceProvider) : base(serviceProvider)
+        public AuthValidatorService(
+            IUnitOfWork uow, 
+            IServiceProvider serviceProvider, 
+            IValidatorFactoryService validatorFactoryService
+        ) : base(serviceProvider, validatorFactoryService)
         {
             _uow = uow;
         }
