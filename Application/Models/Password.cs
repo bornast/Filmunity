@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Application.Helpers
+﻿namespace Application.Models
 {
     public class Password
     {

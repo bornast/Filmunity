@@ -1,12 +1,8 @@
-﻿using Application.Helpers;
+﻿using Application.Models;
 using Application.Interfaces;
-using Ardalis.GuardClauses;
-using FluentValidation;
 using FluentValidation.Results;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using ValidationException = Common.Exceptions.ValidationException;
 
 namespace Application.Services

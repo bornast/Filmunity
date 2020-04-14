@@ -1,4 +1,4 @@
-﻿using Application.Helpers;
+﻿using Application.Models;
 
 namespace Application.Interfaces
 {

@@ -1,7 +1,5 @@
 ﻿using Common.Enums;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Domain.Entities
 {
@@ -13,6 +11,6 @@ namespace Domain.Entities
         public byte[] PasswordSalt { get; set; }
         public string Remark { get; set; }
         public Status Status { get; set; }
-        public ICollection<UserRole> Roles { get; set; }
+        public ICollection<UserRole> Roles { get; set; } = new List<UserRole>();
     }
 }

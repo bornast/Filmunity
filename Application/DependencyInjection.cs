@@ -1,5 +1,7 @@
 ﻿using Application.Interfaces;
+using Application.Interfaces.Common;
 using Application.Services;
+using Application.Services.Common;
 using Application.Validators;
 using AutoMapper;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +17,7 @@ namespace Application
             services.AddScoped<IAuthService, AuthService>();            
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IHashService, HashService>();
+            services.AddScoped<ITypeService, TypeService>();
             services.AddValidation();
         }
 

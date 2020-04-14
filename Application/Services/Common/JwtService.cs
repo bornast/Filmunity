@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Ardalis.GuardClauses;
 using Domain.Entities;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -15,6 +16,8 @@ namespace Application.Services
 
         public string GenerateJwtToken(User user)
         {
+            Guard.Against.Null(user, nameof(user));
+
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -28,6 +31,7 @@ namespace Application.Services
                 claims.Add(new Claim(ClaimTypes.Role, role.Name));
             }
 
+            // TODO: get token from config
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("test test test test test"));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);

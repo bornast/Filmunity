@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace Application.Helpers
+namespace Application.Models
 {
     public class ValidationErrors
     {

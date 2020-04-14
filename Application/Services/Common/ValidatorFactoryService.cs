@@ -1,40 +1,35 @@
 ﻿using Application.Interfaces;
+using Application.Interfaces.Common;
 using Ardalis.GuardClauses;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Application.Services
 {
     public class ValidatorFactoryService : IValidatorFactoryService
     {
         private readonly IServiceProvider _serviceProvider;
+        private readonly ITypeService _typeService;
 
-        public ValidatorFactoryService(IServiceProvider serviceProvider)
+        public ValidatorFactoryService(IServiceProvider serviceProvider, ITypeService typeService)
         {
             _serviceProvider = serviceProvider;
+            _typeService = typeService;
         }
 
         public IValidator GetValidator(IObjectToValidate objectToValidate)
         {
+            Guard.Against.Null(objectToValidate, nameof(objectToValidate));
+
             var validatorName = $"{objectToValidate.GetType().Name}Validator";
+            
+            var validatorType = _typeService.GetClassTypeByName(validatorName);
 
-            var validatorType = AppDomain.CurrentDomain
-                .GetAssemblies()
-                .SelectMany(x => x.GetTypes())
-                .FirstOrDefault(t => t.Name == validatorName);
-            Guard.Against.Null(validatorType, nameof(validatorType));
-
-            var validatorInterfaceType = validatorType.GetInterfaces()
-                .FirstOrDefault(x => x.FullName.Contains("ObjectValidator"));
-            Guard.Against.Null(validatorInterfaceType, nameof(validatorInterfaceType));
+            var validatorInterfaceType = _typeService.GetInterfaceTypeFromClassByName("ObjectValidator", validatorType);
 
             var validatorService = (IValidator)_serviceProvider
                 .GetRequiredService(validatorInterfaceType);
-            Guard.Against.Null(validatorService, nameof(validatorService));
 
             return validatorService;
         }
