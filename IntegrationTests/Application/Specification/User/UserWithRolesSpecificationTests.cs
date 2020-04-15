@@ -15,7 +15,8 @@ namespace IntegrationTests.Application.Specification
         [TestCase("username-for-testing-purposes2")]
         public async Task ShouldReturnOneUser(string username)
         {
-            // Arrange            
+            // TODO: add roles to a user aswell
+            // Arrange
             await AddAsync(new User
             {
                 Username = username,
@@ -23,6 +24,7 @@ namespace IntegrationTests.Application.Specification
                 PasswordHash = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 },
                 PasswordSalt = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 },
                 Status = Status.WaitingActivation
+                
             });
 
             // Act

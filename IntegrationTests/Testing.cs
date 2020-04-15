@@ -18,9 +18,9 @@ namespace IntegrationTests
     [SetUpFixture]
     public class Testing
     {
-        private static IConfigurationRoot _configuration;
-        private static IServiceScopeFactory _scopeFactory;
+        private static IConfigurationRoot _configuration;        
         private static Checkpoint _checkpoint;
+        public static IServiceScopeFactory _scopeFactory;
 
         [OneTimeSetUp]
         public void RunBeforeAnyTests()

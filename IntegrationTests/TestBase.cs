@@ -6,13 +6,7 @@ namespace IntegrationTests
     using static Testing;
 
     public class TestBase
-    {
-        [SetUp]
-        public async Task SetUp()
-        {
-            await ResetState();
-        }
-
+    {        
         [TearDown]
         public async Task TearDown()
         {
