@@ -11,6 +11,7 @@ namespace Domain.Entities
         public byte[] PasswordSalt { get; set; }
         public string Remark { get; set; }
         public Status Status { get; set; }
+        public int StatusId { get; set; }
         public ICollection<UserRole> Roles { get; set; } = new List<UserRole>();
     }
 }

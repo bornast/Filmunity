@@ -1,5 +1,4 @@
-﻿using Common.Enums;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -20,7 +19,7 @@ namespace Infrastructure.Data.Configurations
 
             builder.Property(u => u.Email).IsRequired();
 
-            builder.Property(u => u.Status).HasDefaultValue(Status.WaitingActivation);
+            builder.Property(u => u.StatusId).HasDefaultValue((int)Common.Enums.Status.WaitingActivation);
         }
     }
 }

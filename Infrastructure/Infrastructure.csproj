@@ -7,8 +7,18 @@
   <ItemGroup>
     <Compile Remove="Data\20200412103208_UserAndRoleTableAdded.cs" />
     <Compile Remove="Data\20200412103208_UserAndRoleTableAdded.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200412103240_UserAndRoleTableAdded.cs" />
+    <Compile Remove="Data\Migrations\20200412103240_UserAndRoleTableAdded.Designer.cs" />
     <Compile Remove="Data\Migrations\20200413110555_test.cs" />
     <Compile Remove="Data\Migrations\20200413110555_test.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200413114713_UserStatusDefaultValueUpdated.cs" />
+    <Compile Remove="Data\Migrations\20200413114713_UserStatusDefaultValueUpdated.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200416181855_StatusTableAdded.cs" />
+    <Compile Remove="Data\Migrations\20200416181855_StatusTableAdded.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200416182530_UserRoleStatusTablesAdded.cs" />
+    <Compile Remove="Data\Migrations\20200416182530_UserRoleStatusTablesAdded.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200416185143_UserRoleStatusTablesAdded.cs" />
+    <Compile Remove="Data\Migrations\20200416185143_UserRoleStatusTablesAdded.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
