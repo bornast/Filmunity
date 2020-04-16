@@ -1,10 +1,13 @@
 ﻿using Application.Dtos.User;
 using Application.Interfaces;
+using Common.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Web.ActionFilters;
 
 namespace Web.Controllers
 {
@@ -37,7 +40,7 @@ namespace Web.Controllers
             await _authValidatorService.ValidateForRegistration(userForRegistration);
             await _authService.Register(userForRegistration);
             return Ok();
-        }
+        }        
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Ardalis.GuardClauses;
 using Domain.Entities;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,12 @@ namespace Application.Services
 {
     public class JwtService : IJwtService
     {
+        private readonly IConfiguration _configuration;
+
+        public JwtService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         public string GenerateJwtToken(User user)
         {
@@ -31,8 +38,7 @@ namespace Application.Services
                 claims.Add(new Claim(ClaimTypes.Role, role.Name));
             }
 
-            // TODO: get token from config
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("test test test test test"));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
