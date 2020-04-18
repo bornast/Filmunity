@@ -19,6 +19,18 @@
     <Compile Remove="Data\Migrations\20200416182530_UserRoleStatusTablesAdded.Designer.cs" />
     <Compile Remove="Data\Migrations\20200416185143_UserRoleStatusTablesAdded.cs" />
     <Compile Remove="Data\Migrations\20200416185143_UserRoleStatusTablesAdded.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200418201235_FilmAndFilmRelatedTablesAdded.cs" />
+    <Compile Remove="Data\Migrations\20200418201235_FilmAndFilmRelatedTablesAdded.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200418204648_FilmAndFilmRelatedTablesAdded2.cs" />
+    <Compile Remove="Data\Migrations\20200418204648_FilmAndFilmRelatedTablesAdded2.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200418204853_FilmAndFilmRelatedTablesAdded.cs" />
+    <Compile Remove="Data\Migrations\20200418204853_FilmAndFilmRelatedTablesAdded.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200418210129_FilmAndFilmRelatedTablesAdded.cs" />
+    <Compile Remove="Data\Migrations\20200418210129_FilmAndFilmRelatedTablesAdded.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200418210612_FilmAndFilmRelatedTablesAdded.cs" />
+    <Compile Remove="Data\Migrations\20200418210612_FilmAndFilmRelatedTablesAdded.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200418210709_FilmAndFilmRelatedTablesAdded.cs" />
+    <Compile Remove="Data\Migrations\20200418210709_FilmAndFilmRelatedTablesAdded.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
