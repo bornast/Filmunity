@@ -31,6 +31,8 @@
     <Compile Remove="Data\Migrations\20200418210612_FilmAndFilmRelatedTablesAdded.Designer.cs" />
     <Compile Remove="Data\Migrations\20200418210709_FilmAndFilmRelatedTablesAdded.cs" />
     <Compile Remove="Data\Migrations\20200418210709_FilmAndFilmRelatedTablesAdded.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200418210825_FilmAndFilmRelatedTablesAdded.cs" />
+    <Compile Remove="Data\Migrations\20200418210825_FilmAndFilmRelatedTablesAdded.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

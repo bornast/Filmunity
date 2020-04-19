@@ -6,6 +6,6 @@ namespace Domain.Entities
 {
     public class Language : BaseEntity
     {
-        public int Name { get; set; }
+        public string Name { get; set; }
     }
 }

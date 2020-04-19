@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(FilmunityDataContext))]
-    [Migration("20200418210825_FilmAndFilmRelatedTablesAdded")]
+    [Migration("20200419192619_FilmAndFilmRelatedTablesAdded")]
     partial class FilmAndFilmRelatedTablesAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -216,8 +216,9 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Name")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

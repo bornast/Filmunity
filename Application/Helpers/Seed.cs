@@ -1,25 +1,35 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace Application.Helpers
 {
     public static class Seed
     {
-
+        private static IUnitOfWork _uow;
         public static void SeedCoreData(IUnitOfWork uow, IHashService hashService)
         {
+            _uow = uow;
+
             if (uow.Repository<Status>().Count(x => x.Id > 0).Result > 0)
                 return;
 
-            SeedStates(uow);
-            SeedUserWithRoles(uow, hashService);
+            SeedStatus();
+            SeedUserWithRoles(hashService);
+            SeedGender();
+            SeedFilmType();
+            SeedCountry();
+            SeedFilmRole();
+            SeedLanguage();
             uow.Save();
         }
 
-        private static void SeedStates(IUnitOfWork uow)
+        private static void SeedStatus()
         {
             var statuses = new List<Status>();
 
@@ -28,10 +38,10 @@ namespace Application.Helpers
                 statuses.Add(new Status { Name = statusName });
             }
 
-            uow.Repository<Status>().AddRange(statuses);
+            _uow.Repository<Status>().AddRange(statuses);
         }
 
-        private static void SeedUserWithRoles(IUnitOfWork uow, IHashService hashService)
+        private static void SeedUserWithRoles(IHashService hashService)
         {
             var roles = new List<Role>();
 
@@ -61,9 +71,69 @@ namespace Application.Helpers
                 users.Add(user);
             }
 
-            uow.Repository<Role>().AddRange(roles);
-            uow.Repository<User>().AddRange(users);
+            _uow.Repository<Role>().AddRange(roles);
+            _uow.Repository<User>().AddRange(users);
         }
 
+        private static void SeedGender()
+        {
+            var genders = new List<Gender>();
+
+            foreach (var genderName in Enum.GetNames(typeof(Common.Enums.Genders)))
+            {
+                genders.Add(new Gender { Name = genderName });
+            }
+
+            _uow.Repository<Gender>().AddRange(genders);
+        }
+
+        private static void SeedFilmType()
+        {
+            var filmTypes = new List<FilmType>();
+
+            foreach (var filmTypeName in Enum.GetNames(typeof(Common.Enums.FilmTypes)))
+            {
+                filmTypes.Add(new FilmType { Name = filmTypeName.Replace("_", " ") });
+            }
+
+            _uow.Repository<FilmType>().AddRange(filmTypes);
+        }
+
+        private static void SeedCountry()
+        {
+            var countryData = File.ReadAllText(GetFilePath("Data\\CountryData.json"));
+
+            var countries = JsonConvert.DeserializeObject<List<Country>>(countryData);
+
+            _uow.Repository<Country>().AddRange(countries);
+        }
+
+        private static void SeedFilmRole()
+        {
+            var fileRoleData = File.ReadAllText(GetFilePath("Data\\FilmRoleData.json"));
+
+            var filmRoles = JsonConvert.DeserializeObject<List<FilmRole>>(fileRoleData);
+
+            _uow.Repository<FilmRole>().AddRange(filmRoles);
+        }
+
+        private static void SeedLanguage()
+        {
+            var languageData = File.ReadAllText(GetFilePath("Data\\LanguageData.json"));
+
+            var languages = JsonConvert.DeserializeObject<List<Language>>(languageData);
+
+            _uow.Repository<Language>().AddRange(languages);            
+        }
+
+        private static string GetFilePath(string relativeFilePath)
+        {
+            var solutionPath = Directory.GetCurrentDirectory()
+                .Substring(0, Directory.GetCurrentDirectory().LastIndexOf("\\"));
+
+            var projectPath = $"{solutionPath}\\{nameof(Application)}";
+
+            return $"{projectPath}\\{relativeFilePath}";
+        }
     }
 }

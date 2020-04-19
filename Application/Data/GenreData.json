@@ -1,0 +1,21 @@
+﻿[
+  { "Name": "Action" },
+  { "Name": "Adult" },
+  { "Name": "Adventure" },
+  { "Name": "Children's/Family" },
+  { "Name": "Comedy" },
+  { "Name": "Crime" },
+  { "Name": "Drama" },
+  { "Name": "Epic" },
+  { "Name": "Fantasy" },
+  { "Name": "Historical Film" },
+  { "Name": "Horror" },
+  { "Name": "Musical" },
+  { "Name": "Mystery" },
+  { "Name": "Romance" },
+  { "Name": "Science Fiction" },
+  { "Name": "Spy Film" },
+  { "Name": "Thriller" },
+  { "Name": "War" },
+  { "Name": "Western" }
+]
