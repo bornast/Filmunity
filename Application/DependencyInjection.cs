@@ -1,8 +1,10 @@
 ﻿using Application.Interfaces;
 using Application.Interfaces.Common;
+using Application.Interfaces.Film;
 using Application.Services;
 using Application.Services.Common;
 using Application.Validators;
+using Application.Validators.Film;
 using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +20,7 @@ namespace Application
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IHashService, HashService>();
             services.AddScoped<ITypeService, TypeService>();
+            services.AddScoped<IFilmService, FilmService>();
             services.AddValidation();
         }
 
@@ -26,7 +29,9 @@ namespace Application
             services.AddScoped<IValidatorFactoryService, ValidatorFactoryService>();
             services.AddTransient<IObjectValidator<UserForLoginDtoValidator>, UserForLoginDtoValidator>();
             services.AddTransient<IObjectValidator<UserForRegistrationDtoValidator>, UserForRegistrationDtoValidator>();
+            services.AddTransient<IObjectValidator<FilmForCreationDtoValidator>, FilmForCreationDtoValidator>();
             services.AddScoped<IAuthValidatorService, AuthValidatorService>();
+            services.AddScoped<IFilmValidatorService, FilmValidatorService>();
         }
 
     }

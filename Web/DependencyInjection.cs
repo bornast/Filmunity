@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Application.Interfaces.Common;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -6,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
 using System.Text;
+using Web.Services;
 
 namespace Web
 {
@@ -39,6 +42,9 @@ namespace Web
                     };
                 });
 
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         private static void AddSwagger(IServiceCollection services)

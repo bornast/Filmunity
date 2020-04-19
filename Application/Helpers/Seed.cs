@@ -15,14 +15,15 @@ namespace Application.Helpers
         public static void SeedCoreData(IUnitOfWork uow, IHashService hashService)
         {
             _uow = uow;
-
-            if (uow.Repository<Status>().Count(x => x.Id > 0).Result > 0)
+            
+            if (_uow.Repository<Status>().Count(x => x.Id > 0).Result > 0)
                 return;
 
             SeedStatus();
             SeedUserWithRoles(hashService);
-            SeedGender();
+            SeedGender();            
             SeedFilmType();
+            SeedGenre();
             SeedCountry();
             SeedFilmRole();
             SeedLanguage();
@@ -97,6 +98,15 @@ namespace Application.Helpers
             }
 
             _uow.Repository<FilmType>().AddRange(filmTypes);
+        }
+
+        private static void SeedGenre()
+        {
+            var genreData = File.ReadAllText(GetFilePath("Data\\GenreData.json"));
+
+            var genres = JsonConvert.DeserializeObject<List<Genre>>(genreData);
+
+            _uow.Repository<Genre>().AddRange(genres);
         }
 
         private static void SeedCountry()
