@@ -138,8 +138,11 @@ namespace Application.Helpers
 
         private static string GetFilePath(string relativeFilePath)
         {
-            var solutionPath = Directory.GetCurrentDirectory()
-                .Substring(0, Directory.GetCurrentDirectory().LastIndexOf("\\"));
+            // TODO: this souldn't be hardcoded, somehow get the solution name programmatically
+            var solutionName = "Filmunity";
+
+            var solutionPath = Directory.GetCurrentDirectory().Substring(0, 
+                Directory.GetCurrentDirectory().LastIndexOf("Filmunity") + solutionName.Length);
 
             var projectPath = $"{solutionPath}\\{nameof(Application)}";
 

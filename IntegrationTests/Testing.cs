@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.Helpers;
+using Application.Interfaces;
 using Application.Specifications;
 using Domain.Entities;
 using Infrastructure.Data;
@@ -46,9 +47,18 @@ namespace IntegrationTests
 
             _checkpoint = new Checkpoint
             {
-                TablesToIgnore = new[] { "__EFMigrationsHistory" }
+                TablesToIgnore = new[] 
+                { 
+                    "__EFMigrationsHistory", 
+                    "Status", 
+                    "Gender", 
+                    "FilmType", 
+                    "Genre",
+                    "Country",
+                    "FilmRole",
+                    "Language"
+                }
             };
-
             EnsureDatabase();
         }
 
@@ -56,9 +66,13 @@ namespace IntegrationTests
         {
             using var scope = _scopeFactory.CreateScope();
 
-            var context = scope.ServiceProvider.GetService<FilmunityDataContext>();
+            var context = scope.ServiceProvider.GetService<FilmunityDataContext>();            
+
+            var uow = scope.ServiceProvider.GetService<IUnitOfWork>();
+            var hashService = scope.ServiceProvider.GetService<IHashService>();
 
             context.Database.Migrate();
+            Seed.SeedCoreData(uow, hashService);
         }
 
         public static async Task ResetState()
