@@ -7,7 +7,7 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Web.Middlewares
+namespace Api.Middlewares
 {
     public class CustomExceptionHandlerMiddleware
     {

@@ -12,7 +12,7 @@ namespace Application.Services
         public FilmValidatorService(
             IServiceProvider serviceProvider,
             IValidatorFactoryService validatorFactoryService
-        ) : base(serviceProvider, validatorFactoryService)
+        ) : base(validatorFactoryService)
         {
         }
 

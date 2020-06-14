@@ -15,9 +15,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Web.Extensions;
+using Api.Extensions;
 
-namespace Web
+namespace Api
 {
     public class Startup
     {
@@ -31,7 +31,7 @@ namespace Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddWeb(Configuration);
+            services.AddApi(Configuration);
             services.AddApplication(Configuration);
             services.AddInfrastructure(Configuration);
         }

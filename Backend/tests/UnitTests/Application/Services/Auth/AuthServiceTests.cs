@@ -40,6 +40,7 @@ namespace Filmunity.UnitTests.Application.Services
         public void Login_UserNotFound_ThrowUnauthorizedException()
         {
             _user = null;
+
             Assert.That(() => _service.Login(_userForLoginDto), Throws.Exception.TypeOf<UnauthorizedException>());
         }
 

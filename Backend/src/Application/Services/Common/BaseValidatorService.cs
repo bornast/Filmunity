@@ -9,12 +9,10 @@ namespace Application.Services
 {
     public abstract class BaseValidatorService
     {
-        private readonly IServiceProvider _serviceProvider;
         private readonly IValidatorFactoryService _validatorFactoryService;
 
-        public BaseValidatorService(IServiceProvider serviceProvider, IValidatorFactoryService validatorFactoryService)
+        public BaseValidatorService(IValidatorFactoryService validatorFactoryService)
         {
-            _serviceProvider = serviceProvider;
             _validatorFactoryService = validatorFactoryService;
         }
 
@@ -29,15 +27,6 @@ namespace Application.Services
                 var validationErrors = GetValidationErrors(result.Errors);
                 throw new ValidationException(validationErrors);
             }
-        }
-
-        protected static void ThrowValidationError(string propertyName, string errorMsg)
-        {
-            var validationErrors = new ValidationErrors();
-
-            validationErrors.AddError(propertyName, errorMsg);
-
-            throw new ValidationException(validationErrors.Errors);
         }               
 
         private static Dictionary<string, List<string>> GetValidationErrors(IList<ValidationFailure> errors)
@@ -50,7 +39,15 @@ namespace Application.Services
             }
 
             return validationErrors.Errors;
-        }        
+        }
 
+        protected static void ThrowValidationError(string propertyName, string errorMsg)
+        {
+            var validationErrors = new ValidationErrors();
+
+            validationErrors.AddError(propertyName, errorMsg);
+
+            throw new ValidationException(validationErrors.Errors);
+        }
     }
 }

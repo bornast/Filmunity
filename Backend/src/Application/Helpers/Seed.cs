@@ -144,7 +144,7 @@ namespace Application.Helpers
             var solutionPath = Directory.GetCurrentDirectory().Substring(0, 
                 Directory.GetCurrentDirectory().LastIndexOf("Filmunity") + solutionName.Length);
 
-            var projectPath = $"{solutionPath}\\{nameof(Application)}";
+            var projectPath = $"{solutionPath}\\Backend\\src\\{nameof(Application)}";
 
             return $"{projectPath}\\{relativeFilePath}";
         }

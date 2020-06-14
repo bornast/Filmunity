@@ -8,13 +8,13 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
 using System.Text;
-using Web.Services;
+using Api.Services;
 
-namespace Web
+namespace Api
 {
     public static class DependencyInjection
     {
-        public static void AddWeb(this IServiceCollection services, IConfiguration configuration)
+        public static void AddApi(this IServiceCollection services, IConfiguration configuration)
         {
             AddSwagger(services);
 

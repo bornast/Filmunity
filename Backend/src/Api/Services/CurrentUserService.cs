@@ -6,7 +6,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Web.Services
+namespace Api.Services
 {
     public class CurrentUserService : ICurrentUserService
     {

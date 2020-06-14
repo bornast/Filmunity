@@ -15,7 +15,9 @@ namespace UnitTests.Application.Services.Common
         [SetUp]
         public void Setup()
         {
-            _service = new JwtService(new Mock<IConfiguration>().Object);
+            var configuration = new Mock<IConfigurationRoot>();
+            configuration.Setup(x => x.GetSection(It.IsAny<string>()).Value).Returns("super secret key");
+            _service = new JwtService(configuration.Object);
         }
 
         [Test]
@@ -24,11 +26,10 @@ namespace UnitTests.Application.Services.Common
             Assert.That(() => _service.GenerateJwtToken(null), Throws.Exception.TypeOf<ArgumentNullException>());
         }
 
-        [Ignore("this should be moved to integration tests")]
         [Test]
         public void GenerateJwtToken_WhenCalled_ReturnToken()
         {
-            var user = new User 
+            var user = new User
             { 
                 Id = 1,
                 Username = "username"

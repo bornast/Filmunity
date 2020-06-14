@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Web.ActionFilters
+namespace Api.ActionFilters
 {
     public class AuthorizeRolesAttribute : AuthorizeAttribute
     {

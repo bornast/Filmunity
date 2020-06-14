@@ -4,7 +4,6 @@ using FluentValidation;
 using FluentValidation.Results;
 using Moq;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using Common.Libs;
 
@@ -13,7 +12,6 @@ namespace Filmunity.UnitTests.Application.Services
     [TestFixture]
     public class BaseValidatorServiceTests
     {
-        private Mock<IServiceProvider> _serviceProvider;
         private Mock<IValidatorFactoryService> _validatorFactoryService;
         private Mock<IObjectToValidate> _objectToValidate;
         private Mock<IValidator> _validatorObject;
@@ -50,7 +48,6 @@ namespace Filmunity.UnitTests.Application.Services
 
         private void InitializeMocks()
         {
-            _serviceProvider = new Mock<IServiceProvider>();
             _validatorFactoryService = new Mock<IValidatorFactoryService>();
             _objectToValidate = new Mock<IObjectToValidate>();
             _validatorObject = new Mock<IValidator>();
@@ -61,7 +58,7 @@ namespace Filmunity.UnitTests.Application.Services
         {
             _notEmptyValidationFailures = new List<ValidationFailure> { new ValidationFailure("a", "a") };
             _emptyValidationFailures = new List<ValidationFailure>();
-            _service = new ValidationMock(_serviceProvider.Object, _validatorFactoryService.Object);
+            _service = new ValidationMock(_validatorFactoryService.Object);
         }
 
         private void InitializeMockSetup()
@@ -70,15 +67,11 @@ namespace Filmunity.UnitTests.Application.Services
             _validatorFactoryService.Setup(x => x.GetValidator(_objectToValidate.Object)).Returns(_validatorObject.Object);
         }
 
-
     }
 
     public class ValidationMock : BaseValidatorService
     {
-        public ValidationMock(
-            IServiceProvider serviceProvider, 
-            IValidatorFactoryService validatorFactoryService
-        ) : base(serviceProvider, validatorFactoryService) { }
+        public ValidationMock(IValidatorFactoryService validatorFactoryService) : base(validatorFactoryService) { }
 
         public new void Validate(IObjectToValidate objectToValidate)
         {

@@ -45,7 +45,7 @@ namespace Application.Services
             user.PasswordHash = password.PasswordHash;
             user.PasswordSalt = password.PasswordSalt;
 
-            user.Roles.Add(new UserRole { RoleId = (int)global::Common.Enums.Roles.User });
+            user.Roles.Add(new UserRole { RoleId = (int)Roles.User });
 
             _uow.Repository<User>().Add(user);
             await _uow.SaveAsync();

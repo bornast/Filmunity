@@ -12,7 +12,7 @@ using NUnit.Framework;
 using Respawn;
 using System.IO;
 using System.Threading.Tasks;
-using Web;
+using Api;
 
 namespace IntegrationTests
 {
@@ -39,7 +39,7 @@ namespace IntegrationTests
 
             services.AddSingleton(Mock.Of<IWebHostEnvironment>(w =>
                 w.EnvironmentName == "Development" &&
-                w.ApplicationName == "Web"));
+                w.ApplicationName == "Api"));
 
             startup.ConfigureServices(services);
 
@@ -56,7 +56,8 @@ namespace IntegrationTests
                     "Genre",
                     "Country",
                     "FilmRole",
-                    "Language"
+                    "Language",
+                    "Roles"
                 }
             };
             EnsureDatabase();
@@ -112,8 +113,6 @@ namespace IntegrationTests
 
             return result;
         }
-
-
 
     }
 }

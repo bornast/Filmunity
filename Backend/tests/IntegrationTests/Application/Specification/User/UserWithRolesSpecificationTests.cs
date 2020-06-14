@@ -24,8 +24,8 @@ namespace IntegrationTests.Application.Specification
                 Email = $"{username}@gmail.com",
                 PasswordHash = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 },
                 PasswordSalt = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 },
-                StatusId = (int)Statuses.WaitingActivation
-                
+                StatusId = (int)Statuses.WaitingActivation,
+                Roles = { new UserRole { RoleId = (int)Roles.User } }
             });
 
             // Act
@@ -34,8 +34,8 @@ namespace IntegrationTests.Application.Specification
             // Assert
             result.Should().NotBeNull();
             result.Username.Should().Be(username);
+            result.Roles.Count.Should().Be(1);
         }
-
 
         [TestCase("username-for-testing-purposes1")]
         [TestCase("username-for-testing-purposes2")]
@@ -60,7 +60,3 @@ namespace IntegrationTests.Application.Specification
 
     }
 }
-
-
-
-

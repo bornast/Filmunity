@@ -7,6 +7,7 @@ namespace UnitTests.Application.Services.Common
     public class HashServiceTests
     {
         private HashService _service;
+
         [SetUp]
         public void SetUp()
         {
@@ -18,12 +19,12 @@ namespace UnitTests.Application.Services.Common
         public void CreatePasswordHash_WhenCalled_ReturnPasswordObject(string passord)
         {
             var result = _service.CreatePasswordHash(passord);
+
             Assert.Multiple(() =>
             {
                 Assert.That(result.PasswordHash, Is.Not.Null);
                 Assert.That(result.PasswordSalt, Is.Not.Null);
-            });
-            
+            });            
         }
 
     }

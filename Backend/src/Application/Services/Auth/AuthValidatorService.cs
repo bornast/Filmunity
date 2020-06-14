@@ -15,7 +15,7 @@ namespace Application.Services
             IUnitOfWork uow, 
             IServiceProvider serviceProvider, 
             IValidatorFactoryService validatorFactoryService
-        ) : base(serviceProvider, validatorFactoryService)
+        ) : base(validatorFactoryService)
         {
             _uow = uow;
         }
