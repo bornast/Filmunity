@@ -59,9 +59,14 @@ namespace Infrastructure.Data
             return await ApplySpecification(specification).FirstOrDefaultAsync();
         }
 
-        public async Task<TEntity> FindById(int id)
+        public async Task<TEntity> FindByIdAsync(int id)
         {
             return await _context.Set<TEntity>().FindAsync(id);
+        }
+
+        public async Task<IEnumerable<TEntity>> FindAllByIdAsync(List<int> ids)
+        {
+            return await _context.Set<TEntity>().Where(x => ids.Contains(x.Id)).ToListAsync();
         }
 
         public void Remove(TEntity entity)

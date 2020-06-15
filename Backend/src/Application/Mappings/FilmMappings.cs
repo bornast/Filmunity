@@ -11,7 +11,10 @@ namespace Application.Mappings
         {
             CreateMap<FilmForCreationDto, Film>()
                 .ForMember(x => x.Genres, 
-                opt => opt.MapFrom(x => x.GenreIds.Select(x => new FilmGenre { GenreId = x }) ));
+                    opt => opt.MapFrom(x => x.GenreIds.Select(x => new FilmGenre { GenreId = x }) ))
+                .ForMember(x => x.Pariticpants,
+                    opt => opt.MapFrom(x => x.ParticipantsRoles.Select(x => 
+                        new FilmParticipant { PersonId = x.ParticipantId, FilmRoleId = x.RoleId })));
 
             CreateMap<Film, FilmForDetailedDto>();
         }

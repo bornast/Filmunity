@@ -15,7 +15,13 @@ namespace Application.Dtos.Film
         public string Duration { get; set; }
         public int LanguageId { get; set; }
         public List<int> GenreIds { get; set; } = new List<int>();
-        // TODO: this should be a object { ParticipantId, RoleId }
-        public List<int> ParticipantIds { get; set; } = new List<int>();
+        public List<PariticipantRoleDto> ParticipantsRoles { get; set; } = new List<PariticipantRoleDto>();
+    }
+
+    // TODO: move this somewhere?
+    public class PariticipantRoleDto
+    {
+        public int ParticipantId { get; set; }
+        public int RoleId { get; set; }
     }
 }

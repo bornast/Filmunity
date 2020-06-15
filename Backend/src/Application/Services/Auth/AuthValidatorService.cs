@@ -13,7 +13,6 @@ namespace Application.Services
 
         public AuthValidatorService(
             IUnitOfWork uow, 
-            IServiceProvider serviceProvider, 
             IValidatorFactoryService validatorFactoryService
         ) : base(validatorFactoryService)
         {
@@ -32,8 +31,9 @@ namespace Application.Services
             var existingUser = await _uow.Repository<User>()
                 .FindOneAsync(new UserWithRolesSpecification(userForRegistration.Username));
 
-            if (existingUser != null)
-                ThrowValidationError("Username", "Username already exists!");
+            AddValidationErrorIfValueIsNull(existingUser, "Username", "Username already exists!");
+
+            ThrowValidationErrorsIfNotEmpty();
         }
     }
 }

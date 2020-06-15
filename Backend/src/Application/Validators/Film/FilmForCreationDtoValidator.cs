@@ -1,6 +1,8 @@
 ﻿using Application.Dtos.Film;
 using Application.Interfaces;
 using FluentValidation;
+using System;
+using System.Linq;
 
 namespace Application.Validators.Film
 {
@@ -16,7 +18,7 @@ namespace Application.Validators.Film
             
             RuleFor(x => x.TypeId).GreaterThan(0);
             
-            RuleFor(x => x.Year).GreaterThan(1877);
+            RuleFor(x => x.Year).GreaterThan(1877).LessThanOrEqualTo(DateTime.UtcNow.Year);
             
             RuleFor(x => x.Duration).NotEmpty();
             
@@ -26,9 +28,7 @@ namespace Application.Validators.Film
 
             RuleForEach(x => x.GenreIds).GreaterThan(0);
 
-            RuleFor(x => x.ParticipantIds).NotEmpty();
-
-            RuleForEach(x => x.ParticipantIds).GreaterThan(0);
+            RuleFor(x => x.ParticipantsRoles).NotEmpty();
         }
     }
 }

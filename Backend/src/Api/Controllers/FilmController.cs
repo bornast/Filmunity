@@ -1,13 +1,7 @@
 ﻿using Application.Dtos.Film;
-using Application.Dtos.User;
-using Application.Interfaces;
 using Application.Interfaces.Film;
 using Common.Enums;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Api.ActionFilters;
 
@@ -15,6 +9,7 @@ namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AuthorizeRoles(Roles.Admin, Roles.Moderator)]
     public class FilmController : ControllerBase
     {
         private readonly IFilmService _filmService;
@@ -29,13 +24,14 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(FilmForCreationDto filmForCreation)
         {
-            _filmValidatorService.ValidateForCreation(filmForCreation);
+            await _filmValidatorService.ValidateForCreation(filmForCreation);
 
             var film = await _filmService.Create(filmForCreation);
 
             // TODO: return CreatedAtRoute
+            // return CreatedAtRoute("GetUser", new { controller = "Users", id = userToCreate.Id }, userToReturn);
             return Ok(film);
-        }        
+        }
 
     }
 }

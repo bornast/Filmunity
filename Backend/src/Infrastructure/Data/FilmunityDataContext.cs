@@ -57,13 +57,13 @@ namespace Infrastructure.Data
                     {
                         case EntityState.Modified:
                             trackable.ModifiedAt = now;
-                            if (userId != null)
+                            if (userId > 0)
                                 trackable.ModifiedByUserId = userId;
                             break;
 
                         case EntityState.Added:
                             trackable.CreatedAt = now;
-                            if (userId != null)
+                            if (userId > 0)
                                 trackable.CreatedByUserId = (int)userId;
                             break;
                     }

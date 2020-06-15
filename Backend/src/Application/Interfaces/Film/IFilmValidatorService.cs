@@ -8,6 +8,6 @@ namespace Application.Interfaces.Film
 {
     public interface IFilmValidatorService
     {
-        public void ValidateForCreation(FilmForCreationDto filmForCreation);
+        public Task ValidateForCreation(FilmForCreationDto filmForCreation);
     }
 }

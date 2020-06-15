@@ -7,9 +7,10 @@ namespace Application.Interfaces
 {
     public interface IRepository<TEntity> where TEntity : class
     {
-        Task<TEntity> FindById(int id);
+        Task<TEntity> FindByIdAsync(int id);
+        Task<IEnumerable<TEntity>> FindAllByIdAsync(List<int> ids);
         Task<IEnumerable<TEntity>> FindAsync(ISpecification<TEntity> specification = null);
-        Task<TEntity> FindOneAsync(ISpecification<TEntity> specification = null);
+        Task<TEntity> FindOneAsync(ISpecification<TEntity> specification = null);       
         void Add(TEntity entity);
         void AddRange(IEnumerable<TEntity> entities);
         void Remove(TEntity entity);
