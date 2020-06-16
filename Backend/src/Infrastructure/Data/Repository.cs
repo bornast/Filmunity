@@ -51,6 +51,9 @@ namespace Infrastructure.Data
 
         public async Task<IEnumerable<TEntity>> FindAsync(ISpecification<TEntity> specification = null)
         {
+            if (specification == null)
+                return await _context.Set<TEntity>().ToListAsync();
+
             return await ApplySpecification(specification).ToListAsync();
         }
 

@@ -11,6 +11,7 @@ using Application.Interfaces;
 namespace IntegrationTests.Application.Services.Common
 {
     using static Testing;
+
     [TestFixture]
     public class ValidatorFactoryServiceTests
     {
@@ -31,7 +32,7 @@ namespace IntegrationTests.Application.Services.Common
         }
 
         [Test]
-        public void ShouldReturnNull()
+        public void ShouldThrowNullException()
         {
             using var scope = _scopeFactory.CreateScope();
 

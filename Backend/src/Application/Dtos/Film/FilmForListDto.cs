@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Application.Dtos.Film
 {
-    public class FilmForDetailedDto
+    public class FilmForListDto
     {
         public int Id { get; set; }
         public string Title { get; set; }

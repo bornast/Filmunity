@@ -21,6 +21,24 @@ namespace Api.Controllers
             _filmValidatorService = filmValidatorService;
         }        
 
+        // TODO: add filterModelFromQuery
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            return Ok(await _filmService.GetAll());
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetOne(int id)
+        {
+            var movie = await _filmService.GetOne(id);
+
+            if (movie == null)
+                return NotFound();
+
+            return Ok(movie);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(FilmForCreationDto filmForCreation)
         {

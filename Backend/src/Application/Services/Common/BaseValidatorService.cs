@@ -71,7 +71,6 @@ namespace Application.Services
                 if (!idsFromDb.Contains(id))
                     _validationErrors.Add(key, msg.Replace("__id__", id.ToString()));
             }
-        }            
-
+        }
     }
 }

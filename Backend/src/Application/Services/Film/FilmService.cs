@@ -3,9 +3,7 @@ using Application.Interfaces;
 using Application.Interfaces.Film;
 using AutoMapper;
 using Domain.Entities;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Services
@@ -21,6 +19,27 @@ namespace Application.Services
             _mapper = mapper;
         }
 
+        public async Task<FilmForDetailedDto> GetOne(int id)
+        {
+            var film = await _uow.Repository<Film>().FindByIdAsync(id);
+
+            if (film == null)
+                return null;
+
+            var filmToReturn = _mapper.Map<FilmForDetailedDto>(film);
+
+            return filmToReturn;
+        }
+
+        public async Task<IEnumerable<FilmForListDto>> GetAll()
+        {
+            var films = await _uow.Repository<Film>().FindAsync();
+
+            var filmsToReturn = _mapper.Map<IEnumerable<FilmForListDto>>(films);
+
+            return filmsToReturn;
+        }
+
         public async Task<FilmForDetailedDto> Create(FilmForCreationDto filmForCreation)
         {
             var film = _mapper.Map<Film>(filmForCreation);
@@ -33,5 +52,6 @@ namespace Application.Services
 
             return filmToReturn;
         }
+        
     }
 }

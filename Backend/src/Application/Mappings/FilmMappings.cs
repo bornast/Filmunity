@@ -17,6 +17,8 @@ namespace Application.Mappings
                         new FilmParticipant { PersonId = x.ParticipantId, FilmRoleId = x.RoleId })));
 
             CreateMap<Film, FilmForDetailedDto>();
+
+            CreateMap<Film, FilmForListDto>();            
         }
     }
 }
