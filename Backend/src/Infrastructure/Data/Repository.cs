@@ -57,7 +57,7 @@ namespace Infrastructure.Data
             return await ApplySpecification(specification).ToListAsync();
         }
 
-        public async Task<TEntity> FindOneAsync(ISpecification<TEntity> specification = null)
+        public async Task<TEntity> FindOneAsync(ISpecification<TEntity> specification)
         {
             return await ApplySpecification(specification).FirstOrDefaultAsync();
         }

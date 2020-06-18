@@ -4,6 +4,7 @@ using Common.Enums;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Api.ActionFilters;
+using Application.Dtos.Rating;
 
 namespace Api.Controllers
 {
@@ -48,6 +49,26 @@ namespace Api.Controllers
             // TODO: return CreatedAtRoute
             // return CreatedAtRoute("GetUser", new { controller = "Users", id = userToCreate.Id }, userToReturn);
             return Ok(film);
+        }
+
+        [HttpPost("rate/{id}")]
+        public async Task<IActionResult> Rate(int id, RatingDto rating)
+        {
+            await _filmValidatorService.ValidateForRating(id, rating);
+
+            await _filmService.Rate(id, rating);
+
+            return Ok();
+        }
+
+        [HttpPost("unrate/{id}")]
+        public async Task<IActionResult> Unrate(int id)
+        {
+            await _filmValidatorService.ValidateForUnrating(id);
+
+            await _filmService.Unrate(id);
+
+            return Ok();
         }
 
     }

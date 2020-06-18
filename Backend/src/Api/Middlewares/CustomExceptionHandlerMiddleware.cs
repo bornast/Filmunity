@@ -1,6 +1,7 @@
 ﻿using Common.Exceptions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Server.IIS;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using System;
@@ -50,6 +51,10 @@ namespace Api.Middlewares
                     break;
                 case NotFoundException _:
                     code = HttpStatusCode.NotFound;
+                    result = "";
+                    break;
+                case BadRequestException _:
+                    code = HttpStatusCode.BadRequest;
                     result = "";
                     break;
             }

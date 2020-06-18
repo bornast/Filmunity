@@ -4,6 +4,7 @@ using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
 using ValidationException = Common.Exceptions.ValidationException;
+using Common.Exceptions;
 
 namespace Application.Services
 {
@@ -20,6 +21,9 @@ namespace Application.Services
 
         protected void Validate(IObjectToValidate objectToValidate)
         {
+            if (objectToValidate == null)
+                throw new BadRequestException();
+
             var validator = _validatorFactoryService.GetValidator(objectToValidate);
 
             var result = validator.Validate(objectToValidate);
@@ -41,6 +45,11 @@ namespace Application.Services
             }
 
             return validationErrors.Errors;
+        }
+
+        protected void AddValidationError(string key, string msg)
+        {
+            _validationErrors.Add(key, msg);
         }
 
         protected void ThrowValidationErrorsIfNotEmpty()

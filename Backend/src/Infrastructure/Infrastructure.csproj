@@ -33,6 +33,10 @@
     <Compile Remove="Data\Migrations\20200418210709_FilmAndFilmRelatedTablesAdded.Designer.cs" />
     <Compile Remove="Data\Migrations\20200418210825_FilmAndFilmRelatedTablesAdded.cs" />
     <Compile Remove="Data\Migrations\20200418210825_FilmAndFilmRelatedTablesAdded.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200618222800_test.cs" />
+    <Compile Remove="Data\Migrations\20200618222800_test.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200618223917_test.cs" />
+    <Compile Remove="Data\Migrations\20200618223917_test.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
