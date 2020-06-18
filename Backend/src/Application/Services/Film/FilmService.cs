@@ -67,7 +67,6 @@ namespace Application.Services
 
             var ratingToInsert = new Rating
             {
-                FilmId = film.Id,
                 UserId = (int)_currentUserService.UserId,
                 RatingValue = rating.Rating,
                 CreatedAt = DateTime.UtcNow

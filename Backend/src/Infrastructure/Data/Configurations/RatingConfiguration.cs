@@ -15,13 +15,14 @@ namespace Infrastructure.Data.Configurations
 
             builder.Property(u => u.RatingValue).IsRequired();
 
-            builder.HasOne(ur => ur.Film)
-                .WithMany(r => r.Ratings)
-                .HasForeignKey(ur => ur.FilmId)
+            builder.HasOne(x => x.Film)
+                .WithMany(x => x.Ratings)
+                .HasForeignKey(x => x.FilmId)
                 .IsRequired();
 
             builder.HasOne(c => c.Film)
-                .WithMany()
+                .WithMany(x => x.Ratings)
+                .HasForeignKey(x => x.FilmId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }
