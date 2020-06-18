@@ -1,6 +1,7 @@
 ﻿using Application.Dtos.Film;
 using Application.Interfaces;
 using Application.Interfaces.Film;
+using Application.Specifications.Film;
 using AutoMapper;
 using Domain.Entities;
 using System.Collections.Generic;
@@ -31,9 +32,9 @@ namespace Application.Services
             return filmToReturn;
         }
 
-        public async Task<IEnumerable<FilmForListDto>> GetAll()
+        public async Task<IEnumerable<FilmForListDto>> GetAll(FilmFilterDto filmFilter)
         {
-            var films = await _uow.Repository<Film>().FindAsync();
+            var films = await _uow.Repository<Film>().FindAsync(new FilmFilterPaginatedSpecification(filmFilter));
 
             var filmsToReturn = _mapper.Map<IEnumerable<FilmForListDto>>(films);
 

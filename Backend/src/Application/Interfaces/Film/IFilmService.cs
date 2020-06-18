@@ -6,7 +6,7 @@ namespace Application.Interfaces.Film
 {
     public interface IFilmService
     {
-        Task<IEnumerable<FilmForListDto>> GetAll();
+        Task<IEnumerable<FilmForListDto>> GetAll(FilmFilterDto filmFilter);
         Task<FilmForDetailedDto> GetOne(int id);
         Task<FilmForDetailedDto> Create(FilmForCreationDto filmForCreation);
     }
