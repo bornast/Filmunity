@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Common.Libs;
 using Domain.Entities;
 using Newtonsoft.Json;
 using System;
@@ -15,13 +16,14 @@ namespace Application.Helpers
         public static void SeedCoreData(IUnitOfWork uow, IHashService hashService)
         {
             _uow = uow;
-            
+
             if (_uow.Repository<Status>().Count(x => x.Id > 0).Result > 0)
                 return;
 
             SeedStatus();
+            SeedEntityTypes();
             SeedUserWithRoles(hashService);
-            SeedGender();            
+            SeedGender();
             SeedFilmType();
             SeedGenre();
             SeedCountry();
@@ -32,14 +34,26 @@ namespace Application.Helpers
 
         private static void SeedStatus()
         {
-            var statuses = new List<Status>();
+            var statuses = new List<Status>();            
 
-            foreach (var statusName in Enum.GetNames(typeof(Common.Enums.Status)))
+            foreach (var status in EnumLibrary.GetIdAndNameDictionaryOfEnumType(typeof(Common.Enums.Status)))
             {
-                statuses.Add(new Status { Name = statusName });
+                statuses.Add(new Status { Id = status.Key, Name = status.Value });
             }
 
             _uow.Repository<Status>().AddRange(statuses);
+        }
+
+        private static void SeedEntityTypes()
+        {
+            var entityTypes = new List<EntityType>();
+
+            foreach (var entityType in EnumLibrary.GetIdAndNameDictionaryOfEnumType(typeof(Common.Enums.EntityTypes)))
+            {
+                entityTypes.Add(new EntityType { Id = entityType.Key, Name = entityType.Value });
+            }
+
+            _uow.Repository<EntityType>().AddRange(entityTypes);
         }
 
         private static void SeedUserWithRoles(IHashService hashService)
@@ -48,24 +62,24 @@ namespace Application.Helpers
 
             var users = new List<User>();
 
-            foreach (var roleName in Enum.GetNames(typeof(Common.Enums.Roles)))
+            foreach (var role in EnumLibrary.GetIdAndNameDictionaryOfEnumType(typeof(Common.Enums.Roles)))
             {
-                var role = new Role { Name = roleName };
+                var roleToAdd = new Role { Id = role.Key, Name = role.Value };
 
-                roles.Add(role);
+                roles.Add(roleToAdd);
 
                 // TODO: set this password in config or something
                 var password = hashService.CreatePasswordHash("password");
                 var user = new User
                 {
-                    Username = roleName,
+                    Username = role.Value,
                     PasswordHash = password.PasswordHash,
                     PasswordSalt = password.PasswordSalt,
-                    Email = $"{roleName}@testmail.com",
+                    Email = $"{role.Value}@testmail.com",
                     StatusId = (int)Common.Enums.Status.Activated,
                     Roles = new List<UserRole>
                     {
-                        new UserRole { Role = role }
+                        new UserRole { Role = roleToAdd }
                     }
                 };
 
@@ -80,9 +94,9 @@ namespace Application.Helpers
         {
             var genders = new List<Gender>();
 
-            foreach (var genderName in Enum.GetNames(typeof(Common.Enums.Genders)))
+            foreach (var gender in EnumLibrary.GetIdAndNameDictionaryOfEnumType(typeof(Common.Enums.Genders)))
             {
-                genders.Add(new Gender { Name = genderName });
+                genders.Add(new Gender { Id = gender.Key, Name = gender.Value });
             }
 
             _uow.Repository<Gender>().AddRange(genders);
@@ -92,9 +106,9 @@ namespace Application.Helpers
         {
             var filmTypes = new List<FilmType>();
 
-            foreach (var filmTypeName in Enum.GetNames(typeof(Common.Enums.FilmTypes)))
+            foreach (var filmType in EnumLibrary.GetIdAndNameDictionaryOfEnumType(typeof(Common.Enums.FilmTypes)))
             {
-                filmTypes.Add(new FilmType { Name = filmTypeName.Replace("_", " ") });
+                filmTypes.Add(new FilmType { Id = filmType.Key, Name = filmType.Value.Replace("_", " ") });
             }
 
             _uow.Repository<FilmType>().AddRange(filmTypes);

@@ -11,6 +11,7 @@ namespace Infrastructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<FilmType> builder)
         {
+            builder.Property(x => x.Id).ValueGeneratedNever();
             builder.Property(u => u.Name).IsRequired();
         }
     }

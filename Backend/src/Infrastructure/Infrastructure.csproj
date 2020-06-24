@@ -7,42 +7,6 @@
   <ItemGroup>
     <Compile Remove="Data\20200412103208_UserAndRoleTableAdded.cs" />
     <Compile Remove="Data\20200412103208_UserAndRoleTableAdded.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200412103240_UserAndRoleTableAdded.cs" />
-    <Compile Remove="Data\Migrations\20200412103240_UserAndRoleTableAdded.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200413110555_test.cs" />
-    <Compile Remove="Data\Migrations\20200413110555_test.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200413114713_UserStatusDefaultValueUpdated.cs" />
-    <Compile Remove="Data\Migrations\20200413114713_UserStatusDefaultValueUpdated.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200416181855_StatusTableAdded.cs" />
-    <Compile Remove="Data\Migrations\20200416181855_StatusTableAdded.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200416182530_UserRoleStatusTablesAdded.cs" />
-    <Compile Remove="Data\Migrations\20200416182530_UserRoleStatusTablesAdded.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200416185143_UserRoleStatusTablesAdded.cs" />
-    <Compile Remove="Data\Migrations\20200416185143_UserRoleStatusTablesAdded.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200418201235_FilmAndFilmRelatedTablesAdded.cs" />
-    <Compile Remove="Data\Migrations\20200418201235_FilmAndFilmRelatedTablesAdded.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200418204648_FilmAndFilmRelatedTablesAdded2.cs" />
-    <Compile Remove="Data\Migrations\20200418204648_FilmAndFilmRelatedTablesAdded2.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200418204853_FilmAndFilmRelatedTablesAdded.cs" />
-    <Compile Remove="Data\Migrations\20200418204853_FilmAndFilmRelatedTablesAdded.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200418210129_FilmAndFilmRelatedTablesAdded.cs" />
-    <Compile Remove="Data\Migrations\20200418210129_FilmAndFilmRelatedTablesAdded.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200418210612_FilmAndFilmRelatedTablesAdded.cs" />
-    <Compile Remove="Data\Migrations\20200418210612_FilmAndFilmRelatedTablesAdded.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200418210709_FilmAndFilmRelatedTablesAdded.cs" />
-    <Compile Remove="Data\Migrations\20200418210709_FilmAndFilmRelatedTablesAdded.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200418210825_FilmAndFilmRelatedTablesAdded.cs" />
-    <Compile Remove="Data\Migrations\20200418210825_FilmAndFilmRelatedTablesAdded.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200618222800_test.cs" />
-    <Compile Remove="Data\Migrations\20200618222800_test.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200618223917_test.cs" />
-    <Compile Remove="Data\Migrations\20200618223917_test.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200618223940_test.cs" />
-    <Compile Remove="Data\Migrations\20200618223940_test.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200618224258_test.cs" />
-    <Compile Remove="Data\Migrations\20200618224258_test.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200618224408_test.cs" />
-    <Compile Remove="Data\Migrations\20200618224408_test.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

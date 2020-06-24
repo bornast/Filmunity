@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities
 {
-    public class Role : BaseEntity
+    public class EntityType : BaseEntity
     {
         public string Name { get; set; }
     }

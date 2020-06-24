@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(FilmunityDataContext))]
-    [Migration("20200419192619_FilmAndFilmRelatedTablesAdded")]
-    partial class FilmAndFilmRelatedTablesAdded
+    [Migration("20200624125604_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,6 +35,20 @@ namespace Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Country");
+                });
+
+            modelBuilder.Entity("Domain.Entities.EntityType", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EntityType");
                 });
 
             modelBuilder.Entity("Domain.Entities.Film", b =>
@@ -149,9 +163,7 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Domain.Entities.FilmType", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -180,9 +192,7 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Domain.Entities.Gender", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -283,17 +293,12 @@ namespace Infrastructure.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("FilmId1")
-                        .HasColumnType("int");
-
                     b.Property<int>("RatingValue")
                         .HasColumnType("int");
 
                     b.HasKey("UserId", "FilmId");
 
                     b.HasIndex("FilmId");
-
-                    b.HasIndex("FilmId1");
 
                     b.ToTable("Rating");
                 });
@@ -313,14 +318,9 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("FilmId1")
-                        .HasColumnType("int");
-
                     b.HasKey("UserId", "FilmId");
 
                     b.HasIndex("FilmId");
-
-                    b.HasIndex("FilmId1");
 
                     b.ToTable("Review");
                 });
@@ -328,9 +328,7 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Domain.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -344,9 +342,7 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Domain.Entities.Status", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -544,14 +540,10 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Domain.Entities.Rating", b =>
                 {
                     b.HasOne("Domain.Entities.Film", "Film")
-                        .WithMany()
+                        .WithMany("Ratings")
                         .HasForeignKey("FilmId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("Domain.Entities.Film", null)
-                        .WithMany("Ratings")
-                        .HasForeignKey("FilmId1");
 
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany()
@@ -563,14 +555,10 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Domain.Entities.Review", b =>
                 {
                     b.HasOne("Domain.Entities.Film", "Film")
-                        .WithMany()
+                        .WithMany("Reviews")
                         .HasForeignKey("FilmId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("Domain.Entities.Film", null)
-                        .WithMany("Reviews")
-                        .HasForeignKey("FilmId1");
 
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany()
