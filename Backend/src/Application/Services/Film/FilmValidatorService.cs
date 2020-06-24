@@ -42,7 +42,7 @@ namespace Application.Services
 
             var participants = await _uow.Repository<Person>().FindAllByIdAsync(filmForCreation.ParticipantsRoles.Select(x => x.ParticipantId).ToList());
             AddValidationErrorIfIdDoesntExist(filmForCreation.ParticipantsRoles.Select(x => x.ParticipantId).ToList(),
-                participants.Select(x => x.Id).ToList(), "Participant", "Id __id__ not found");
+                participants.Select(x => x.Id).ToList(), "Person", "Id __id__ not found");
 
             var roles = await _uow.Repository<FilmRole>().FindAllByIdAsync(filmForCreation.ParticipantsRoles.Select(x => x.RoleId).ToList());
             AddValidationErrorIfIdDoesntExist(filmForCreation.ParticipantsRoles.Select(x => x.RoleId).ToList(),

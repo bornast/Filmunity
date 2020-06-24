@@ -1,8 +1,12 @@
 ﻿using Application.Interfaces;
 using Application.Interfaces.Common;
+using Application.Interfaces.EntityType;
 using Application.Interfaces.Film;
+using Application.Interfaces.Photo;
 using Application.Services;
 using Application.Services.Common;
+using Application.Services.EntityType;
+using Application.Services.Photo;
 using Application.Validators;
 using Application.Validators.Film;
 using Application.Validators.Rating;
@@ -22,6 +26,8 @@ namespace Application
             services.AddScoped<IHashService, HashService>();
             services.AddScoped<ITypeService, TypeService>();
             services.AddScoped<IFilmService, FilmService>();
+            services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<IEntityTypeService, EntityTypeService>();
             services.AddValidation();
         }
 
@@ -31,13 +37,16 @@ namespace Application
 
             services.AddTransient<IObjectValidator<UserForLoginDtoValidator>, UserForLoginDtoValidator>();
             services.AddTransient<IObjectValidator<UserForRegistrationDtoValidator>, UserForRegistrationDtoValidator>();
-
+            
             services.AddTransient<IObjectValidator<FilmForCreationDtoValidator>, FilmForCreationDtoValidator>();
+            services.AddScoped<IFilmValidatorService, FilmValidatorService>();
 
             services.AddTransient<IObjectValidator<RatingDtoValidator>, RatingDtoValidator>();
 
+            services.AddTransient<IObjectValidator<PhotoForCreationDtoValidator>, PhotoForCreationDtoValidator>();
+            services.AddScoped<IPhotoValidatorService, PhotoValidatorService>();
+
             services.AddScoped<IAuthValidatorService, AuthValidatorService>();
-            services.AddScoped<IFilmValidatorService, FilmValidatorService>();
         }
 
     }

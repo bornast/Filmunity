@@ -1,5 +1,8 @@
 ﻿using Application.Interfaces;
+using Application.Interfaces.Common;
 using Infrastructure.Data;
+using Infrastructure.Models;
+using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +17,9 @@ namespace Infrastructure
                 options.UseSqlServer(configuration.GetConnectionString("FilmunityDatabase")));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.Configure<CloudinarySettings>(configuration.GetSection("CloudinarySettings"));
+            services.AddScoped<ICloudUploadService, CloudUploadService>();
         }
 
     }

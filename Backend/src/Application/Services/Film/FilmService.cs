@@ -3,9 +3,10 @@ using Application.Dtos.Rating;
 using Application.Interfaces;
 using Application.Interfaces.Common;
 using Application.Interfaces.Film;
+using Application.Interfaces.Photo;
 using Application.Specifications.Film;
 using AutoMapper;
-using Common.Exceptions;
+using Common.Enums;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -19,12 +20,14 @@ namespace Application.Services
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _currentUserService;
+        private readonly IPhotoService _photoService;
 
-        public FilmService(IUnitOfWork uow, IMapper mapper, ICurrentUserService currentUserService)
+        public FilmService(IUnitOfWork uow, IMapper mapper, ICurrentUserService currentUserService, IPhotoService photoService)
         {
             _uow = uow;
             _mapper = mapper;
             _currentUserService = currentUserService;
+            _photoService = photoService;
         }
 
         public async Task<FilmForDetailedDto> GetOne(int id)
@@ -35,6 +38,10 @@ namespace Application.Services
                 return null;
 
             var filmToReturn = _mapper.Map<FilmForDetailedDto>(film);
+
+            filmToReturn.Photos = await _photoService.GetEntityPhotos((int)EntityTypes.Film, id);
+
+            filmToReturn.MainPhoto = filmToReturn.Photos.FirstOrDefault(x => x.IsMain);
 
             return filmToReturn;
         }
