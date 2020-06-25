@@ -7,6 +7,7 @@ using Application.Interfaces.Photo;
 using Application.Specifications.Film;
 using AutoMapper;
 using Common.Enums;
+using Common.Exceptions;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -68,6 +69,19 @@ namespace Application.Services
             return filmToReturn;
         }
 
+        public async Task<FilmForDetailedDto> Update(int id, FilmForUpdateDto filmForUpdate)
+        {
+            var film = await _uow.Repository<Film>().FindOneAsync(new FilmWithParticipantsAndGenresSpecification(id));
+
+            _mapper.Map(filmForUpdate, film);
+
+            await _uow.SaveAsync();
+
+            var filmToReturn = _mapper.Map<FilmForDetailedDto>(film);
+
+            return filmToReturn;
+        }
+
         public async Task Rate(int id, RatingDto rating)
         {
             var film = await _uow.Repository<Film>().FindOneAsync(new FilmWithRatingsSpecification(id));
@@ -94,5 +108,18 @@ namespace Application.Services
 
             await _uow.SaveAsync();
         }
+
+        public async Task Delete(int id)
+        {
+            var film = await _uow.Repository<Film>().FindByIdAsync(id);
+
+            if (film == null)
+                throw new NotFoundException(nameof(Film));
+
+            _uow.Repository<Film>().Remove(film);
+
+            await _uow.SaveAsync();
+        }
+
     }
 }

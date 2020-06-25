@@ -51,6 +51,16 @@ namespace Api.Controllers
             return Ok(film);
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, FilmForUpdateDto filmForUpdate)
+        {
+            await _filmValidatorService.ValidateForUpdate(id, filmForUpdate);
+
+            var film = await _filmService.Update(id, filmForUpdate);
+
+            return Ok(film);
+        }
+
         [HttpPost("rate/{id}")]
         public async Task<IActionResult> Rate(int id, RatingDto rating)
         {
@@ -67,6 +77,14 @@ namespace Api.Controllers
             await _filmValidatorService.ValidateForUnrating(id);
 
             await _filmService.Unrate(id);
+
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _filmService.Delete(id);
 
             return Ok();
         }

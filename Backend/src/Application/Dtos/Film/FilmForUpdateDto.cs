@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.Dtos.Film
 {
-    public class FilmForCreationDto : IObjectToValidate
+    public class FilmForUpdateDto : IObjectToValidate
     {
         public string Title { get; set; }
         public string Description { get; set; }
@@ -17,5 +17,7 @@ namespace Application.Dtos.Film
         public int LanguageId { get; set; }
         public List<int> GenreIds { get; set; } = new List<int>();
         public List<PariticipantRoleDto> ParticipantsRoles { get; set; } = new List<PariticipantRoleDto>();
-    }    
+    }
+
+    
 }

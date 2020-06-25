@@ -39,6 +39,7 @@ namespace Application
             services.AddTransient<IObjectValidator<UserForRegistrationDtoValidator>, UserForRegistrationDtoValidator>();
             
             services.AddTransient<IObjectValidator<FilmForCreationDtoValidator>, FilmForCreationDtoValidator>();
+            services.AddTransient<IObjectValidator<FilmForUpdateDtoValidator>, FilmForUpdateDtoValidator>();
             services.AddScoped<IFilmValidatorService, FilmValidatorService>();
 
             services.AddTransient<IObjectValidator<RatingDtoValidator>, RatingDtoValidator>();
