@@ -11,7 +11,5 @@ namespace Application.Interfaces.Film
     {
         Task ValidateForCreation(FilmForCreationDto filmForCreation);
         Task ValidateForUpdate(int id, FilmForUpdateDto filmForUpdate);
-        Task ValidateForRating(int filmId, RatingDto rating);
-        Task ValidateForUnrating(int filmId);
     }
 }

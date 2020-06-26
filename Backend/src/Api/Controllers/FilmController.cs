@@ -59,27 +59,7 @@ namespace Api.Controllers
             var film = await _filmService.Update(id, filmForUpdate);
 
             return Ok(film);
-        }
-
-        [HttpPost("rate/{id}")]
-        public async Task<IActionResult> Rate(int id, RatingDto rating)
-        {
-            await _filmValidatorService.ValidateForRating(id, rating);
-
-            await _filmService.Rate(id, rating);
-
-            return Ok();
-        }
-
-        [HttpPost("unrate/{id}")]
-        public async Task<IActionResult> Unrate(int id)
-        {
-            await _filmValidatorService.ValidateForUnrating(id);
-
-            await _filmService.Unrate(id);
-
-            return Ok();
-        }
+        }        
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)

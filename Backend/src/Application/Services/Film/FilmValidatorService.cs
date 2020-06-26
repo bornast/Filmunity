@@ -70,34 +70,7 @@ namespace Application.Services
 
             ThrowValidationErrorsIfNotEmpty();
         }
-
-        public async Task ValidateForRating(int filmId, RatingDto rating)
-        {               
-            Validate(rating);
-
-            var film = await _uow.Repository<Film>().FindOneAsync(new FilmWithRatingsSpecification(filmId));            
-            if (film == null)
-                throw new NotFoundException(nameof(Film));
-            
-            if (film.Ratings.Any(x => x.UserId == _currentUserService.UserId))
-            {
-                var filmType = film.TypeId == (int)FilmTypes.Movie ? "Movie" : "Tv show";
-                AddValidationError($"{filmType}", $"You already rated this {filmType}!");
-            }
-
-            ThrowValidationErrorsIfNotEmpty();
-        }
-
-        public async Task ValidateForUnrating(int filmId)
-        {
-            var film = await _uow.Repository<Film>().FindOneAsync(new FilmWithRatingsSpecification(filmId));
-            if (film == null)
-                throw new NotFoundException(nameof(Film));
-
-            if (!film.Ratings.Any(x => x.UserId == _currentUserService.UserId))
-                throw new BadRequestException();
-        }
-
+        
         #region private methods        
 
         private async Task ValidateCountry(int countryId)

@@ -80,34 +80,7 @@ namespace Application.Services
             var filmToReturn = _mapper.Map<FilmForDetailedDto>(film);
 
             return filmToReturn;
-        }
-
-        public async Task Rate(int id, RatingDto rating)
-        {
-            var film = await _uow.Repository<Film>().FindOneAsync(new FilmWithRatingsSpecification(id));
-
-            var ratingToInsert = new Rating
-            {
-                UserId = (int)_currentUserService.UserId,
-                RatingValue = rating.Rating,
-                CreatedAt = DateTime.UtcNow
-            };
-
-            film.Ratings.Add(ratingToInsert);
-
-            await _uow.SaveAsync();
-        }
-        
-        public async Task Unrate(int id)
-        {
-            var film = await _uow.Repository<Film>().FindOneAsync(new FilmWithRatingsSpecification(id));
-
-            var ratingToRemove = film.Ratings.FirstOrDefault(x => x.UserId == _currentUserService.UserId);
-
-            film.Ratings.Remove(ratingToRemove);
-
-            await _uow.SaveAsync();
-        }
+        }        
 
         public async Task Delete(int id)
         {

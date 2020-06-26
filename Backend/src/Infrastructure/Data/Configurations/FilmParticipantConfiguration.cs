@@ -14,7 +14,7 @@ namespace Infrastructure.Data.Configurations
             builder.HasKey(ur => new { ur.FilmId, ur.PersonId, ur.FilmRoleId });            
 
             builder.HasOne(ur => ur.Film)
-                .WithMany(r => r.Pariticpants)
+                .WithMany(r => r.Participants)
                 .HasForeignKey(ur => ur.FilmId)
                 .IsRequired();
 

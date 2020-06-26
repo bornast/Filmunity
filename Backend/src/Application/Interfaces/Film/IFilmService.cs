@@ -11,8 +11,6 @@ namespace Application.Interfaces.Film
         Task<FilmForDetailedDto> GetOne(int id);
         Task<FilmForDetailedDto> Create(FilmForCreationDto filmForCreation);
         Task<FilmForDetailedDto> Update(int id, FilmForUpdateDto filmForUpdate);
-        Task Rate(int id, RatingDto rating);
-        Task Unrate(int id);
         Task Delete(int id);
     }
 }

@@ -24,8 +24,7 @@ namespace Domain.Entities
         public User ModifiedByUser { get; set; }
         public int? ModifiedByUserId { get; set; }
         public ICollection<FilmGenre> Genres { get; set; } = new List<FilmGenre>();
-        // TODO: rename to Participants
-        public ICollection<FilmParticipant> Pariticpants { get; set; } = new List<FilmParticipant>();
+        public ICollection<FilmParticipant> Participants { get; set; } = new List<FilmParticipant>();
         public ICollection<Rating> Ratings { get; set; } = new List<Rating>();
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
     }

@@ -26,9 +26,11 @@ namespace IntegrationTests
         [OneTimeSetUp]
         public void RunBeforeAnyTests()
         {
+            var currentDirectory = Directory.GetCurrentDirectory().Contains("bin") ? Directory.GetCurrentDirectory().Substring(0, Directory.GetCurrentDirectory().IndexOf("bin")) : Directory.GetCurrentDirectory();
+
             var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", true, true)
+                .SetBasePath(currentDirectory)
+                .AddJsonFile($"{currentDirectory}appsettings.json", true, true)
                 .AddEnvironmentVariables();
 
             _configuration = builder.Build();
