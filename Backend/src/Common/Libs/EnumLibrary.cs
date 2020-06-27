@@ -8,6 +8,9 @@ namespace Common.Libs
 
         public static List<int> GetIntValuesFromEnumType(Type enumType)
         {
+            if (enumType == null)
+                throw new Exception();
+
             var result = new List<int>();
 
             foreach (var enumId in Enum.GetValues(enumType))
@@ -20,6 +23,9 @@ namespace Common.Libs
 
         public static Dictionary<int, string> GetIdAndNameDictionaryOfEnumType(Type enumType)
         {
+            if(enumType == null)
+                throw new Exception();
+
             var result = new Dictionary<int, string>();
 
             foreach (var entityTypeName in Enum.GetNames(enumType))
