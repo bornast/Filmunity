@@ -5,16 +5,19 @@ using Application.Interfaces.Film;
 using Application.Interfaces.Person;
 using Application.Interfaces.Photo;
 using Application.Interfaces.Rating;
+using Application.Interfaces.Watchlist;
 using Application.Services;
 using Application.Services.Common;
 using Application.Services.EntityType;
 using Application.Services.Person;
 using Application.Services.Photo;
 using Application.Services.Rating;
+using Application.Services.Watchlist;
 using Application.Validators;
 using Application.Validators.Film;
 using Application.Validators.Person;
 using Application.Validators.Rating;
+using Application.Validators.Watchlist;
 using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,6 +38,7 @@ namespace Application
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<IEntityTypeService, EntityTypeService>();
             services.AddScoped<IPersonService, PersonService>();
+            services.AddScoped<IWatchlistService, WatchlistService>();
             services.AddValidation();
         }
 
@@ -57,8 +61,13 @@ namespace Application
 
             services.AddScoped<IAuthValidatorService, AuthValidatorService>();
 
-            services.AddTransient<IObjectValidator<PersonForSaveDtoValidator>, PersonForSaveDtoValidator>();            
+            services.AddTransient<IObjectValidator<PersonForSaveDtoValidator>, PersonForSaveDtoValidator>();
             services.AddScoped<IPersonValidatorService, PersonValidatorService>();
+
+            services.AddTransient<IObjectValidator<WatchlistForCreationDtoValidator>, WatchlistForCreationDtoValidator>();
+            services.AddTransient<IObjectValidator<WatchlistForUpdateDtoValidator>, WatchlistForUpdateDtoValidator>();
+            services.AddScoped<IWatchlistValidatorService, WatchlistValidatorService>();
+
         }
 
     }

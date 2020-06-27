@@ -2,9 +2,6 @@
 using Application.Interfaces.EntityType;
 using Common.Enums;
 using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Services.EntityType
@@ -27,7 +24,7 @@ namespace Application.Services.EntityType
             else if (entityTypeId == (int)EntityTypes.User)
                 return await _uow.Repository<User>().FindByIdAsync(entityId) != null;
             else if (entityTypeId == (int)EntityTypes.Watchlist)
-                return await _uow.Repository<Watchlist>().FindByIdAsync(entityId) != null;
+                return await _uow.Repository<Domain.Entities.Watchlist>().FindByIdAsync(entityId) != null;
 
             return false;
         }

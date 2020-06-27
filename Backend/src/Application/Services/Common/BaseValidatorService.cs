@@ -49,7 +49,8 @@ namespace Application.Services
 
         protected void AddValidationError(string key, string msg)
         {
-            _validationErrors.Add(key, msg);
+            if (!_validationErrors.ContainsKey(key))
+                _validationErrors.Add(key, msg);
         }
 
         protected void ThrowValidationErrorsIfNotEmpty()
@@ -69,7 +70,7 @@ namespace Application.Services
 
         protected void AddValidationErrorIfValueIsNull(object value, string key, string msg)
         {
-            if (value == null)
+            if (value == null && !_validationErrors.ContainsKey(key))
                 _validationErrors.Add(key, msg);
         }
 
@@ -77,7 +78,7 @@ namespace Application.Services
         {
             foreach (var id in idsFromRequest)
             {
-                if (!idsFromDb.Contains(id))
+                if (!idsFromDb.Contains(id) && !_validationErrors.ContainsKey(key))
                     _validationErrors.Add(key, msg.Replace("__id__", id.ToString()));
             }
         }

@@ -1,9 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Infrastructure.Data.Configurations
 {
@@ -11,14 +8,14 @@ namespace Infrastructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<FilmWatchlist> builder)
         {
-            builder.HasKey(ur => new { ur.WatchlistId, ur.FilmId });
+            builder.HasKey(x => new { x.Sequence, x.WatchlistId, x.FilmId });
 
-            builder.HasOne(ur => ur.Watchlist)
-                .WithMany(r => r.Films)
-                .HasForeignKey(ur => ur.WatchlistId)
+            builder.HasOne(x => x.Watchlist)
+                .WithMany(x => x.Films)
+                .HasForeignKey(x => x.WatchlistId)
                 .IsRequired();
 
-            builder.HasOne(c => c.Film)
+            builder.HasOne(x => x.Film)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
         }

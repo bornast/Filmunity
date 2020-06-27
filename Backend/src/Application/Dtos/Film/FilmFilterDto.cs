@@ -8,5 +8,6 @@ namespace Application.Dtos.Film
     public class FilmFilterDto : BaseFilter
     {
         public string Title { get; set; }
+        public List<int> Ids { get; set; } = new List<int>();
     }
 }

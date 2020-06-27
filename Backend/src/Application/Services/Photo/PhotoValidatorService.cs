@@ -56,7 +56,7 @@ namespace Application.Services.Photo
 
             if (photoForCreation.EntityTypeId == (int)EntityTypes.Watchlist &&
                 _currentUserService.UserId != 
-                (await _uow.Repository<Watchlist>().FindByIdAsync(photoForCreation.EntityId)).UserId)
+                (await _uow.Repository<Domain.Entities.Watchlist>().FindByIdAsync(photoForCreation.EntityId)).UserId)
             {
                 throw new UnauthorizedException();
             }            
