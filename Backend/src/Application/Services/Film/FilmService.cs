@@ -40,9 +40,7 @@ namespace Application.Services
 
             var filmToReturn = _mapper.Map<FilmForDetailedDto>(film);
 
-            filmToReturn.Photos = await _photoService.GetEntityPhotos((int)EntityTypes.Film, id);
-
-            filmToReturn.MainPhoto = filmToReturn.Photos.FirstOrDefault(x => x.IsMain);
+            await _photoService.IncludePhotos(filmToReturn, (int)EntityTypes.Film);
 
             return filmToReturn;
         }
@@ -52,6 +50,8 @@ namespace Application.Services
             var films = await _uow.Repository<Film>().FindAsync(new FilmFilterPaginatedSpecification(filmFilter));
 
             var filmsToReturn = _mapper.Map<IEnumerable<FilmForListDto>>(films);
+
+            await _photoService.IncludeMainPhoto(filmsToReturn, (int)EntityTypes.Film);
 
             return filmsToReturn;
         }
@@ -78,6 +78,8 @@ namespace Application.Services
             await _uow.SaveAsync();
 
             var filmToReturn = _mapper.Map<FilmForDetailedDto>(film);
+
+            await _photoService.IncludePhotos(filmToReturn, (int)EntityTypes.Film);
 
             return filmToReturn;
         }        

@@ -99,7 +99,7 @@ namespace Application.Services
 
         private async Task ValidateParticipants(List<int> participantIds)
         {
-            var participants = await _uow.Repository<Person>().FindAllByIdAsync(participantIds);
+            var participants = await _uow.Repository<Domain.Entities.Person>().FindAllByIdAsync(participantIds);
             AddValidationErrorIfIdDoesntExist(participantIds, participants.Select(x => x.Id).ToList(), "Person", "Id __id__ not found");
         }
 

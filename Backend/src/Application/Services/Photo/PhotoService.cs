@@ -54,6 +54,28 @@ namespace Application.Services.Photo
             return result;
         }
 
+        public async Task IncludePhotos(IPhotoUploadable entity, int entityTypeId)
+        {
+            entity.Photos = await GetEntityPhotos(entityTypeId, entity.Id);
 
+            entity.MainPhoto = entity.Photos.FirstOrDefault(x => x.IsMain);
+        }
+
+        public async Task IncludeMainPhoto(IMainPhotoUploadable entity, int entityTypeId)
+        {
+            var photoSpecification = new PhotoFilterSpecification(entityTypeId, entity.Id, isMain: true);
+
+            var photo = await _uow.Repository<Domain.Entities.Photo>().FindOneAsync(photoSpecification);
+
+            entity.MainPhoto = _mapper.Map<PhotoForDetailedDto>(photo);
+        }
+
+        public async Task IncludeMainPhoto(IEnumerable<IMainPhotoUploadable> entities, int entityTypeId)
+        {
+            foreach (var entity in entities)
+            {
+                await IncludeMainPhoto(entity, entityTypeId);
+            }
+        }
     }
 }

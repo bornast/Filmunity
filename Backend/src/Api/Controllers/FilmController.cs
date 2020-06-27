@@ -9,8 +9,7 @@ using Application.Dtos.Rating;
 namespace Api.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
-    [AuthorizeRoles(Roles.Admin, Roles.Moderator)]
+    [ApiController]    
     public class FilmController : ControllerBase
     {
         private readonly IFilmService _filmService;
@@ -20,25 +19,26 @@ namespace Api.Controllers
         {
             _filmService = filmService;
             _filmValidatorService = filmValidatorService;
-        }        
+        }
         
-        [HttpGet]
+        [HttpGet]        
         public async Task<IActionResult> GetAll([FromQuery] FilmFilterDto filmFilter)
         {
             return Ok(await _filmService.GetAll(filmFilter));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetFilm")]
         public async Task<IActionResult> GetOne(int id)
         {
-            var movie = await _filmService.GetOne(id);
+            var film = await _filmService.GetOne(id);
 
-            if (movie == null)
+            if (film == null)
                 return NotFound();
 
-            return Ok(movie);
+            return Ok(film);
         }
 
+        [AuthorizeRoles(Roles.Admin, Roles.Moderator)]
         [HttpPost]
         public async Task<IActionResult> Create(FilmForCreationDto filmForCreation)
         {
@@ -46,11 +46,10 @@ namespace Api.Controllers
 
             var film = await _filmService.Create(filmForCreation);
 
-            // TODO: return CreatedAtRoute
-            // return CreatedAtRoute("GetUser", new { controller = "Users", id = userToCreate.Id }, userToReturn);
-            return Ok(film);
+            return CreatedAtRoute("GetFilm", new { controller = "Film", id = film.Id }, film);
         }
 
+        [AuthorizeRoles(Roles.Admin, Roles.Moderator)]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, FilmForUpdateDto filmForUpdate)
         {
@@ -59,8 +58,9 @@ namespace Api.Controllers
             var film = await _filmService.Update(id, filmForUpdate);
 
             return Ok(film);
-        }        
+        }
 
+        [AuthorizeRoles(Roles.Admin, Roles.Moderator)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

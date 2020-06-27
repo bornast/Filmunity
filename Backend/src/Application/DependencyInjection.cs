@@ -2,15 +2,18 @@
 using Application.Interfaces.Common;
 using Application.Interfaces.EntityType;
 using Application.Interfaces.Film;
+using Application.Interfaces.Person;
 using Application.Interfaces.Photo;
 using Application.Interfaces.Rating;
 using Application.Services;
 using Application.Services.Common;
 using Application.Services.EntityType;
+using Application.Services.Person;
 using Application.Services.Photo;
 using Application.Services.Rating;
 using Application.Validators;
 using Application.Validators.Film;
+using Application.Validators.Person;
 using Application.Validators.Rating;
 using AutoMapper;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +34,7 @@ namespace Application
             services.AddScoped<IRatingService, RatingService>();
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<IEntityTypeService, EntityTypeService>();
+            services.AddScoped<IPersonService, PersonService>();
             services.AddValidation();
         }
 
@@ -52,6 +56,9 @@ namespace Application
             services.AddScoped<IPhotoValidatorService, PhotoValidatorService>();
 
             services.AddScoped<IAuthValidatorService, AuthValidatorService>();
+
+            services.AddTransient<IObjectValidator<PersonForSaveDtoValidator>, PersonForSaveDtoValidator>();            
+            services.AddScoped<IPersonValidatorService, PersonValidatorService>();
         }
 
     }

@@ -23,7 +23,7 @@ namespace Application.Services.EntityType
             if (entityTypeId == (int)EntityTypes.Film)
                 return await _uow.Repository<Film>().FindByIdAsync(entityId) != null;
             else if (entityTypeId == (int)EntityTypes.Person)
-                return await _uow.Repository<Person>().FindByIdAsync(entityId) != null;
+                return await _uow.Repository<Domain.Entities.Person>().FindByIdAsync(entityId) != null;
             else if (entityTypeId == (int)EntityTypes.User)
                 return await _uow.Repository<User>().FindByIdAsync(entityId) != null;
             else if (entityTypeId == (int)EntityTypes.Watchlist)
