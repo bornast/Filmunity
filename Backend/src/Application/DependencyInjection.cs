@@ -64,6 +64,7 @@ namespace Application
             services.AddTransient<IObjectValidator<PersonForSaveDtoValidator>, PersonForSaveDtoValidator>();
             services.AddScoped<IPersonValidatorService, PersonValidatorService>();
 
+            services.AddTransient<IObjectValidator<ToggleWatchedDtoValidator>, ToggleWatchedDtoValidator>();
             services.AddTransient<IObjectValidator<WatchlistForCreationDtoValidator>, WatchlistForCreationDtoValidator>();
             services.AddTransient<IObjectValidator<WatchlistForUpdateDtoValidator>, WatchlistForUpdateDtoValidator>();
             services.AddScoped<IWatchlistValidatorService, WatchlistValidatorService>();

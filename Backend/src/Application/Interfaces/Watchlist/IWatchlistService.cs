@@ -11,5 +11,7 @@ namespace Application.Interfaces.Watchlist
         Task<WatchlistForDetailedDto> Create(WatchlistForCreationDto watchlistForCreation);
         Task<WatchlistForDetailedDto> Update(int id, WatchlistForUpdateDto watchlistForUpdate);
         Task Delete(int id);
+        Task MarkAsWatched(ToggleWatchedDto markAsWatched);
+        Task MarkAsUnwatched(ToggleWatchedDto markAsUnwatched);
     }
 }

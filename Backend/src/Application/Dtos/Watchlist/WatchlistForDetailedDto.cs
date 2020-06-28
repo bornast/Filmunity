@@ -1,4 +1,5 @@
-﻿using Application.Dtos.Film;
+﻿using Application.Dtos.Common;
+using Application.Dtos.Film;
 using Application.Dtos.Photo;
 using Application.Interfaces.Common;
 using System;
@@ -13,7 +14,7 @@ namespace Application.Dtos.Watchlist
         public string Description { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? ModifiedAt { get; set; }
-        public ICollection<FilmForListDto> Films { get; set; } = new List<FilmForListDto>();
+        public ICollection<FilmForWatchlistDto> Films { get; set; } = new List<FilmForWatchlistDto>();
         public PhotoForDetailedDto MainPhoto { get; set; }
         public IEnumerable<PhotoForDetailedDto> Photos { get; set; } = new List<PhotoForDetailedDto>();
     }

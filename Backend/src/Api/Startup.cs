@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Api.Extensions;
+using AutoMapper;
 
 namespace Api
 {
@@ -37,8 +38,10 @@ namespace Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IMapper mapper)
         {
+            //mapper.ConfigurationProvider.AssertConfigurationIsValid();
+
             app.UseCustomExceptionHandler(env);
             app.UseSwagger();
             app.UseSwaggerUI(c =>

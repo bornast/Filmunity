@@ -2,6 +2,7 @@
 using Application.Interfaces;
 using Application.Interfaces.Common;
 using Application.Interfaces.Watchlist;
+using Application.Specifications.Watchlist;
 using Common.Exceptions;
 using Domain.Entities;
 using System.Collections.Generic;
@@ -54,6 +55,46 @@ namespace Application.Services.Watchlist
             ThrowValidationErrorsIfNotEmpty();
         }
 
+        public async Task ValidateForMarkingAsWatched(ToggleWatchedDto markAsWatched)
+        {
+            Validate(markAsWatched);
+
+            var watchlist = await _uow.Repository<Domain.Entities.Watchlist>().FindOneAsync(new WatchlistWithFilmsSpecification(markAsWatched.WatchlistId));
+            if (watchlist == null)
+                throw new NotFoundException(nameof(Domain.Entities.Watchlist));
+
+            if (_currentUserService.UserId != watchlist.UserId)
+                throw new UnauthorizedException();
+
+            var film = watchlist.Films.FirstOrDefault(x => x.FilmId == markAsWatched.FilmId);
+            AddValidationErrorIfValueIsNull(film, "Film", $"Id {markAsWatched.FilmId} not found in watchlist!");
+
+            if (film != null && film.IsWatched)
+                AddValidationError("Film", $"Id {film.FilmId} is already marked as watched!");
+
+            ThrowValidationErrorsIfNotEmpty();
+        }
+
+        public async Task ValidateForMarkingAsUnwatched(ToggleWatchedDto markAsUnwatched)
+        {
+            Validate(markAsUnwatched);
+
+            var watchlist = await _uow.Repository<Domain.Entities.Watchlist>().FindOneAsync(new WatchlistWithFilmsSpecification(markAsUnwatched.WatchlistId));
+            if (watchlist == null)
+                throw new NotFoundException(nameof(Domain.Entities.Watchlist));
+
+            if (_currentUserService.UserId != watchlist.UserId)
+                throw new UnauthorizedException();
+
+            var film = watchlist.Films.FirstOrDefault(x => x.FilmId == markAsUnwatched.FilmId);
+            AddValidationErrorIfValueIsNull(film, "Film", $"Id {markAsUnwatched.FilmId} not found in watchlist!");
+
+            if (film != null && !film.IsWatched)
+                AddValidationError("Film", $"Id {film.FilmId} is not marked as watched!");
+
+            ThrowValidationErrorsIfNotEmpty();
+        }
+
         #region private methods  
 
         private void ValidateSequence(List<int> sequence)
@@ -81,7 +122,7 @@ namespace Application.Services.Watchlist
             //validate if film exists in db
             var films = await _uow.Repository<Film>().FindAllByIdAsync(filmIds);
             AddValidationErrorIfIdDoesntExist(filmIds, films.Select(x => x.Id).ToList(), "Film", "Id __id__ not found");
-        }
+        }        
 
         #endregion
 

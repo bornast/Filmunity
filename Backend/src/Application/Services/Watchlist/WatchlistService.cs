@@ -22,19 +22,16 @@ namespace Application.Services.Watchlist
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _currentUserService;
         private readonly IPhotoService _photoService;
-        private readonly IFilmService _filmService;
 
         public WatchlistService(IUnitOfWork uow, 
             IMapper mapper, 
             ICurrentUserService currentUserService, 
-            IPhotoService photoService, 
-            IFilmService filmService)
+            IPhotoService photoService)
         {
             _uow = uow;
             _mapper = mapper;
             _currentUserService = currentUserService;
             _photoService = photoService;
-            _filmService = filmService;
         }
 
         public async Task<WatchlistForDetailedDto> GetOne(int id)
@@ -46,7 +43,7 @@ namespace Application.Services.Watchlist
 
             var watchlistToReturn = _mapper.Map<WatchlistForDetailedDto>(watchlist);
 
-            watchlistToReturn.Films = (await _filmService.GetAll(new FilmFilterDto { Ids = watchlist.Films.Select(x => x.FilmId).ToList() })).ToList();
+            await _photoService.IncludeMainPhoto(watchlistToReturn.Films, (int)EntityTypes.Film);
 
             await _photoService.IncludePhotos(watchlistToReturn, (int)EntityTypes.Watchlist);
 
@@ -79,7 +76,7 @@ namespace Application.Services.Watchlist
 
             var watchlistToReturn = _mapper.Map<WatchlistForDetailedDto>(watchlist);
 
-            watchlistToReturn.Films = (await _filmService.GetAll(new FilmFilterDto { Ids = watchlist.Films.Select(x => x.FilmId).ToList() })).ToList();
+            await _photoService.IncludeMainPhoto(watchlistToReturn.Films, (int)EntityTypes.Film);
 
             return watchlistToReturn;
         }
@@ -96,7 +93,7 @@ namespace Application.Services.Watchlist
 
             var watchlistToReturn = _mapper.Map<WatchlistForDetailedDto>(watchlist);
 
-            watchlistToReturn.Films = (await _filmService.GetAll(new FilmFilterDto { Ids = watchlist.Films.Select(x => x.FilmId).ToList() })).ToList();
+            await _photoService.IncludeMainPhoto(watchlistToReturn.Films, (int)EntityTypes.Film);
 
             await _photoService.IncludePhotos(watchlistToReturn, (int)EntityTypes.Watchlist);
 
@@ -113,6 +110,28 @@ namespace Application.Services.Watchlist
             _uow.Repository<Domain.Entities.Watchlist>().Remove(watchlist);
 
             await _uow.SaveAsync();
-        }        
+        }
+
+        public async Task MarkAsWatched(ToggleWatchedDto markAsWatched)
+        {
+            var watchlist = await _uow.Repository<Domain.Entities.Watchlist>().FindOneAsync(new WatchlistWithFilmsSpecification(markAsWatched.WatchlistId));
+
+            var filmToMarkAsWatched = watchlist.Films.FirstOrDefault(x => x.FilmId == markAsWatched.FilmId);
+
+            filmToMarkAsWatched.IsWatched = true;
+
+            await _uow.SaveAsync();
+        }
+
+        public async Task MarkAsUnwatched(ToggleWatchedDto markAsUnwatched)
+        {
+            var watchlist = await _uow.Repository<Domain.Entities.Watchlist>().FindOneAsync(new WatchlistWithFilmsSpecification(markAsUnwatched.WatchlistId));
+
+            var filmToMarkAsUnwatched = watchlist.Films.FirstOrDefault(x => x.FilmId == markAsUnwatched.FilmId);
+
+            filmToMarkAsUnwatched.IsWatched = false;
+
+            await _uow.SaveAsync();
+        }
     }
 }

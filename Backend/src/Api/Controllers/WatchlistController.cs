@@ -68,5 +68,27 @@ namespace Api.Controllers
             return Ok();
         }
 
+        [AuthorizeRoles(Roles.Admin, Roles.Moderator, Roles.User)]
+        [HttpPost("markAsWatched")]
+        public async Task<IActionResult> MarkAsWatched(ToggleWatchedDto markAsWatched)
+        {
+            await _watchlistValidatorService.ValidateForMarkingAsWatched(markAsWatched);
+
+            await _watchlistService.MarkAsWatched(markAsWatched);
+
+            return Ok();
+        }
+
+        [AuthorizeRoles(Roles.Admin, Roles.Moderator, Roles.User)]
+        [HttpPost("markAsUnwatched")]
+        public async Task<IActionResult> MarkAsUnwatched(ToggleWatchedDto markAsUnwatched)
+        {
+            await _watchlistValidatorService.ValidateForMarkingAsUnwatched(markAsUnwatched);
+
+            await _watchlistService.MarkAsUnwatched(markAsUnwatched);
+
+            return Ok();
+        }
+
     }
 }

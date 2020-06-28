@@ -7,5 +7,7 @@ namespace Application.Interfaces.Watchlist
     {
         Task ValidateForCreation(WatchlistForCreationDto watchlistForCreation);
         Task ValidateForUpdate(int id, WatchlistForUpdateDto watchlistForUpdate);
+        Task ValidateForMarkingAsWatched(ToggleWatchedDto markAsWatched);
+        Task ValidateForMarkingAsUnwatched(ToggleWatchedDto markAsUnwatched);
     }
 }

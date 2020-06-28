@@ -1,4 +1,5 @@
-﻿using Application.Dtos.Watchlist;
+﻿using Application.Dtos.Common;
+using Application.Dtos.Watchlist;
 using AutoMapper;
 using Domain.Entities;
 using System;
@@ -12,14 +13,19 @@ namespace Application.Mappings
     {
         public WatchlistMappings()
         {
-            CreateMap<Watchlist, WatchlistForDetailedDto>()
-                .ForMember(x => x.Films, opt => opt.Ignore());
+            CreateMap<Watchlist, WatchlistForDetailedDto>();
 
             CreateMap<Watchlist, WatchlistForListDto>();
 
             CreateMap<WatchlistForCreationDto, Watchlist>()
                 .ForMember(x => x.Films,opt => opt.MapFrom(x => x.Films
-                .Select(x => new FilmWatchlist { Sequence = x.Sequence, FilmId = x.FilmId })));            
+                .Select(x => new FilmWatchlist { Sequence = x.Sequence, FilmId = x.FilmId })));
+
+            CreateMap<FilmWatchlist, FilmForWatchlistDto>()
+            .ForMember(x => x.Id, opt => opt.MapFrom(x => x.FilmId))
+            .ForMember(x => x.Title, opt => opt.MapFrom(x => x.Film.Title))
+            .ForMember(x => x.Description, opt => opt.MapFrom(x => x.Film.Description))
+            .ForMember(x => x.MainPhoto, opt => opt.Ignore());
 
             CreateMap<WatchlistForUpdateDto, Watchlist>()
                 .ForMember(x => x.Films, opt => opt.Ignore())
