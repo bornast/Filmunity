@@ -1,15 +1,12 @@
-﻿using Application.Dtos.Film;
-using Application.Dtos.Watchlist;
+﻿using Application.Dtos.Watchlist;
 using Application.Interfaces;
 using Application.Interfaces.Common;
-using Application.Interfaces.Film;
 using Application.Interfaces.Photo;
 using Application.Interfaces.Watchlist;
 using Application.Specifications.Watchlist;
 using AutoMapper;
 using Common.Enums;
 using Common.Exceptions;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -66,9 +63,6 @@ namespace Application.Services.Watchlist
             var watchlist = _mapper.Map<Domain.Entities.Watchlist>(watchlistForCreation);
 
             watchlist.UserId = (int)_currentUserService.UserId;
-            // TODO: extract on a dbcontext level
-            watchlist.CreatedAt = DateTime.UtcNow;
-            watchlist.ModifiedAt = DateTime.UtcNow;
 
             _uow.Repository<Domain.Entities.Watchlist>().Add(watchlist);
 
@@ -86,8 +80,6 @@ namespace Application.Services.Watchlist
             var watchlist = await _uow.Repository<Domain.Entities.Watchlist>().FindOneAsync(new WatchlistWithFilmsSpecification(id));
 
             _mapper.Map(watchlistForUpdate, watchlist);
-            // TODO: extract on a dbcontext level
-            watchlist.ModifiedAt = DateTime.Now;
 
             await _uow.SaveAsync();
 

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Domain.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Domain.Entities
 {
-    public class Watchlist : BaseEntity
+    public class Watchlist : BaseEntity, IDateTrackable
     {
         public string Title { get; set; }
         public string Description { get; set; }

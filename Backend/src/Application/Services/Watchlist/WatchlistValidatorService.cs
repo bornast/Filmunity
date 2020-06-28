@@ -107,6 +107,10 @@ namespace Application.Services.Watchlist
             var sequenceIsConsecutive = !sequence.Select((i, j) => i - j).Distinct().Skip(1).Any();
             if (!sequenceIsConsecutive)
                 AddValidationError("Sequence", $"Sequence is not consecutive!");
+
+            // validate if sequence contains number 1, 
+            if (!sequence.Any(x => x == 1))
+                AddValidationError("Sequence", $"Sequence must contain number 1!");
         }
 
         private async Task ValidateFilmIds(List<int> filmIds)

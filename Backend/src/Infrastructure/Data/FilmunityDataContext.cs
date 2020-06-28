@@ -49,25 +49,37 @@ namespace Infrastructure.Data
 
             foreach (var entry in entries)
             {
-                if (entry.Entity is ITrackable trackable)
+                if (entry.Entity is IDateTrackable dateTrackable)
                 {
                     var now = DateTime.Now;
+                    switch (entry.State)
+                    {
+                        case EntityState.Modified:
+                            dateTrackable.ModifiedAt = now;
+                            break;
+
+                        case EntityState.Added:
+                            dateTrackable.CreatedAt = now;
+                            break;
+                    }
+                }
+
+                if (entry.Entity is ITrackable trackable)
+                {
                     var userId = _currentUserService.UserId;
                     switch (entry.State)
                     {
                         case EntityState.Modified:
-                            trackable.ModifiedAt = now;
                             if (userId > 0)
                                 trackable.ModifiedByUserId = userId;
                             break;
 
                         case EntityState.Added:
-                            trackable.CreatedAt = now;
                             if (userId > 0)
                                 trackable.CreatedByUserId = (int)userId;
                             break;
                     }
-                }
+                }                
             }
         }
 
