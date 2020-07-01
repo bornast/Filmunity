@@ -31,7 +31,8 @@ namespace Application.Services
             var existingUser = await _uow.Repository<User>()
                 .FindOneAsync(new UserWithRolesSpecification(userForRegistration.Username));
 
-            AddValidationErrorIfValueIsNull(existingUser, "Username", "Username already exists!");
+            if (existingUser != null)
+                AddValidationError("Username", "Already exists!");
 
             ThrowValidationErrorsIfNotEmpty();
         }

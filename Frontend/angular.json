@@ -29,7 +29,7 @@
               "src/assets/css/bootstrap-datepicker.min.css",
               "src/assets/scss/style.scss",
               "node_modules/slick-carousel/slick/slick.scss",
-              "node_modules/slick-carousel/slick/slick-theme.scss"
+			  "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
               "src/assets/scripts/jquery-2.2.0.min.js",
@@ -99,7 +99,8 @@
               "src/assets/css/icon-font.css",
               "src/assets/scss/style.scss",
               "node_modules/slick-carousel/slick/slick.scss",
-              "node_modules/slick-carousel/slick/slick-theme.scss"
+              "node_modules/slick-carousel/slick/slick-theme.scss",
+			  "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
               "src/assets/scripts/jquery-2.2.0.min.js",

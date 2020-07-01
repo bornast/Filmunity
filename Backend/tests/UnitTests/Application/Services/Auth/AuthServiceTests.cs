@@ -57,7 +57,7 @@ namespace Filmunity.UnitTests.Application.Services
         {           
             var result = await _service.Login(_userForLoginDto);
 
-            Assert.That(result, Is.EqualTo("some-token"));
+            Assert.That(result.Token, Is.EqualTo("some-token"));
         }
 
         [Test]

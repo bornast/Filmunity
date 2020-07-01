@@ -25,6 +25,15 @@ import { AdminSidebarComponent } from './core/AdminSidebar/AdminSidebar.componen
 import { MenuItems } from './core/Menu/menu-items';
 import { AdminMenuItems } from './core/AdminHeader/admin-menu-items';
 
+
+import { ToastrModule } from 'ngx-toastr';
+import { ErrorInterceptorProvider } from './_services/error.interceptor';
+import { JwtModule } from '@auth0/angular-jwt';
+
+export function tokenGetter() {
+	return localStorage.getItem('filmunity-token');
+}
+
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
    // Change this to your upload POST address:
     url: 'https://httpbin.org/post',
@@ -38,21 +47,30 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
       AdminPanelLayoutComponent,
       FrontendPanelLayoutComponent,
       AuthLayoutComponent,
-
       HeaderComponent,
       FooterComponent,
       MenuComponent,
       SignInComponent,
-
       AdminHeaderComponent,
       AdminSidebarComponent
   ],
   imports: [
       BrowserModule,
-      BrowserAnimationsModule,
+	  BrowserAnimationsModule,
+	  ToastrModule.forRoot({
+		timeOut: 5000,
+		positionClass: 'toast-top-right'
+	  }),
       DropzoneModule,
       RouterModule.forRoot(AppRoutes, {scrollPositionRestoration: 'enabled'}),
-      HttpClientModule
+	  HttpClientModule,
+	  JwtModule.forRoot({
+		config: {
+			tokenGetter: tokenGetter,
+			whitelistedDomains: ['localhost:5000'], // to what endpoits do we send authorization headers
+			blacklistedRoutes: ['localhost:5000/api/auth'] // to what endpoints do we not send authorization headers
+		}
+	})
   ],
   providers: [
       MenuItems, 
@@ -60,7 +78,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
       {
         provide: DROPZONE_CONFIG,
         useValue: DEFAULT_DROPZONE_CONFIG
-      }
+	  },
+	  ErrorInterceptorProvider
   ],
   bootstrap: [AppComponent]
 })

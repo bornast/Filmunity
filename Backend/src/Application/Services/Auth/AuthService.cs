@@ -1,4 +1,5 @@
-﻿using Application.Dtos.User;
+﻿using Application.Dtos.Common;
+using Application.Dtos.User;
 using Application.Extensions;
 using Application.Interfaces;
 using Application.Specifications;
@@ -27,14 +28,19 @@ namespace Application.Services
             _hashService = hashService;
         }
 
-        public async Task<string> Login(UserForLoginDto userForLogin)
+        public async Task<TokenDto> Login(UserForLoginDto userForLogin)
         {
             var user = await _uow.Repository<User>().FindOneAsync(new UserWithRolesSpecification(userForLogin.Username));
 
             Guard.Against.Unauthorized(user);
             Guard.Against.Unauthorized(_hashService.VerifyPasswordHash(userForLogin.Password, user.PasswordHash, user.PasswordSalt));
 
-            return _jwtService.GenerateJwtToken(user);
+            var token = new TokenDto
+            {
+                Token = _jwtService.GenerateJwtToken(user)
+            };
+
+            return token;
         }
 
         public async Task Register(UserForRegistrationDto userForRegistration)
