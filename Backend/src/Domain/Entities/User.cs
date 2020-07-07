@@ -13,5 +13,6 @@ namespace Domain.Entities
         public Status Status { get; set; }
         public int StatusId { get; set; }
         public ICollection<UserRole> Roles { get; set; } = new List<UserRole>();
+        public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
     }
 }

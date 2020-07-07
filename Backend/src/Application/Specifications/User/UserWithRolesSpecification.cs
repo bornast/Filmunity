@@ -9,5 +9,11 @@ namespace Application.Specifications
             // same as Include(Roles).ThenInclude(Role)
             AddInclude($"{nameof(User.Roles)}.{nameof(UserRole.Role)}");
         }
+
+        public UserWithRolesSpecification(int id) : base(x => x.Id == id)
+        {
+            // same as Include(Roles).ThenInclude(Role)
+            AddInclude($"{nameof(User.Roles)}.{nameof(UserRole.Role)}");
+        }
     }
 }

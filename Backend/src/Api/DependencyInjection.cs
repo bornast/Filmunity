@@ -9,6 +9,7 @@ using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
 using System.Text;
 using Api.Services;
+using System;
 
 namespace Api
 {
@@ -30,16 +31,21 @@ namespace Api
                 options.SuppressModelStateInvalidFilter = true;
             });
 
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateAudience = false,
+                ValidateIssuerSigningKey = true,
+                ValidateIssuer = false,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration.GetSection("AppSettings:Token").Value)),
+                ClockSkew = TimeSpan.Zero // remove delay of token when expire
+            };
+
+            services.AddSingleton(tokenValidationParameters);
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration.GetSection("AppSettings:Token").Value)),
-                        ValidateIssuer = false,
-                        ValidateAudience = false
-                    };
+                    options.TokenValidationParameters = tokenValidationParameters;
                 });
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();

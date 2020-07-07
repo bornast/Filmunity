@@ -1,4 +1,5 @@
-﻿using Application.Dtos.User;
+﻿using Application.Dtos.Common;
+using Application.Dtos.User;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,5 +11,6 @@ namespace Application.Interfaces
     {
         public Task ValidateForRegistration(UserForRegistrationDto userForRegistration);
         public void ValidateForLogin(UserForLoginDto userForLogin);
+        Task ValidateBeforeTokenRefresh(TokenDto tokenForRefresh);
     }
 }

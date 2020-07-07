@@ -12,5 +12,6 @@ namespace Application.Interfaces
     {
         public Task<TokenDto> Login(UserForLoginDto userForLogin);
         public Task Register(UserForRegistrationDto userForRegistration);
+        Task<TokenDto> RefreshToken(TokenDto tokenForRefresh);
     }
 }

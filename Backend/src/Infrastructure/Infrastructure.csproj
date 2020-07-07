@@ -7,6 +7,10 @@
   <ItemGroup>
     <Compile Remove="Data\20200412103208_UserAndRoleTableAdded.cs" />
     <Compile Remove="Data\20200412103208_UserAndRoleTableAdded.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200707131010_RefreshTokenTableAdded.cs" />
+    <Compile Remove="Data\Migrations\20200707131010_RefreshTokenTableAdded.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200707131452_RefreshTokenTableAdded.cs" />
+    <Compile Remove="Data\Migrations\20200707131452_RefreshTokenTableAdded.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

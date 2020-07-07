@@ -2,13 +2,12 @@
 using Application.Dtos.User;
 using Application.Extensions;
 using Application.Interfaces;
+using Application.Interfaces.Common;
 using Application.Specifications;
 using Ardalis.GuardClauses;
 using AutoMapper;
 using Common.Enums;
 using Domain.Entities;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Services
@@ -19,13 +18,15 @@ namespace Application.Services
         private readonly IMapper _mapper;
         private readonly IJwtService _jwtService;
         private readonly IHashService _hashService;
+        private readonly IRefreshTokenService _refreshTokenService;
 
-        public AuthService(IUnitOfWork uow, IMapper mapper, IJwtService jwtService, IHashService hashService)
+        public AuthService(IUnitOfWork uow, IMapper mapper, IJwtService jwtService, IHashService hashService, IRefreshTokenService refreshTokenService)
         {
             _uow = uow;
             _mapper = mapper;
             _jwtService = jwtService;
             _hashService = hashService;
+            _refreshTokenService = refreshTokenService;
         }
 
         public async Task<TokenDto> Login(UserForLoginDto userForLogin)
@@ -35,12 +36,7 @@ namespace Application.Services
             Guard.Against.Unauthorized(user);
             Guard.Against.Unauthorized(_hashService.VerifyPasswordHash(userForLogin.Password, user.PasswordHash, user.PasswordSalt));
 
-            var token = new TokenDto
-            {
-                Token = _jwtService.GenerateJwtToken(user)
-            };
-
-            return token;
+            return await _jwtService.GenerateJwtToken(user);
         }
 
         public async Task Register(UserForRegistrationDto userForRegistration)
@@ -55,7 +51,20 @@ namespace Application.Services
 
             _uow.Repository<User>().Add(user);
             await _uow.SaveAsync();
-        }        
+        }
+
+        public async Task<TokenDto> RefreshToken(TokenDto tokenForRefresh)
+        {
+            var validatedToken = _jwtService.GetPrincipalFromToken(tokenForRefresh.Token);
+
+            var jti = _jwtService.GetJtiFromToken(validatedToken);
+
+            await _refreshTokenService.MarkAsUsed(tokenForRefresh.RefreshToken, jti, commit: false);
+
+            var user = await _uow.Repository<User>().FindOneAsync(new UserWithRolesSpecification(_jwtService.GetUserIdFromToken(validatedToken)));
+
+            return await _jwtService.GenerateJwtToken(user);
+        }
 
     }
 }

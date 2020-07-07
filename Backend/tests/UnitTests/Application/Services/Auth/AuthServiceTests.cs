@@ -8,6 +8,10 @@ using Domain.Entities;
 using Moq;
 using NUnit.Framework;
 using System.Threading.Tasks;
+using Application.Interfaces.Common;
+using Application.Dtos.Common;
+using FluentAssertions;
+using System.Security.Claims;
 
 namespace Filmunity.UnitTests.Application.Services
 {
@@ -20,12 +24,18 @@ namespace Filmunity.UnitTests.Application.Services
         private Mock<IMapper> _mapper;
         private Mock<IJwtService> _jwtService;
         private Mock<IHashService> _hashService;
+        private Mock<IRefreshTokenService> _refreshTokenService;
         private UserForLoginDto _userForLoginDto;
         private UserForRegistrationDto _userForRegistrationDto;
         private Mock<IRepository<User>> _userRepo;
         private User _user;
         private Password _password;
         private bool _passwordVerified;
+        private TokenDto _tokenDto;
+        private ClaimsPrincipal _claimsPrincipal;
+        private string _jti;
+        private int _userId;
+        private TokenDto _generatedToken;
         #endregion
 
         [SetUp]
@@ -57,7 +67,8 @@ namespace Filmunity.UnitTests.Application.Services
         {           
             var result = await _service.Login(_userForLoginDto);
 
-            Assert.That(result.Token, Is.EqualTo("some-token"));
+            result.Token.Should().Be(_generatedToken.Token);
+            result.RefreshToken.Should().Be(_generatedToken.RefreshToken);
         }
 
         [Test]
@@ -79,6 +90,15 @@ namespace Filmunity.UnitTests.Application.Services
             _uow.Verify(x => x.SaveAsync(), Times.Once);
         }
 
+        [Test]
+        public async Task RefreshToken_WhenCalled_ReturnTokenDto()
+        {
+            var result = await _service.RefreshToken(_tokenDto);
+
+            result.Token.Should().Be(_generatedToken.Token);
+            result.RefreshToken.Should().Be(_generatedToken.RefreshToken);
+        }
+
         #region private methods
         private void InitializeMocks()
         {
@@ -86,12 +106,13 @@ namespace Filmunity.UnitTests.Application.Services
             _mapper = new Mock<IMapper>();
             _jwtService = new Mock<IJwtService>();
             _hashService = new Mock<IHashService>();
+            _refreshTokenService = new Mock<IRefreshTokenService>();
             _userRepo = new Mock<IRepository<User>>();
         }
 
         private void InitializeObjects()
         {
-            _service = new AuthService(_uow.Object, _mapper.Object, _jwtService.Object, _hashService.Object);
+            _service = new AuthService(_uow.Object, _mapper.Object, _jwtService.Object, _hashService.Object, _refreshTokenService.Object);
             _userForLoginDto = new UserForLoginDto
             {
                 Username = "string",
@@ -115,6 +136,24 @@ namespace Filmunity.UnitTests.Application.Services
             };
 
             _passwordVerified = true;
+
+            _tokenDto = new TokenDto
+            {
+                Token = "some-token",
+                RefreshToken = "some-token"
+            };
+
+            _claimsPrincipal = new ClaimsPrincipal();
+
+            _jti = "jti";
+
+            _userId = 1;
+
+            _generatedToken = new TokenDto
+            {
+                Token = "generated-token",
+                RefreshToken = "generated-token"
+            };
         }
 
         private void InitializeMockSetup()
@@ -130,10 +169,18 @@ namespace Filmunity.UnitTests.Application.Services
                 .FindOneAsync(It.IsAny<ISpecification<User>>()))
                 .Returns(() => Task.FromResult(_user));
 
-            _jwtService.Setup(x => x.GenerateJwtToken(_user)).Returns("some-token");
+            _jwtService.Setup(x => x.GenerateJwtToken(_user)).Returns(() => Task.FromResult(_tokenDto));
 
             _hashService.Setup(x => x.VerifyPasswordHash(
                 It.IsAny<string>(), It.IsAny<byte[]>(), It.IsAny<byte[]>())).Returns(() => _passwordVerified);
+
+            _jwtService.Setup(x => x.GetPrincipalFromToken(_tokenDto.Token, false)).Returns(_claimsPrincipal);
+
+            _jwtService.Setup(x => x.GetJtiFromToken(_claimsPrincipal)).Returns(_jti);
+
+            _jwtService.Setup(x => x.GetUserIdFromToken(_claimsPrincipal)).Returns(_userId);
+
+            _jwtService.Setup(x => x.GenerateJwtToken(_user)).Returns(() => Task.FromResult(_generatedToken));
         }
         #endregion
     }

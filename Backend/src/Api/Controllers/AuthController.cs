@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Api.ActionFilters;
+using Application.Dtos.Common;
 
 namespace Api.Controllers
 {
@@ -38,9 +39,21 @@ namespace Api.Controllers
         public async Task<IActionResult> Register(UserForRegistrationDto userForRegistration)
         {
             await _authValidatorService.ValidateForRegistration(userForRegistration);
+
             await _authService.Register(userForRegistration);
+
             return Ok();
-        }        
+        }
+
+        [HttpPost("refreshToken")]
+        public async Task<IActionResult> RefreshToken(TokenDto tokenForRefresh)
+        {
+            await _authValidatorService.ValidateBeforeTokenRefresh(tokenForRefresh);
+
+            var token = await _authService.RefreshToken(tokenForRefresh);
+
+            return Ok(token);
+        }
 
     }
 }
