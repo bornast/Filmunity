@@ -21,13 +21,36 @@ export class AuthService {
 				map((response: any) => {
 					const user = response;
 					if (user) {
-						this.decodedToken = this.jwtHelper.decodeToken(user.token);
-						localStorage.setItem('filmunity-token', user.token);
-						localStorage.setItem('filmunity-user', this.decodedToken.unique_name);
+						this.storeUserInfoToLocalStorage(user);
 						// this.currentUser = user.user;
 					}
 				})
 			);
+	}
+
+	refreshToken() {
+		var model = {
+			token: localStorage.getItem('filmunity-token'),
+			refreshToken: localStorage.getItem('filmunity-refreshToken')
+		};
+
+		return this.http.post(this.baseUrl + 'refreshToken', model)
+			.pipe(
+				map((response: any) => {
+					const user = response;
+					if (user) {
+						this.storeUserInfoToLocalStorage(user);
+						// this.currentUser = user.user;
+					}
+				})
+			);
+	}
+
+	private storeUserInfoToLocalStorage(tokenObject: any) {
+		this.decodedToken = this.jwtHelper.decodeToken(tokenObject.token);
+		localStorage.setItem('filmunity-token', tokenObject.token);
+		localStorage.setItem('filmunity-refreshToken', tokenObject.refreshToken);
+		localStorage.setItem('filmunity-tokenObject', this.decodedToken.username);
 	}
 
 }

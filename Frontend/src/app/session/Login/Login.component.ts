@@ -22,10 +22,11 @@ export class LoginComponent implements OnInit {
 
 	}
 
-	login() {
+	login() {		
+
 		this.authService.login(this.loginObject).subscribe(() => {
 			this.toast.success('Logged in successfully');
-			this.router.navigate(['/home']);
+			// this.router.navigate(['/home']);
 		});
 	}
 
