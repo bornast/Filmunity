@@ -1,6 +1,5 @@
-import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthService } from 'src/app/_services/auth.service';
-import { ToastrService } from 'ngx-toastr';
 import { ToastService } from 'src/app/_services/toast.service';
 import { Router } from '@angular/router';
 
@@ -18,15 +17,11 @@ export class LoginComponent implements OnInit {
 
 	ngOnInit() { }
 
-	ngAfterViewInit() {
-
-	}
-
-	login() {		
+	login() {
 
 		this.authService.login(this.loginObject).subscribe(() => {
 			this.toast.success('Logged in successfully');
-			// this.router.navigate(['/home']);
+			this.router.navigate(['/home']);
 		});
 	}
 
