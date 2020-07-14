@@ -25,6 +25,7 @@ namespace Filmunity.UnitTests.Application.Services
         private Mock<IJwtService> _jwtService;
         private Mock<IHashService> _hashService;
         private Mock<IRefreshTokenService> _refreshTokenService;
+        private Mock<IFacebookService> _facebookService;
         private UserForLoginDto _userForLoginDto;
         private UserForRegistrationDto _userForRegistrationDto;
         private Mock<IRepository<User>> _userRepo;
@@ -36,6 +37,7 @@ namespace Filmunity.UnitTests.Application.Services
         private string _jti;
         private int _userId;
         private TokenDto _generatedToken;
+        private FacebookUser _facebookUser;
         #endregion
 
         [SetUp]
@@ -99,6 +101,15 @@ namespace Filmunity.UnitTests.Application.Services
             result.RefreshToken.Should().Be(_generatedToken.RefreshToken);
         }
 
+        [Test]
+        public async Task LoginWithFacebook_WhenCalled_ReturnTokenDto()
+        {
+            var result = await _service.LoginWithFacebook(new FacebookLoginDto { AccessToken = "token" });
+
+            result.Token.Should().Be(_generatedToken.Token);
+            result.RefreshToken.Should().Be(_generatedToken.RefreshToken);
+        }
+
         #region private methods
         private void InitializeMocks()
         {
@@ -107,12 +118,13 @@ namespace Filmunity.UnitTests.Application.Services
             _jwtService = new Mock<IJwtService>();
             _hashService = new Mock<IHashService>();
             _refreshTokenService = new Mock<IRefreshTokenService>();
+            _facebookService = new Mock<IFacebookService>();
             _userRepo = new Mock<IRepository<User>>();
         }
 
         private void InitializeObjects()
         {
-            _service = new AuthService(_uow.Object, _mapper.Object, _jwtService.Object, _hashService.Object, _refreshTokenService.Object);
+            _service = new AuthService(_uow.Object, _mapper.Object, _jwtService.Object, _hashService.Object, _refreshTokenService.Object, _facebookService.Object);
             _userForLoginDto = new UserForLoginDto
             {
                 Username = "string",
@@ -154,6 +166,13 @@ namespace Filmunity.UnitTests.Application.Services
                 Token = "generated-token",
                 RefreshToken = "generated-token"
             };
+
+            _facebookUser = new FacebookUser 
+            { 
+                Email = "email", 
+                FirstName = "firstName", 
+                LastName = "lastName" 
+            };
         }
 
         private void InitializeMockSetup()
@@ -181,6 +200,8 @@ namespace Filmunity.UnitTests.Application.Services
             _jwtService.Setup(x => x.GetUserIdFromToken(_claimsPrincipal)).Returns(_userId);
 
             _jwtService.Setup(x => x.GenerateJwtToken(_user)).Returns(() => Task.FromResult(_generatedToken));
+
+            _facebookService.Setup(x => x.GetUserInfoAsync(It.IsAny<string>())).Returns(() => Task.FromResult(_facebookUser));
         }
         #endregion
     }
