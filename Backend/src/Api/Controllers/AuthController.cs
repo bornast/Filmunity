@@ -55,5 +55,14 @@ namespace Api.Controllers
             return Ok(token);
         }
 
+        [HttpPost("loginWithFacebook")]
+        public async Task<IActionResult> LoginWithFacebook(FacebookLoginDto facebookLogin)
+        {
+            await _authValidatorService.ValidateForLoginWithFacebook(facebookLogin);
+
+            var token = await _authService.LoginWithFacebook(facebookLogin);
+
+            return Ok(token);
+        }
     }
 }

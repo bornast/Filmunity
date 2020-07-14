@@ -10,8 +10,10 @@ namespace Application.Interfaces
 {
     public interface IAuthService
     {
-        public Task<TokenDto> Login(UserForLoginDto userForLogin);
-        public Task Register(UserForRegistrationDto userForRegistration);
+        Task<TokenDto> Login(UserForLoginDto userForLogin);
+        Task Register(UserForRegistrationDto userForRegistration);
         Task<TokenDto> RefreshToken(TokenDto tokenForRefresh);
+        // TODO: rename all async methods with suffix Async: eg. LoginWithFacebookAsync
+        Task<TokenDto> LoginWithFacebook(FacebookLoginDto facebookLogin);
     }
 }

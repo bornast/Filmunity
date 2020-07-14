@@ -58,7 +58,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
       BrowserModule,
 	  BrowserAnimationsModule,
 	  ToastrModule.forRoot({
-		timeOut: 5000,
+		timeOut: 8000,
 		positionClass: 'toast-top-right'
 	  }),
       DropzoneModule,

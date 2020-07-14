@@ -46,7 +46,7 @@ namespace Application
 
         public static void AddValidation(this IServiceCollection services)
         {
-            services.AddScoped<IValidatorFactoryService, ValidatorFactoryService>();
+            services.AddScoped<IValidatorFactoryService, ValidatorFactoryService>();            
 
             services.AddTransient<IObjectValidator<UserForLoginDtoValidator>, UserForLoginDtoValidator>();
             services.AddTransient<IObjectValidator<UserForRegistrationDtoValidator>, UserForRegistrationDtoValidator>();
@@ -62,6 +62,7 @@ namespace Application
             services.AddScoped<IPhotoValidatorService, PhotoValidatorService>();
 
             services.AddTransient<IObjectValidator<TokenDtoValidator>, TokenDtoValidator>();
+            services.AddTransient<IObjectValidator<FacebookLoginDtoValidator>, FacebookLoginDtoValidator>();
             services.AddScoped<IAuthValidatorService, AuthValidatorService>();
 
             services.AddTransient<IObjectValidator<PersonForSaveDtoValidator>, PersonForSaveDtoValidator>();

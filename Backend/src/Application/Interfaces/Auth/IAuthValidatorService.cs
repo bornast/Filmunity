@@ -1,16 +1,14 @@
 ﻿using Application.Dtos.Common;
 using Application.Dtos.User;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Interfaces
 {
     public interface IAuthValidatorService
     {
-        public Task ValidateForRegistration(UserForRegistrationDto userForRegistration);
-        public void ValidateForLogin(UserForLoginDto userForLogin);
+        Task ValidateForRegistration(UserForRegistrationDto userForRegistration);
+        void ValidateForLogin(UserForLoginDto userForLogin);
         Task ValidateBeforeTokenRefresh(TokenDto tokenForRefresh);
+        Task ValidateForLoginWithFacebook(FacebookLoginDto facebookLogin);
     }
 }

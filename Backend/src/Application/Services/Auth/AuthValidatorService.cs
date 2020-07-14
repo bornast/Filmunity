@@ -1,6 +1,7 @@
 ﻿using Application.Dtos.Common;
 using Application.Dtos.User;
 using Application.Interfaces;
+using Application.Interfaces.Common;
 using Application.Specifications;
 using Application.Specifications.Common;
 using Domain.Entities;
@@ -15,15 +16,18 @@ namespace Application.Services
     {
         private readonly IUnitOfWork _uow;
         private readonly IJwtService _jwtService;
+        private readonly IFacebookService _facebookService;
 
         public AuthValidatorService(
             IUnitOfWork uow, 
             IValidatorFactoryService validatorFactoryService,
-            IJwtService jwtService
+            IJwtService jwtService,
+            IFacebookService facebookService
         ) : base(validatorFactoryService)
         {
             _uow = uow;
             _jwtService = jwtService;
+            _facebookService = facebookService;
         }
         
         public void ValidateForLogin(UserForLoginDto userForLogin)
@@ -77,5 +81,16 @@ namespace Application.Services
             ThrowValidationErrorsIfNotEmpty();
         }
 
+        public async Task ValidateForLoginWithFacebook(FacebookLoginDto facebookLogin)
+        {
+            Validate(facebookLogin);
+
+            var validatedTokenResult = await _facebookService.ValidateAccessTokenAsync(facebookLogin.AccessToken);
+
+            if (validatedTokenResult.Data.IsValid == false)
+                AddValidationError("Token", "Invalid token!");
+
+            ThrowValidationErrorsIfNotEmpty();
+        }
     }
 }

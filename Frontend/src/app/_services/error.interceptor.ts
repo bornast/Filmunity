@@ -82,6 +82,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
 		else if (error.status === 401) {
 			this.toast.error("Unauthorized!");
+			this.router.navigate(['/session/login']);
 		}
 
 		else if (error instanceof HttpErrorResponse) {

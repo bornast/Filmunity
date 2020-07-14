@@ -8,6 +8,7 @@ using Ardalis.GuardClauses;
 using AutoMapper;
 using Common.Enums;
 using Domain.Entities;
+using System;
 using System.Threading.Tasks;
 
 namespace Application.Services
@@ -19,14 +20,16 @@ namespace Application.Services
         private readonly IJwtService _jwtService;
         private readonly IHashService _hashService;
         private readonly IRefreshTokenService _refreshTokenService;
+        private readonly IFacebookService _facebookService;
 
-        public AuthService(IUnitOfWork uow, IMapper mapper, IJwtService jwtService, IHashService hashService, IRefreshTokenService refreshTokenService)
+        public AuthService(IUnitOfWork uow, IMapper mapper, IJwtService jwtService, IHashService hashService, IRefreshTokenService refreshTokenService, IFacebookService facebookService)
         {
             _uow = uow;
             _mapper = mapper;
             _jwtService = jwtService;
             _hashService = hashService;
             _refreshTokenService = refreshTokenService;
+            _facebookService = facebookService;
         }
 
         public async Task<TokenDto> Login(UserForLoginDto userForLogin)
@@ -66,5 +69,22 @@ namespace Application.Services
             return await _jwtService.GenerateJwtToken(user);
         }
 
+        public async Task<TokenDto> LoginWithFacebook(FacebookLoginDto facebookLogin)
+        {
+            var userInfo = await _facebookService.GetUserInfoAsync(facebookLogin.AccessToken);
+
+            var user = await _uow.Repository<User>().FindOneAsync(new UserWithRolesSpecification(username: userInfo.Email));
+
+            if (user == null)
+            {
+                var userToRegister = _mapper.Map<UserForRegistrationDto>(userInfo);
+
+                await Register(userToRegister);
+
+                user = await _uow.Repository<User>().FindOneAsync(new UserWithRolesSpecification(username: userInfo.Email));
+            }
+
+            return await _jwtService.GenerateJwtToken(user);
+        }
     }
 }

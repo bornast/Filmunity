@@ -12,6 +12,8 @@ export class AuthService {
 	baseUrl = environment.apiUrl + 'auth/';
 	jwtHelper = new JwtHelperService();
 	decodedToken: any;
+	// TODO: add user interface
+	currentUser: any;
 
 	constructor(private http: HttpClient) { }
 
@@ -21,6 +23,19 @@ export class AuthService {
 
 	login(model: any) {
 		return this.http.post(this.baseUrl + 'login', model)
+			.pipe(
+				map((response: any) => {
+					const user = response;
+					if (user) {
+						this.storeUserInfoToLocalStorage(user);
+						// this.currentUser = user.user;
+					}
+				})
+			);
+	}
+
+	loginWithFacebook(model: any) {
+		return this.http.post(this.baseUrl + 'loginWithFacebook', model)
 			.pipe(
 				map((response: any) => {
 					const user = response;
@@ -48,13 +63,35 @@ export class AuthService {
 					}
 				})
 			);
+	}	
+
+	loggedIn(): boolean {		
+		const token = localStorage.getItem('filmunity-token');
+		return token != null;
+		// TODO: check if token is expired
+		// return !this.jwtHelper.isTokenExpired(token);
+	}
+
+	userHasRole(allowedRoles): boolean {
+		let isMatch = false;
+		if (this.decodedToken == null)
+			return isMatch;
+		const userRoles = this.decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] as Array<string>;
+		console.log("user roles are", userRoles);
+		allowedRoles.forEach(element => {
+			if (userRoles.includes(element)) {
+				isMatch = true;
+				return;
+			}
+		});
+		return isMatch;
 	}
 
 	private storeUserInfoToLocalStorage(tokenObject: any) {
 		this.decodedToken = this.jwtHelper.decodeToken(tokenObject.token);
 		localStorage.setItem('filmunity-token', tokenObject.token);
 		localStorage.setItem('filmunity-refreshToken', tokenObject.refreshToken);
-		localStorage.setItem('filmunity-tokenObject', this.decodedToken.username);
+		localStorage.setItem('filmunity-username', this.decodedToken.username);
 	}
 
 }
