@@ -12,14 +12,12 @@ import { RatingComponent } from '../globalFrontendComponents/Rating/Rating.compo
 import { TeamComponent } from './Team/Team.component';
 import { BannerComponent } from './Banner/Banner.component';
 import { PopularCategoriesComponent } from './PopuplarCategories/PopularCategories.component';
-import { MostVisitedPlacesComponent } from './MostVisitedPlaces/MostVisitedPlaces.component';
 import { RecentBlogComponent } from './RecentBlog/RecentBlog.component';
 import { FeatureSectionComponent } from './FeatureSection/FeatureSection.component';
 import { TestimonialComponent } from './Testimonial/Testimonial.component';
 import { FeatureGridSectionComponent } from '../globalFrontendComponents/FeatureGridSection/FeatureGridSection.component';
 import { PricingComponent } from './Pricing/Pricing.component';
 import { ParallaxComponent } from './ParallaxSection/Parallax.component';
-import { ServicesComponent } from './Services/Services.component';
 
 @NgModule({
    imports : [
@@ -36,14 +34,12 @@ import { ServicesComponent } from './Services/Services.component';
     TeamComponent,
     BannerComponent ,
      PopularCategoriesComponent,
-     MostVisitedPlacesComponent,
      RecentBlogComponent,
      FeatureSectionComponent,
      TestimonialComponent,
      FeatureGridSectionComponent,
      PricingComponent,
      ParallaxComponent,
-     ServicesComponent
   ],
   exports: [ 
      MapBannerComponent,
@@ -53,14 +49,12 @@ import { ServicesComponent } from './Services/Services.component';
      TeamComponent,
      BannerComponent ,
      PopularCategoriesComponent,
-     MostVisitedPlacesComponent,
      RecentBlogComponent,
      FeatureSectionComponent,
      TestimonialComponent,
      FeatureGridSectionComponent,
      PricingComponent,
      ParallaxComponent,
-     ServicesComponent
    ]
 })
 

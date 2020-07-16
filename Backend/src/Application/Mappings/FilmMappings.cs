@@ -1,6 +1,8 @@
 ﻿using Application.Dtos.Film;
 using AutoMapper;
 using Domain.Entities;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Application.Mappings
@@ -9,9 +11,17 @@ namespace Application.Mappings
     {
         public FilmMappings()
         {
-            CreateMap<Film, FilmForDetailedDto>();
+            CreateMap<Film, FilmForDetailedDto>()
+                .AfterMap((src, dest) =>
+                {
+                    CalculateRating(src.Ratings);
+                });
 
-            CreateMap<Film, FilmForListDto>();
+            CreateMap<Film, FilmForListDto>()
+                .AfterMap((src, dest) =>
+                {
+                    CalculateRating(src.Ratings);
+                });
 
             CreateMap<FilmForCreationDto, Film>()
                 .ForMember(x => x.Genres, 
@@ -28,6 +38,10 @@ namespace Application.Mappings
                 });
         }
 
+        private float CalculateRating(ICollection<Rating> ratings)
+        {
+            return ratings.Count > 0 ? (float)Math.Round(ratings.Select(x => x.RatingValue).Average(), 2) : 0.0f;
+        }
         private void HandleFilmGenres(FilmForUpdateDto src, Film dest)
         {
             // remove genres

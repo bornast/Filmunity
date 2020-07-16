@@ -2,13 +2,13 @@
 
 namespace Application.Models
 {
-    public partial class FacebookTokenValidationResult
+    public class FacebookTokenValidationResult
     {
         [JsonProperty("data")]
         public Data Data { get; set; }
     }
 
-    public partial class Data
+    public class Data
     {
         [JsonProperty("app_id")]
         public string AppId { get; set; }

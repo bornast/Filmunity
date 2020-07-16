@@ -17,14 +17,17 @@ namespace Infrastructure.Services
         private readonly FacebookSettings _facebookSettings;
         private readonly IHttpClientFactory _httpClientFactory;
 
+        // TODO: extract httpclientfactory into service so it can be unit tested
         public FacebookService(FacebookSettings facebookSettings, IHttpClientFactory httpClientFactory)
         {
             _facebookSettings = facebookSettings;
             _httpClientFactory = httpClientFactory;
         }
 
+        // facebooktokenvalidationresult should be a model in infrastructure
         public async Task<FacebookTokenValidationResult> ValidateAccessTokenAsync(string accessToken)
         {
+            // TODO: this method should return bool value
             var formattedUrl = string.Format(_tokenValidationUrl, accessToken, _facebookSettings.AppId, _facebookSettings.AppSecret);
 
             var result = await _httpClientFactory.CreateClient().GetAsync(formattedUrl);

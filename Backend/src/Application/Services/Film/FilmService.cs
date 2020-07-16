@@ -22,13 +22,15 @@ namespace Application.Services
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _currentUserService;
         private readonly IPhotoService _photoService;
+        private readonly IOmdbService _omdbService;
 
-        public FilmService(IUnitOfWork uow, IMapper mapper, ICurrentUserService currentUserService, IPhotoService photoService)
+        public FilmService(IUnitOfWork uow, IMapper mapper, ICurrentUserService currentUserService, IPhotoService photoService, IOmdbService omdbService)
         {
             _uow = uow;
             _mapper = mapper;
             _currentUserService = currentUserService;
             _photoService = photoService;
+            _omdbService = omdbService;
         }
 
         public async Task<FilmForDetailedDto> GetOne(int id)
@@ -41,6 +43,8 @@ namespace Application.Services
             var filmToReturn = _mapper.Map<FilmForDetailedDto>(film);
 
             await _photoService.IncludePhotos(filmToReturn, (int)EntityTypes.Film);
+
+            filmToReturn.ImdbRating = await _omdbService.GetImdbFilmRating("The Godfather");
 
             return filmToReturn;
         }

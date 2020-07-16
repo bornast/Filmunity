@@ -24,12 +24,16 @@ namespace Infrastructure
             services.AddScoped<ICloudUploadService, CloudUploadService>();
 
             services.Configure<FacebookSettings>(configuration.GetSection("FacebookSettings"));
-
-
             var facebookSettings = new FacebookSettings();
             configuration.Bind(nameof(FacebookSettings), facebookSettings);
             services.AddSingleton(facebookSettings);
-            services.AddScoped<IFacebookService, FacebookService>();            
+            services.AddScoped<IFacebookService, FacebookService>();
+
+            services.Configure<OmdbSettings>(configuration.GetSection("OmdbSettings"));
+            var omdbSettings = new OmdbSettings();
+            configuration.Bind(nameof(OmdbSettings), omdbSettings);
+            services.AddSingleton(omdbSettings);
+            services.AddScoped<IOmdbService, OmdbService>();
         }
 
     }

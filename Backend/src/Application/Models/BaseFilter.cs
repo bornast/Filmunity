@@ -1,7 +1,9 @@
 ﻿namespace Application.Models
 {
 	public class BaseFilter
-    {		
+    {
+		public string OrderBy { get; set; }
+		public string OrderByDescending { get; set; }
 		public int PageNumber { get; set; } = 1;
 
 		// TODO: how to extract these values from config?
@@ -15,6 +17,5 @@
 
 		public int Skip { get => (PageNumber - 1) * _pageSize; }
 		public int Take { get => _pageSize; }
-		//public string OrderBy { get; set; }
 	}
 }
