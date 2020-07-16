@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
 				});
 
 			} else {
-				this.toast.success('Failed to login!');
+				this.toast.error('Failed to login!');
 			}
 			
 		}, {scope: 'email'});

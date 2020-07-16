@@ -85,9 +85,9 @@ namespace Application.Services
         {
             Validate(facebookLogin);
 
-            var validatedTokenResult = await _facebookService.ValidateAccessTokenAsync(facebookLogin.AccessToken);
+            var isTokenValid = await _facebookService.ValidateAccessTokenAsync(facebookLogin.AccessToken);
 
-            if (validatedTokenResult.Data.IsValid == false)
+            if (isTokenValid == false)
                 AddValidationError("Token", "Invalid token!");
 
             ThrowValidationErrorsIfNotEmpty();

@@ -5,6 +5,8 @@ export interface Film {
     title: string;
     description: string;
     mainPhoto: Photo;
-    photos: Photo[];
+	photos: Photo[];
+	rating: number;
+	imdbRating: number;
 }
 

@@ -1,6 +1,9 @@
 ﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Application.Models
+namespace Infrastructure.Models
 {
     public class FacebookTokenValidationResult
     {

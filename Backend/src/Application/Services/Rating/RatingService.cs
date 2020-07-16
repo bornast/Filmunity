@@ -36,6 +36,8 @@ namespace Application.Services.Rating
 
             film.Ratings.Add(ratingToInsert);
 
+            film.Rating = (float)Math.Round(film.Ratings.Select(x => x.RatingValue).Average(), 2);
+
             await _uow.SaveAsync();
         }
 
@@ -46,6 +48,8 @@ namespace Application.Services.Rating
             var ratingToRemove = film.Ratings.FirstOrDefault(x => x.UserId == _currentUserService.UserId);
 
             film.Ratings.Remove(ratingToRemove);
+
+            film.Rating = film.Ratings.Count > 0 ? (float)Math.Round(film.Ratings.Select(x => x.RatingValue).Average(), 2) : 0.0f;
 
             await _uow.SaveAsync();
         }

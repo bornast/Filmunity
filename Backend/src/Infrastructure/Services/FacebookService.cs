@@ -24,19 +24,27 @@ namespace Infrastructure.Services
             _httpClientFactory = httpClientFactory;
         }
 
-        // facebooktokenvalidationresult should be a model in infrastructure
-        public async Task<FacebookTokenValidationResult> ValidateAccessTokenAsync(string accessToken)
+        public async Task<bool> ValidateAccessTokenAsync(string accessToken)
         {
-            // TODO: this method should return bool value
-            var formattedUrl = string.Format(_tokenValidationUrl, accessToken, _facebookSettings.AppId, _facebookSettings.AppSecret);
+            try
+            {
+                var formattedUrl = string.Format(_tokenValidationUrl, accessToken, _facebookSettings.AppId, _facebookSettings.AppSecret);
 
-            var result = await _httpClientFactory.CreateClient().GetAsync(formattedUrl);
+                var result = await _httpClientFactory.CreateClient().GetAsync(formattedUrl);
 
-            result.EnsureSuccessStatusCode();
+                result.EnsureSuccessStatusCode();
 
-            var responseAsString = await result.Content.ReadAsStringAsync();
+                var responseAsString = await result.Content.ReadAsStringAsync();
 
-            return JsonConvert.DeserializeObject<FacebookTokenValidationResult>(responseAsString);
+                var validatedTokenResult = JsonConvert.DeserializeObject<FacebookTokenValidationResult>(responseAsString);
+
+                return validatedTokenResult.Data.IsValid;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
         }
 
         public async Task<FacebookUser> GetUserInfoAsync(string accessToken)

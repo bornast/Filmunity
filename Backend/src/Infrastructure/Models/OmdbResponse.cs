@@ -8,7 +8,7 @@ namespace Infrastructure.Models
     {
         public string Title { get; set; }
 
-        public long Year { get; set; }
+        public string Year { get; set; }
 
         public string Rated { get; set; }
 
@@ -36,7 +36,7 @@ namespace Infrastructure.Models
 
         public Rating[] Ratings { get; set; }
 
-        public long Metascore { get; set; }
+        public string Metascore { get; set; }
 
         public string ImdbRating { get; set; }
 

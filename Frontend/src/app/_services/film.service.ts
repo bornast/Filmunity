@@ -17,6 +17,7 @@ export class FilmService {
 
 		let params = new HttpParams();
 		params = params.append('pageSize', itemsPerPage);
+		params = params.append('orderByDescending', "Rating");
 		if (filmType != null)
 			params = params.append('filmType', filmType);		
 

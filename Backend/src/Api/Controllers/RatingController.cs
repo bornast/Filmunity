@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using Api.ActionFilters;
 using Application.Dtos.Rating;
 using Application.Interfaces.Rating;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AuthorizeRoles(Roles.Admin, Roles.Moderator)]
+    [Authorize]
     public class RatingController : ControllerBase
     {
         private readonly IRatingService _ratingService;

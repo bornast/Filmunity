@@ -10,5 +10,6 @@ namespace Application.Dtos.Film
         public string Description { get; set; }
         public PhotoForDetailedDto MainPhoto { get; set; }
         public float Rating { get; set; }
+        public float ImdbRating { get; set; }
     }
 }

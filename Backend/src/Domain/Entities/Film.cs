@@ -23,6 +23,7 @@ namespace Domain.Entities
         public DateTime? ModifiedAt { get; set; }
         public User ModifiedByUser { get; set; }
         public int? ModifiedByUserId { get; set; }
+        public float Rating { get; set; }
         public ICollection<FilmGenre> Genres { get; set; } = new List<FilmGenre>();
         public ICollection<FilmParticipant> Participants { get; set; } = new List<FilmParticipant>();
         public ICollection<Rating> Ratings { get; set; } = new List<Rating>();

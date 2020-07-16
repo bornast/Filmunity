@@ -44,7 +44,7 @@ namespace Application.Services
 
             await _photoService.IncludePhotos(filmToReturn, (int)EntityTypes.Film);
 
-            filmToReturn.ImdbRating = await _omdbService.GetImdbFilmRating("The Godfather");
+            filmToReturn.ImdbRating = await _omdbService.GetImdbFilmRating(filmToReturn.Title);
 
             return filmToReturn;
         }
@@ -57,6 +57,11 @@ namespace Application.Services
 
             await _photoService.IncludeMainPhoto(filmsToReturn, (int)EntityTypes.Film);
 
+            foreach (var filmToReturn in filmsToReturn)
+            {
+                filmToReturn.ImdbRating = await _omdbService.GetImdbFilmRating(filmToReturn.Title);
+            }
+
             return filmsToReturn;
         }
 
@@ -68,9 +73,7 @@ namespace Application.Services
 
             await _uow.SaveAsync();
 
-            var filmToReturn = _mapper.Map<FilmForDetailedDto>(film);
-
-            return filmToReturn;
+            return await GetOne(film.Id);
         }
 
         public async Task<FilmForDetailedDto> Update(int id, FilmForUpdateDto filmForUpdate)
@@ -81,11 +84,7 @@ namespace Application.Services
 
             await _uow.SaveAsync();
 
-            var filmToReturn = _mapper.Map<FilmForDetailedDto>(film);
-
-            await _photoService.IncludePhotos(filmToReturn, (int)EntityTypes.Film);
-
-            return filmToReturn;
+            return await GetOne(film.Id);
         }        
 
         public async Task Delete(int id)
