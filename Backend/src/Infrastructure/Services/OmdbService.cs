@@ -14,12 +14,12 @@ namespace Infrastructure.Services
     {
         private const string _filmInfoUrl = "http://www.omdbapi.com/?t={0}&apikey={1}";
         private readonly OmdbSettings _omdbSettings;
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IHttpService _httpService;
 
-        public OmdbService(OmdbSettings omdbSettings, IHttpClientFactory httpClientFactory)
+        public OmdbService(OmdbSettings omdbSettings, IHttpService httpService)
         {
             _omdbSettings = omdbSettings;
-            _httpClientFactory = httpClientFactory;
+            _httpService = httpService;
         }
 
         public async Task<float> GetImdbFilmRating(string filmTitle)
@@ -28,7 +28,7 @@ namespace Infrastructure.Services
             {
                 var formattedUrl = string.Format(_filmInfoUrl, filmTitle, _omdbSettings.ApiKey);
 
-                var result = await _httpClientFactory.CreateClient().GetAsync(formattedUrl);
+                var result = await _httpService.GetAsync(formattedUrl);
 
                 result.EnsureSuccessStatusCode();
 

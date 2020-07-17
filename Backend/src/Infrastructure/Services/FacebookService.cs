@@ -15,13 +15,12 @@ namespace Infrastructure.Services
         private const string _tokenValidationUrl = "https://graph.facebook.com/debug_token?input_token={0}&access_token={1}|{2}";
         private const string _userInfoUrl = "https://graph.facebook.com/me?fields=first_name,last_name,email&access_token={0}";
         private readonly FacebookSettings _facebookSettings;
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IHttpService _httpService;
 
-        // TODO: extract httpclientfactory into service so it can be unit tested
-        public FacebookService(FacebookSettings facebookSettings, IHttpClientFactory httpClientFactory)
+        public FacebookService(FacebookSettings facebookSettings, IHttpService httpService)
         {
             _facebookSettings = facebookSettings;
-            _httpClientFactory = httpClientFactory;
+            _httpService = httpService;
         }
 
         public async Task<bool> ValidateAccessTokenAsync(string accessToken)
@@ -30,7 +29,7 @@ namespace Infrastructure.Services
             {
                 var formattedUrl = string.Format(_tokenValidationUrl, accessToken, _facebookSettings.AppId, _facebookSettings.AppSecret);
 
-                var result = await _httpClientFactory.CreateClient().GetAsync(formattedUrl);
+                var result = await _httpService.GetAsync(formattedUrl);
 
                 result.EnsureSuccessStatusCode();
 
@@ -51,7 +50,7 @@ namespace Infrastructure.Services
         {
             var formattedUrl = string.Format(_userInfoUrl, accessToken);
 
-            var result = await _httpClientFactory.CreateClient().GetAsync(formattedUrl);
+            var result = await _httpService.GetAsync(formattedUrl);
 
             result.EnsureSuccessStatusCode();
 

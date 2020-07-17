@@ -41,6 +41,7 @@ namespace Application
             services.AddScoped<IPersonService, PersonService>();
             services.AddScoped<IWatchlistService, WatchlistService>();
             services.AddScoped<IRefreshTokenService, RefreshTokenService>();
+            services.AddScoped<IHttpService, HttpService>();
             services.AddValidation();
         }
 
