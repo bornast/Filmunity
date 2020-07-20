@@ -1,5 +1,6 @@
 ﻿using Application.Dtos.Film;
 using Application.Dtos.Rating;
+using Application.Extensions;
 using Application.Interfaces;
 using Application.Interfaces.Common;
 using Application.Interfaces.Film;
@@ -9,6 +10,7 @@ using AutoMapper;
 using Common.Enums;
 using Common.Exceptions;
 using Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,14 +25,16 @@ namespace Application.Services
         private readonly ICurrentUserService _currentUserService;
         private readonly IPhotoService _photoService;
         private readonly IOmdbService _omdbService;
+        private readonly IHttpContextAccessor _context;
 
-        public FilmService(IUnitOfWork uow, IMapper mapper, ICurrentUserService currentUserService, IPhotoService photoService, IOmdbService omdbService)
+        public FilmService(IUnitOfWork uow, IMapper mapper, ICurrentUserService currentUserService, IPhotoService photoService, IOmdbService omdbService, IHttpContextAccessor context)
         {
             _uow = uow;
             _mapper = mapper;
             _currentUserService = currentUserService;
             _photoService = photoService;
             _omdbService = omdbService;
+            _context = context;
         }
 
         public async Task<FilmForDetailedDto> GetOne(int id)
@@ -51,7 +55,9 @@ namespace Application.Services
 
         public async Task<IEnumerable<FilmForListDto>> GetAll(FilmFilterDto filmFilter)
         {
-            var films = await _uow.Repository<Film>().FindAsync(new FilmWithGenresFilterPaginatedSpecification(filmFilter));
+            var films = await _uow.Repository<Film>().FindAsyncWithPagination(new FilmWithGenresFilterPaginatedSpecification(filmFilter));
+
+            _context.HttpContext.Response.AddPagination(films.CurrentPage, films.PageSize, films.TotalCount, films.TotalPages);
 
             var filmsToReturn = _mapper.Map<IEnumerable<FilmForListDto>>(films);
 
@@ -60,7 +66,7 @@ namespace Application.Services
             foreach (var filmToReturn in filmsToReturn)
             {
                 filmToReturn.ImdbRating = await _omdbService.GetImdbFilmRating(filmToReturn.Title);
-            }
+            }            
 
             return filmsToReturn;
         }

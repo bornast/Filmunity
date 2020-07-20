@@ -58,8 +58,6 @@ export class SidebarLayoutOneComponent implements OnInit {
 			searchTxt: this.searchTxt
 		};
 
-		console.log("filtering", filters);
-
 		this.filters.emit(filters);
 	}
 

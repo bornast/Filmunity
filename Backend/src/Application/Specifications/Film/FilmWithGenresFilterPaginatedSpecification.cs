@@ -17,7 +17,7 @@ namespace Application.Specifications.Film
             if (filmFilter.OrderByDescending == nameof(Domain.Entities.Film.Year))
                 ApplyOrderByDescending(x => x.Year);
 
-            ApplyPaging(filmFilter.Skip, filmFilter.Take);
+            ApplyPaging(filmFilter.Skip, filmFilter.Take, filmFilter.PageNumber);
 
             AddInclude($"{nameof(Domain.Entities.Film.Genres)}.{nameof(Domain.Entities.FilmGenre.Genre)}");
         }

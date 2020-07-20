@@ -46,6 +46,8 @@ namespace Infrastructure.Data
             // Apply paging if enabled
             if (specification.IsPagingEnabled)
             {
+                specification.Count = query.Count();
+
                 query = query.Skip(specification.Skip)
                              .Take(specification.Take);
             }

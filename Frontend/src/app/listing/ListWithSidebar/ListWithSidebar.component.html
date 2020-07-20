@@ -37,7 +37,7 @@
 			 </div>
 			 <!-- Pagination -->
 			 <div class="clearfix"></div>
-			<pagination></pagination>
+			<pagination (pageChanged)="changePage($event)" *ngIf="pagination" [pagination]="pagination"></pagination>
 			 <!-- Pagination / End -->
 		 </div>
 		 <!-- Sidebar-->

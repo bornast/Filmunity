@@ -3,6 +3,7 @@ import { FilmService } from 'src/app/_services/film.service';
 import { FILMTYPE } from 'src/app/_constants/filmTypeConst';
 import { Film } from 'src/app/_models/film';
 import { ActivatedRoute } from '@angular/router';
+import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 
 @Component({
 	selector: 'list-with-sidebar',
@@ -15,6 +16,7 @@ export class ListWithSidebarComponent implements OnInit {
 	displayFilterSidebar: boolean;
 	filmsForList: any[];
 	filters: any = {};
+	pagination: Pagination;
 
 	constructor(private filmService: FilmService, private route: ActivatedRoute) { }
 
@@ -30,19 +32,18 @@ export class ListWithSidebarComponent implements OnInit {
 		this.loadFilms();
 	}
 
-	loadFilms() {
-		this.filmService.getFilmsByFilter(FILMTYPE.movie, this.filters.orderBy, this.filters.genreId, this.filters.searchTxt).subscribe((movies) => {			
+	loadFilms() { 
+		this.filmService.getFilmsByFilter(FILMTYPE.movie, this.filters.orderBy, this.filters.genreId, this.filters.searchTxt, this.filters.pageNumber).subscribe((movies) => {
+			this.pagination = movies.pagination;
 			this.filmsForList = this.transformFilmForList(movies);
-			console.log("received movies", movies);
-			console.log("filmsForList", this.filmsForList);
 		});
 	}
 
-	private transformFilmForList(films: Film[]): any[] {
+	private transformFilmForList(films: PaginatedResult<Film[]>): any[] {
 
 		let filmsForList = [];
 
-		films.forEach(film => {
+		films.result.forEach(film => {
 			// TODO: genre should be multiple tags with genre
 			// TODO: add both imdb and filmunity rating
 			let filmForList = {
@@ -63,7 +64,11 @@ export class ListWithSidebarComponent implements OnInit {
 	filter(filters: {}) {
 		this.filters = filters;
 		this.loadFilms();
-		console.log("filters are:", filters);
+	}
+
+	changePage(pageNumber: number) {
+		this.filters.pageNumber = pageNumber;
+		this.loadFilms();
 	}
 
 }

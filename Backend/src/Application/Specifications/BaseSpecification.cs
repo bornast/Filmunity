@@ -23,7 +23,9 @@ namespace Application.Specifications
         public Expression<Func<T, object>> GroupBy { get; private set; }
         public int Take { get; private set; }
         public int Skip { get; private set; }
+        public int PageNumber { get; private set; }
         public bool IsPagingEnabled { get; private set; } = false;
+        public int Count { get; set; }
 
         protected virtual void AddInclude(Expression<Func<T, object>> includeExpression)
         {
@@ -35,10 +37,11 @@ namespace Application.Specifications
             IncludeStrings.Add(includeString);
         }
 
-        protected virtual void ApplyPaging(int skip, int take)
+        protected virtual void ApplyPaging(int skip, int take, int pageNumber)
         {
             Skip = skip;
             Take = take;
+            PageNumber = pageNumber;
             IsPagingEnabled = true;
         }
 
@@ -56,6 +59,5 @@ namespace Application.Specifications
         {
             GroupBy = groupByExpression;
         }
-
     }
 }

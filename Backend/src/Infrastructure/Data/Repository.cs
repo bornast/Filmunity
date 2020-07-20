@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.Dtos.Common;
+using Application.Interfaces;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -57,6 +58,13 @@ namespace Infrastructure.Data
             return await ApplySpecification(specification).ToListAsync();
         }
 
+        public async Task<PagedListDto<TEntity>> FindAsyncWithPagination(ISpecification<TEntity> specification)
+        {
+            var queryable = ApplySpecification(specification);
+
+            return await CreatePagedResult(queryable, specification.PageNumber, pageSize: specification.Take, specification.Count);
+        }
+
         public async Task<TEntity> FindOneAsync(ISpecification<TEntity> specification)
         {
             return await ApplySpecification(specification).FirstOrDefaultAsync();
@@ -92,5 +100,12 @@ namespace Infrastructure.Data
         {
             return SpecificationEvaluator<TEntity>.GetQuery(_context.Set<TEntity>().AsQueryable(), spec);
         }
+
+        private static async Task<PagedListDto<TEntity>> CreatePagedResult(IQueryable<TEntity> source, int pageNumber, int pageSize, int count)
+        {
+            var items = await source.ToListAsync();
+            return new PagedListDto<TEntity>(items, count, pageNumber, pageSize);
+        }
+
     }
 }
