@@ -22,18 +22,14 @@ export class ListWithSidebarComponent implements OnInit {
 
 	ngOnInit() {
 
-		this.route.data.subscribe( params => {
-			if ('searchTxt' in params) {
-			  this.filters.searchTxt = params.searchTxt;
-			}
-			this.displayFilterSidebar = true;
-		  });
-
+		this.filters.searchTxt = this.route.snapshot.queryParamMap.get("searchTxt");
+		this.filters.filmType = this.route.snapshot.queryParamMap.get("filmType");
+		this.displayFilterSidebar = true;		
 		this.loadFilms();
 	}
 
 	loadFilms() { 
-		this.filmService.getFilmsByFilter(FILMTYPE.movie, this.filters.orderBy, this.filters.genreId, this.filters.searchTxt, this.filters.pageNumber).subscribe((movies) => {
+		this.filmService.getFilmsByFilter(this.filters.filmType, this.filters.orderBy, this.filters.genreId, this.filters.searchTxt, this.filters.pageNumber).subscribe((movies) => {
 			this.pagination = movies.pagination;
 			this.filmsForList = this.transformFilmForList(movies);
 		});
@@ -61,7 +57,8 @@ export class ListWithSidebarComponent implements OnInit {
 		return filmsForList;
 	}
 
-	filter(filters: {}) {
+	filter(filters: any = {}) {
+		filters.filmType = this.filters.filmType;
 		this.filters = filters;
 		this.loadFilms();
 	}

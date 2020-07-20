@@ -42,7 +42,7 @@
 		 </div>
 		 <!-- Sidebar-->
 		 <div class="col-lg-3 col-md-4">
-			 <sidebar-layout-one *ngIf="displayFilterSidebar" sidebar-layout-one [searchTxt]="" (filters)="filter($event)"></sidebar-layout-one>
+			 <sidebar-layout-one *ngIf="displayFilterSidebar" sidebar-layout-one [searchTxt]="filters.searchTxt" (filters)="filter($event)"></sidebar-layout-one>
 		 </div>
 		 <!-- Sidebar / End -->
 	 </div>

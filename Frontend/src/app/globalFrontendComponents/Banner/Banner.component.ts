@@ -1,28 +1,51 @@
 import { Component, OnInit, Input, Output, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { FILMTYPE } from 'src/app/_constants/filmTypeConst';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'banner-version1',
-  templateUrl: './Banner.component.html',
-  styleUrls: ['./Banner.component.scss'],
-  encapsulation: ViewEncapsulation.None
+	selector: 'banner-version1',
+	templateUrl: './Banner.component.html',
+	styleUrls: ['./Banner.component.scss'],
+	encapsulation: ViewEncapsulation.None
 })
 export class BannerComponent implements OnInit {
 
-   /** Title for baner **/
-   @Input('title') Title: any = 'Dummy Title';
+	searchTxt: string;
+	categoryOptions: any[];
+	selectedCategoryOption: string;
 
-   /** Description for baner **/
-   @Input('desc') Desc: any = 'Description';
+	/** Title for baner **/
+	@Input('title') Title: any = 'Dummy Title';
 
-   /** Background for baner **/
-   @Input('bgImageUrl') BgImageUrl: any = 'assets/images/main-search-background-01.jpg';
+	/** Description for baner **/
+	@Input('desc') Desc: any = 'Description';
 
-   constructor(){}
+	/** Background for baner **/
+	@Input('bgImageUrl') BgImageUrl: any = 'assets/images/main-search-background-01.jpg';
 
-   ngOnInit(){}
+	constructor(private router: Router) { }
 
-   ngAfterViewInit()
-   {
+	ngOnInit() {
+		this.loadCategoryOptions();
+	}
 
-   }
+	loadCategoryOptions() {
+		this.categoryOptions = [
+			{
+				id: null, name: "All Films"
+			},
+			{
+				id: FILMTYPE.movie, name: "Movies"
+			},
+			{
+				id: FILMTYPE.tvShow, name: "Tv Shows"
+			}
+		];
+
+		this.selectedCategoryOption = null;
+	}
+
+	search() {
+		this.router.navigate(['/listing/list/with-sidebar'], { queryParams: { searchTxt: this.searchTxt, filmType: this.selectedCategoryOption } });
+	}
 }

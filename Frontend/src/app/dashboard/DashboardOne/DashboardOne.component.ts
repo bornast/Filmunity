@@ -16,7 +16,7 @@ export class DashboardOneComponent implements OnInit{
 
 	bannerTitle: string = 'Find Nearby Attractions';
 	bannerDesc : string = 'Expolore top-rated attractions, activities and more';
-	bannerImage: string = 'assets/images/main-search-background-01.jpg';	                
+	bannerImage: string = 'assets/images/main-search-background-01.jpg';
 
 	recentBlogTitle : string = 'Recent Blog';
 	blogs : any = [
