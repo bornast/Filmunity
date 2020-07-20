@@ -8,5 +8,6 @@ export interface Film {
 	photos: Photo[];
 	rating: number;
 	imdbRating: number;
+	genres: any[];
 }
 

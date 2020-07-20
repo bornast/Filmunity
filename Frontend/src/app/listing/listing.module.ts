@@ -29,11 +29,13 @@ import { SidebarLayoutThreeComponent } from './SidebarLayoutThree/SidebarLayoutT
 import { ListingRoutes } from './listing.routing';
 
 import { GlobalModule } from '../globalFrontendComponents/global.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
   imports: [
-    CommonModule,
+	CommonModule,
+	FormsModule,
     GlobalModule,
     SlickCarouselModule,
     NouisliderModule,

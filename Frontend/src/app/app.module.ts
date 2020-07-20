@@ -55,7 +55,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
       AdminSidebarComponent
   ],
   imports: [
-      BrowserModule,
+	  BrowserModule,
+	  FormsModule,
 	  BrowserAnimationsModule,
 	  ToastrModule.forRoot({
 		timeOut: 8000,

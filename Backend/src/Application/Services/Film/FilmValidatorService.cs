@@ -93,7 +93,7 @@ namespace Application.Services
 
         private async Task ValidateGenre(List<int> genreIds)
         {
-            var genres = await _uow.Repository<Genre>().FindAllByIdAsync(genreIds);
+            var genres = await _uow.Repository<Domain.Entities.Genre>().FindAllByIdAsync(genreIds);
             AddValidationErrorIfIdDoesntExist(genreIds, genres.Select(x => x.Id).ToList(), "Genre", "Id __id__ not found");
         }
 

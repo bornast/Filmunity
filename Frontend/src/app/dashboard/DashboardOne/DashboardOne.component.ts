@@ -48,12 +48,10 @@ export class DashboardOneComponent implements OnInit{
 	ngOnInit() {
 		this.filmService.getTopRatedFilms(FILMTYPE.movie, 7).subscribe((movies) => {
 			this.moviesForCarousel = this.transformFilmForCarousel(movies);
-			console.log("movies", movies);
 		});
 
 		this.filmService.getTopRatedFilms(FILMTYPE.tvShow, 7).subscribe((tvShows) => {
 			this.tvShowsForCarousel = this.transformFilmForCarousel(tvShows);
-			console.log("tvshows", tvShows);
 		});
 	}
 

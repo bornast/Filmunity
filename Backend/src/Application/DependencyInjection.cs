@@ -2,6 +2,7 @@
 using Application.Interfaces.Common;
 using Application.Interfaces.EntityType;
 using Application.Interfaces.Film;
+using Application.Interfaces.Genre;
 using Application.Interfaces.Person;
 using Application.Interfaces.Photo;
 using Application.Interfaces.Rating;
@@ -9,6 +10,7 @@ using Application.Interfaces.Watchlist;
 using Application.Services;
 using Application.Services.Common;
 using Application.Services.EntityType;
+using Application.Services.Genre;
 using Application.Services.Person;
 using Application.Services.Photo;
 using Application.Services.Rating;
@@ -42,6 +44,7 @@ namespace Application
             services.AddScoped<IWatchlistService, WatchlistService>();
             services.AddScoped<IRefreshTokenService, RefreshTokenService>();
             services.AddScoped<IHttpService, HttpService>();
+            services.AddScoped<IGenreService, GenreService>();
             services.AddValidation();
         }
 

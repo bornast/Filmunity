@@ -13,7 +13,8 @@ namespace Application.Mappings
         {
             CreateMap<Film, FilmForDetailedDto>();
 
-            CreateMap<Film, FilmForListDto>();
+            CreateMap<Film, FilmForListDto>()
+                .ForMember(x => x.Genres, opt => opt.MapFrom(x => x.Genres.Select(x => x.Genre.Name)));
 
             CreateMap<FilmForCreationDto, Film>()
                 .ForMember(x => x.Genres, 

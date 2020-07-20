@@ -51,7 +51,7 @@ namespace Application.Services
 
         public async Task<IEnumerable<FilmForListDto>> GetAll(FilmFilterDto filmFilter)
         {
-            var films = await _uow.Repository<Film>().FindAsync(new FilmFilterPaginatedSpecification(filmFilter));
+            var films = await _uow.Repository<Film>().FindAsync(new FilmWithGenresFilterPaginatedSpecification(filmFilter));
 
             var filmsToReturn = _mapper.Map<IEnumerable<FilmForListDto>>(films);
 
