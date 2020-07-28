@@ -1,4 +1,5 @@
 import { Photo } from "./photo";
+import { RecordName } from "./recordName";
 
 export interface Film {
     id: number;
@@ -9,5 +10,11 @@ export interface Film {
 	rating: number;
 	imdbRating: number;
 	genres: any[];
+	type: RecordName;
+	country: RecordName;
+	language: RecordName;
+    year: string;
+    duration: string;
+    participants: any[];
 }
 

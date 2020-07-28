@@ -26,9 +26,9 @@ namespace Api.Controllers
         {
             await _photoValidatorService.ValidateForUpload(photoForCreation);
 
-            await _photoService.Upload(photoForCreation);
+            var photo = await _photoService.Upload(photoForCreation);
 
-            return Ok();
+            return Ok(photo);
         }
 
     }

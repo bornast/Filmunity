@@ -39,7 +39,7 @@ namespace Application.Services
 
         public async Task<FilmForDetailedDto> GetOne(int id)
         {
-            var film = await _uow.Repository<Film>().FindByIdAsync(id);
+            var film = await _uow.Repository<Film>().FindOneAsync(new FilmWithAllRelatedDataSpecification(id));
 
             if (film == null)
                 return null;

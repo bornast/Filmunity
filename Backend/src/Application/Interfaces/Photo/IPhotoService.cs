@@ -9,7 +9,7 @@ namespace Application.Interfaces.Photo
 {
     public interface IPhotoService
     {
-        Task Upload(PhotoForCreationDto photoForCreation);
+        Task<PhotoForDetailedDto> Upload(PhotoForCreationDto photoForCreation);
         Task<IEnumerable<PhotoForDetailedDto>> GetEntityPhotos(int entityTypeId, int entityId);
         Task IncludePhotos(IPhotoUploadable entity, int entityTypeId);
         Task IncludeMainPhoto(IMainPhotoUploadable entity, int entityTypeId);

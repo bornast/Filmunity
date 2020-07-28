@@ -19,6 +19,8 @@ import { FeatureGridSectionComponent } from '../globalFrontendComponents/Feature
 import { PricingComponent } from './Pricing/Pricing.component';
 import { ParallaxComponent } from './ParallaxSection/Parallax.component';
 import { FormsModule } from '@angular/forms';
+import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
 	imports: [
@@ -27,6 +29,7 @@ import { FormsModule } from '@angular/forms';
 		RouterModule,
 		// BarRatingModule,
 		SlickCarouselModule,
+		FileUploadModule,
 		AgmCoreModule.forRoot({ apiKey: 'AIzaSyBtdO5k6CRntAMJCF-H5uZjTCoSGX95cdk' })],
 	declarations: [
 		MapBannerComponent,
@@ -42,6 +45,7 @@ import { FormsModule } from '@angular/forms';
 		FeatureGridSectionComponent,
 		PricingComponent,
 		ParallaxComponent,
+		PhotoEditorComponent		
 	],
 	exports: [
 		MapBannerComponent,
@@ -57,6 +61,7 @@ import { FormsModule } from '@angular/forms';
 		FeatureGridSectionComponent,
 		PricingComponent,
 		ParallaxComponent,
+		PhotoEditorComponent
 	]
 })
 

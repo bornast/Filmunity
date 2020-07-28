@@ -68,5 +68,11 @@ namespace Api.Controllers
             return Ok();
         }
 
+        [HttpGet("recordNames")]
+        public async Task<IActionResult> GetRecordNames()
+        {
+            return Ok(await _personService.GetRecordNames());
+        }
+
     }
 }

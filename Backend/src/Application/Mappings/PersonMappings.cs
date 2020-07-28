@@ -1,4 +1,5 @@
-﻿using Application.Dtos.Person;
+﻿using Application.Dtos.Common;
+using Application.Dtos.Person;
 using AutoMapper;
 using Domain.Entities;
 using System;
@@ -16,6 +17,9 @@ namespace Application.Mappings
             CreateMap<Person, PersonForListDto>();
 
             CreateMap<PersonForSaveDto, Person>();
+
+            CreateMap<Person, RecordNameDto>()
+                .ForMember(x => x.Name, opt => opt.MapFrom(x => x.FirstName + " " + x.LastName));
         }
     }
 }

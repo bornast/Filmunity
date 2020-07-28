@@ -1,4 +1,5 @@
-﻿using Application.Dtos.Person;
+﻿using Application.Dtos.Common;
+using Application.Dtos.Person;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,5 +12,6 @@ namespace Application.Interfaces.Person
         Task<PersonForDetailedDto> Create(PersonForSaveDto personForCreation);
         Task<PersonForDetailedDto> Update(int id, PersonForSaveDto personForUpdate);
         Task Delete(int id);
+        Task<IEnumerable<RecordNameDto>> GetRecordNames();
     }
 }

@@ -19,7 +19,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("recordNames")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetRecordNames()
         {
             return Ok(await _filmRoleService.GetRecordNames());
         }

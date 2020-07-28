@@ -56,8 +56,40 @@ export class FilmService {
 		);
 	}
 
+	getFilm(id) {
+		return this.http.get<Film>(this.baseUrl + "film/" + id);
+	}
+
+	createFilm(filmToCreate) {
+		return this.http.post(this.baseUrl + "film", filmToCreate);
+	}
+
+	updateFilm(id, filmToUpdate) {
+		return this.http.put(this.baseUrl + "film/" + id, filmToUpdate);
+	}
+
 	// TODO: move to separate service?
 	getGenres() {
 		return this.http.get<RecordName[]>(this.baseUrl + "genre/recordNames");
+	}
+
+	// TODO: move to separate service?
+	getCountries() {
+		return this.http.get<RecordName[]>(this.baseUrl + "country/recordNames");
+	}
+
+	// TODO: move to separate service?
+	getLanguages() {
+		return this.http.get<RecordName[]>(this.baseUrl + "language/recordNames");
+	}
+
+	// TODO: move to separate service?
+	getPersons() {
+		return this.http.get<RecordName[]>(this.baseUrl + "person/recordNames");
+	}
+
+	// TODO: move to separate service?
+	getFilmRole() {
+		return this.http.get<RecordName[]>(this.baseUrl + "filmRole/recordNames");
 	}
 }

@@ -1,4 +1,5 @@
-﻿using Application.Dtos.Person;
+﻿using Application.Dtos.Common;
+using Application.Dtos.Person;
 using Application.Interfaces;
 using Application.Interfaces.Common;
 using Application.Interfaces.Person;
@@ -90,6 +91,15 @@ namespace Application.Services.Person
 
             await _uow.SaveAsync();
         }
-        
+
+        public async Task<IEnumerable<RecordNameDto>> GetRecordNames()
+        {
+            var persons = await _uow.Repository<Domain.Entities.Person>().FindAsync();
+
+            var personsToReturn = _mapper.Map<IEnumerable<RecordNameDto>>(persons);
+
+            return personsToReturn;
+        }
+
     }
 }

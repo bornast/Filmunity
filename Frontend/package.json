@@ -32,6 +32,7 @@
     "jquery.countdown": "^1.2.8",
     "jquery.mmenu": "^7.3.3",
     "magnific-popup": "^1.1.0",
+    "ng2-file-upload": "^1.4.0",
     "ng2-nouislider": "^1.8.2",
     "ngx-dropzone-wrapper": "^9.0.0",
     "ngx-slick-carousel": "^0.5.0",

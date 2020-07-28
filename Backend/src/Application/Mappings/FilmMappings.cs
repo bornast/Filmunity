@@ -1,4 +1,5 @@
-﻿using Application.Dtos.Film;
+﻿using Application.Dtos.Common;
+using Application.Dtos.Film;
 using AutoMapper;
 using Domain.Entities;
 using System;
@@ -11,7 +12,27 @@ namespace Application.Mappings
     {
         public FilmMappings()
         {
-            CreateMap<Film, FilmForDetailedDto>();
+            CreateMap<Film, FilmForDetailedDto>()
+                .ForMember(x => x.Type, opt => opt.MapFrom(x => new RecordNameDto { Id = x.Type.Id, Name = x.Type.Name }))
+                .ForMember(x => x.Country, opt => opt.MapFrom(x => new RecordNameDto { Id = x.Country.Id, Name = x.Country.Name }))
+                .ForMember(x => x.Language, opt => opt.MapFrom(x => new RecordNameDto { Id = x.Language.Id, Name = x.Language.Name }))
+                .ForMember(x => x.Genres, opt =>
+                opt.MapFrom(x => x.Genres.Select(x => 
+                    new RecordNameDto { Id = x.Genre.Id, Name = x.Genre.Name })))
+                .ForMember(x => x.Participants, opt =>
+                opt.MapFrom(x => x.Participants.Select(x => new ParticipantRoleForDetailedDto
+                {
+                    Participant = new RecordNameDto
+                    {
+                        Id = x.PersonId,
+                        Name = x.Person.FirstName + " " + x.Person.LastName
+                    },
+                    Role = new RecordNameDto
+                    {
+                        Id = x.FilmRoleId,
+                        Name = x.FilmRole.Name
+                    }
+                })));
 
             CreateMap<Film, FilmForListDto>()
                 .ForMember(x => x.Genres, opt => opt.MapFrom(x => x.Genres.Select(x => x.Genre.Name)));

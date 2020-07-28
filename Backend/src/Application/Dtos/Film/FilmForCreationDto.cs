@@ -16,6 +16,6 @@ namespace Application.Dtos.Film
         public string Duration { get; set; }
         public int LanguageId { get; set; }
         public List<int> GenreIds { get; set; } = new List<int>();
-        public List<PariticipantRoleDto> ParticipantsRoles { get; set; } = new List<PariticipantRoleDto>();
+        public List<PariticipantRoleForSaveDto> ParticipantsRoles { get; set; } = new List<PariticipantRoleForSaveDto>();
     }    
 }

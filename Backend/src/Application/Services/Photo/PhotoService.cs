@@ -23,7 +23,7 @@ namespace Application.Services.Photo
             _uow = uow;
         }
 
-        public async Task Upload(PhotoForCreationDto photoForCreation)
+        public async Task<PhotoForDetailedDto> Upload(PhotoForCreationDto photoForCreation)
         {
             var uploadResult = _cloudUploadService.UploadPhotoToCloud(photoForCreation.File);
 
@@ -41,6 +41,10 @@ namespace Application.Services.Photo
             _uow.Repository<Domain.Entities.Photo>().Add(photo);
 
             await _uow.SaveAsync();
+
+            var photoToReturn = _mapper.Map<PhotoForDetailedDto>(photo);
+
+            return photoToReturn;
         }
 
         public async Task<IEnumerable<PhotoForDetailedDto>> GetEntityPhotos(int entityTypeId, int entityId) 
