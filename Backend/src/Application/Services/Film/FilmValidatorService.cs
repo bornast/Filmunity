@@ -75,7 +75,7 @@ namespace Application.Services
 
         private async Task ValidateCountry(int countryId)
         {
-            var country = await _uow.Repository<Language>().FindByIdAsync(countryId);
+            var country = await _uow.Repository<Domain.Entities.Language>().FindByIdAsync(countryId);
             AddValidationErrorIfValueIsNull(country, "Country", $"Id {countryId} not found");
         }
 
@@ -87,7 +87,7 @@ namespace Application.Services
 
         private async Task ValidateLanguage(int languageId)
         {
-            var language = await _uow.Repository<Language>().FindByIdAsync(languageId);
+            var language = await _uow.Repository<Domain.Entities.Language>().FindByIdAsync(languageId);
             AddValidationErrorIfValueIsNull(language, "Language", $"Id {languageId} not found");
         }
 
@@ -105,7 +105,7 @@ namespace Application.Services
 
         private async Task ValidateFilmRoles(List<int> participantIds)
         {
-            var filmRoles = await _uow.Repository<FilmRole>().FindAllByIdAsync(participantIds);
+            var filmRoles = await _uow.Repository<Domain.Entities.FilmRole>().FindAllByIdAsync(participantIds);
             AddValidationErrorIfIdDoesntExist(participantIds, filmRoles.Select(x => x.Id).ToList(), "Film Role", "Id __id__ not found");
         }
 

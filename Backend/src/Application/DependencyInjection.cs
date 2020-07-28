@@ -1,16 +1,22 @@
 ﻿using Application.Interfaces;
 using Application.Interfaces.Common;
+using Application.Interfaces.Country;
 using Application.Interfaces.EntityType;
 using Application.Interfaces.Film;
+using Application.Interfaces.FilmRole;
 using Application.Interfaces.Genre;
+using Application.Interfaces.Language;
 using Application.Interfaces.Person;
 using Application.Interfaces.Photo;
 using Application.Interfaces.Rating;
 using Application.Interfaces.Watchlist;
 using Application.Services;
 using Application.Services.Common;
+using Application.Services.Country;
 using Application.Services.EntityType;
+using Application.Services.FilmRole;
 using Application.Services.Genre;
+using Application.Services.Language;
 using Application.Services.Person;
 using Application.Services.Photo;
 using Application.Services.Rating;
@@ -45,6 +51,9 @@ namespace Application
             services.AddScoped<IRefreshTokenService, RefreshTokenService>();
             services.AddScoped<IHttpService, HttpService>();
             services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<ILanguageService, LanguageService>();
+            services.AddScoped<IFilmRoleService, FilmRoleService>();
             services.AddValidation();
         }
 

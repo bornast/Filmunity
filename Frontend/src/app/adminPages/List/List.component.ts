@@ -1,72 +1,60 @@
 import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { FilmService } from 'src/app/_services/film.service';
+import { ActivatedRoute } from '@angular/router';
+import { Film } from 'src/app/_models/film';
+import { Pagination, PaginatedResult } from 'src/app/_models/pagination';
 
 @Component({
-  selector: 'admin-list',
-  templateUrl: './List.component.html',
-  styleUrls: ['./List.component.scss'],
-  encapsulation: ViewEncapsulation.None
+	selector: 'admin-list',
+	templateUrl: './List.component.html',
+	styleUrls: ['./List.component.scss'],
+	encapsulation: ViewEncapsulation.None
 })
-export class ListComponent implements OnInit{
+export class ListComponent implements OnInit {
 
-   Data : any = [
-                     {
-                        badge    : 'Open',
-                        category : 'Eat & Drink',
-                        title    : 'Cafe Bar',
-                        address  : 'Wall Street, New York',
-                        image    : 'assets/images/most-img-1.jpg',
-                        review   : '(12 reviews)'
-                     },
-                     {
-                        badge    : 'Coming Soon',
-                        category : 'Concert',
-                        title    : 'Milky Ducth',
-                        address  : 'MayLand Square, LA',
-                        image    : 'assets/images/most-img-2.jpg',
-                        review   : '(23 reviews)'
-                     },
-                     {
-                        badge    : 'Open',
-                        category : 'Hotels',
-                        title    : 'Maledy Hotels',
-                        address  : '672, CreedWay, New York',
-                        image    : 'assets/images/most-img-3.jpg',
-                        review   : '(17 reviews)'
-                     },
-                     {
-                        badge    : 'Open',
-                        category : 'Eat & Drink',
-                        title    : 'Donuts Hub',
-                        address  : '56,Hihu Pora, New York',
-                        image    : 'assets/images/most-img-4.jpg',
-                        review   : '(31 reviews)'
-                     },
-                     {
-                        badge    : 'Now Open',
-                        category : 'Airport',
-                        title    : 'NYC',
-                        address  : 'Mill Dee, New York',
-                        image    : 'assets/images/most-img-2.jpg',
-                        review   : '(46 reviews)'
-                     },
-                     {
-                        badge    : 'Closed',
-                        category : 'Eat & Drink',
-                        title    : 'Groos Day',
-                        address  : '71,Rowling Street, New York',
-                        image    : 'assets/images/most-img-6.jpg',
-                        review   : '(15 reviews)'
-                     }
+	filmsForList: any[];
+	filmType: any;
+	pagination: Pagination;
+	pageNumber: any = 1;
+	searchTxt: string;
 
-                  ];
+	constructor(private filmService: FilmService, private route: ActivatedRoute) { }
 
-   constructor(){}
+	ngOnInit() {
+		this.filmType = this.route.snapshot.queryParamMap.get("filmType");
+		this.loadFilms();
+	}
 
-   ngOnInit(){}
+	loadFilms() { 
+		this.filmService.getFilmsByFilter(this.filmType, null, null, this.searchTxt, this.pageNumber, 4).subscribe((films) => {
+			this.pagination = films.pagination;
+			this.filmsForList = this.transformFilmForList(films);
+		});
+	}
 
-   ngAfterViewInit()
-   {
+	private transformFilmForList(films: PaginatedResult<Film[]>): any[] {
 
-      
-   }
+		let filmsForList = [];
+
+		films.result.forEach(film => {
+			let filmForList = {
+				genre: film.genres,
+				title: film.title,
+				description: film.description,
+				image: film.mainPhoto != null ? film.mainPhoto.url : "",
+				rating: film.rating,
+				imdbRating: film.imdbRating
+			};
+
+			filmsForList.push(filmForList);
+		});
+
+		return filmsForList;
+	}
+
+	changePage(pageNumber: number) {
+		this.pageNumber = pageNumber;
+		this.loadFilms();
+	}
+
 }

@@ -15,6 +15,9 @@ import { AddListComponent } from './AddList/AddList.component';
 import { ProfileComponent } from './Profile/Profile.component';
 
 import { AdminRoutes } from './admin.routing';
+import { PaginationComponent } from '../globalFrontendComponents/Pagination/Pagination.component';
+import { GlobalModule } from '../globalFrontendComponents/global.module';
+import { FormsModule } from '@angular/forms';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
    // Change this to your upload POST address:
@@ -28,7 +31,9 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   imports: [
     CommonModule,
     DropzoneModule,
-    RouterModule.forChild(AdminRoutes),
+	RouterModule.forChild(AdminRoutes),
+	GlobalModule,
+	FormsModule
   ],
   declarations: [ 
     AdminDashboardlComponent,

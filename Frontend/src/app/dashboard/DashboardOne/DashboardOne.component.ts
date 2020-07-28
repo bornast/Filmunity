@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/co
 import { FilmService } from 'src/app/_services/film.service';
 import { Film } from 'src/app/_models/film';
 import { FILMTYPE } from 'src/app/_constants/filmTypeConst';
+import { PaginatedResult } from 'src/app/_models/pagination';
 
 @Component({
   selector: 'dashboard-one',

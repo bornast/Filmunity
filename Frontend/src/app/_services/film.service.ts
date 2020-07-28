@@ -16,6 +16,7 @@ export class FilmService {
 
 	constructor(private http: HttpClient) { }
 
+	// TODO: refactor these methods
 	getTopRatedFilms(filmType?: any, itemsPerPage: any = 10) {
 
 		let params = new HttpParams();
@@ -55,6 +56,7 @@ export class FilmService {
 		);
 	}
 
+	// TODO: move to separate service?
 	getGenres() {
 		return this.http.get<RecordName[]>(this.baseUrl + "genre/recordNames");
 	}
