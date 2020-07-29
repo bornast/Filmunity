@@ -9,6 +9,7 @@ using Application.Interfaces.Language;
 using Application.Interfaces.Person;
 using Application.Interfaces.Photo;
 using Application.Interfaces.Rating;
+using Application.Interfaces.User;
 using Application.Interfaces.Watchlist;
 using Application.Services;
 using Application.Services.Common;
@@ -20,6 +21,7 @@ using Application.Services.Language;
 using Application.Services.Person;
 using Application.Services.Photo;
 using Application.Services.Rating;
+using Application.Services.User;
 using Application.Services.Watchlist;
 using Application.Validators;
 using Application.Validators.Common;
@@ -27,6 +29,7 @@ using Application.Validators.Film;
 using Application.Validators.Person;
 using Application.Validators.Photo;
 using Application.Validators.Rating;
+using Application.Validators.User;
 using Application.Validators.Watchlist;
 using AutoMapper;
 using Microsoft.Extensions.Configuration;
@@ -55,6 +58,7 @@ namespace Application
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<ILanguageService, LanguageService>();
             services.AddScoped<IFilmRoleService, FilmRoleService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddValidation();
         }
 
@@ -85,7 +89,10 @@ namespace Application
             services.AddTransient<IObjectValidator<ToggleWatchedDtoValidator>, ToggleWatchedDtoValidator>();
             services.AddTransient<IObjectValidator<WatchlistForCreationDtoValidator>, WatchlistForCreationDtoValidator>();
             services.AddTransient<IObjectValidator<WatchlistForUpdateDtoValidator>, WatchlistForUpdateDtoValidator>();
-            services.AddScoped<IWatchlistValidatorService, WatchlistValidatorService>();            
+            services.AddScoped<IWatchlistValidatorService, WatchlistValidatorService>();
+
+            services.AddTransient<IObjectValidator<UserForUpdateDtoValidator>, UserForUpdateDtoValidator>();
+            services.AddScoped<IUserValidatorService, UserValidatorService>();
         }
 
     }
