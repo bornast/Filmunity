@@ -5,12 +5,14 @@ import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 
-import { ListComponent } from './List/List.component';
-import { FilmEditorComponent } from './film-editor/film-editor.component';
+import { FilmListComponent } from './film/film-list/film-list.component';
+import { FilmEditorComponent } from './film/film-editor/film-editor.component';
 
 import { AdminRoutes } from './admin.routing';
 import { GlobalModule } from '../globalFrontendComponents/global.module';
 import { FormsModule } from '@angular/forms';
+import { ParticipantListComponent } from './participant/participant-list/participant-list.component';
+import { ParticipantEditorComponent } from './participant/participant-editor/participant-editor.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
    // Change this to your upload POST address:
@@ -29,8 +31,10 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 	FormsModule
   ],
   declarations: [ 
-    ListComponent,
-    FilmEditorComponent
+    FilmListComponent,
+	FilmEditorComponent,
+	ParticipantListComponent,
+	ParticipantEditorComponent
   ],
   providers: [
    {

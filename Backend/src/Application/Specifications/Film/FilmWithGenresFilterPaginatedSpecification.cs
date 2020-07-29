@@ -6,7 +6,7 @@ namespace Application.Specifications.Film
     public class FilmWithGenresFilterPaginatedSpecification : BaseSpecification<Domain.Entities.Film>
     {
         public FilmWithGenresFilterPaginatedSpecification(FilmFilterDto filmFilter) 
-            : base(x => (string.IsNullOrWhiteSpace(filmFilter.Title) || x.Title.Contains(filmFilter.Title))
+            : base(x => (string.IsNullOrWhiteSpace(filmFilter.Title) || x.Title.ToLower().Contains(filmFilter.Title.ToLower()))
             && (filmFilter.Ids.Count == 0 || filmFilter.Ids.Contains(x.Id))
             && (filmFilter.FilmType == null || x.TypeId == filmFilter.FilmType)
             && (filmFilter.GenreId == null || x.Genres.Select(x => x.GenreId).Contains((int)filmFilter.GenreId)))

@@ -1,12 +1,15 @@
 ﻿using Application.Dtos.Common;
 using Application.Dtos.Person;
+using Application.Extensions;
 using Application.Interfaces;
 using Application.Interfaces.Common;
 using Application.Interfaces.Person;
 using Application.Interfaces.Photo;
+using Application.Specifications.Person;
 using AutoMapper;
 using Common.Enums;
 using Common.Exceptions;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -18,13 +21,15 @@ namespace Application.Services.Person
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _currentUserService;
         private readonly IPhotoService _photoService;
+        private readonly IHttpContextAccessor _context;
 
-        public PersonService(IUnitOfWork uow, IMapper mapper, ICurrentUserService currentUserService, IPhotoService photoService)
+        public PersonService(IUnitOfWork uow, IMapper mapper, ICurrentUserService currentUserService, IPhotoService photoService, IHttpContextAccessor context)
         {
             _uow = uow;
             _mapper = mapper;
             _currentUserService = currentUserService;
             _photoService = photoService;
+            _context = context;
         }
 
         public async Task<PersonForDetailedDto> GetOne(int id)
@@ -41,9 +46,11 @@ namespace Application.Services.Person
             return personToReturn;
         }
 
-        public async Task<IEnumerable<PersonForListDto>> GetAll()
+        public async Task<IEnumerable<PersonForListDto>> GetAll(PersonFilterDto personFilter)
         {
-            var persons = await _uow.Repository<Domain.Entities.Person>().FindAsync();
+            var persons = await _uow.Repository<Domain.Entities.Person>().FindAsyncWithPagination(new PersonFilterPaginatedSpecification(personFilter));
+
+            _context.HttpContext.Response.AddPagination(persons.CurrentPage, persons.PageSize, persons.TotalCount, persons.TotalPages);
 
             var personsToReturn = _mapper.Map<IEnumerable<PersonForListDto>>(persons);
 

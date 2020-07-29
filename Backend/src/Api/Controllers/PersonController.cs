@@ -21,9 +21,9 @@ namespace Api.Controllers
         }        
         
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] PersonFilterDto personFilter)
         {
-            return Ok(await _personService.GetAll());
+            return Ok(await _personService.GetAll(personFilter));
         }
 
         [HttpGet("{id}", Name = "GetPerson")]

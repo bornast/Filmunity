@@ -6,12 +6,12 @@ import { Pagination, PaginatedResult } from 'src/app/_models/pagination';
 import { ToastService } from 'src/app/_services/toast.service';
 
 @Component({
-	selector: 'admin-list',
-	templateUrl: './List.component.html',
-	styleUrls: ['./List.component.scss'],
+	selector: 'admin-film-list',
+	templateUrl: './film-list.component.html',
+	styleUrls: ['./film-list.component.scss'],
 	encapsulation: ViewEncapsulation.None
 })
-export class ListComponent implements OnInit {
+export class FilmListComponent implements OnInit {
 
 	filmsForList: any[];
 	filmType: any;
@@ -69,6 +69,11 @@ export class ListComponent implements OnInit {
 				this.toast.error("Failed to delete!");
 			});
 		}
+	}
+
+	filter() {
+		this.pageNumber = 1;
+		this.loadFilms();
 	}
 
 }

@@ -72,7 +72,7 @@ const MENUITEMS = [
       {state: 'bookings', name: 'Bookings', type: 'link'},
       {state: 'reviews', name: 'Reviews', type: 'link'},
       {state: 'bookmarks', name: 'Bookmarks', type: 'link'},
-      {state: 'list', name: 'My Listing', type: 'link'},
+      {state: 'film-list', name: 'Films', type: 'link'},
       {state: 'film-editor', name: 'Film Editor', type: 'link'},
       {state: 'profile', name: 'Profile', type: 'link'}
     ]

@@ -1,0 +1,90 @@
+<div class="dashboard-content">
+	<div class="row">
+		<div class="col-lg-12">
+			<div id="add-listing">
+				<!-- Section -->
+				<div class="add-listing-section mb-4">
+					<!-- Headline -->
+					<div class="add-listing-headline">
+						<h3>Basic Informations</h3>
+					</div>
+					<!-- Firstname -->
+					<div class="row with-forms">
+						<div class="col-md-12">
+							<!-- TODO: move style to css -->
+							<label style="margin-left:10px;">Firstname</label>
+							<div class="form-group">
+								<input type="text" class="form-control form-control-alternative" [(ngModel)]="participantToSave.firstName">
+							</div>
+						</div>
+					</div>
+					<!-- Lastname -->
+					<div class="row with-forms">
+						<div class="col-md-12">
+							<!-- TODO: move style to css -->
+							<label style="margin-left:10px;">Lastname</label>
+							<div class="form-group">
+								<input type="text" class="form-control form-control-alternative" [(ngModel)]="participantToSave.lastName">
+							</div>
+						</div>
+					</div>
+					<div class="row with-forms">
+						<div class="col-md-12">
+							<!-- TODO: move style to css -->
+							<label style="margin-left:10px;">Date of Birth</label>
+							<input type="date" [(ngModel)]="participantToSave.dateOfBirth" min="1900-01-01" max="2018-12-31" class="form-control form-control-alternative">
+						</div>
+					</div>					
+					<!-- Gender -->
+					<div class="row with-forms" *ngIf="genders">
+						<div class="col-md-12">
+							<!-- TODO: move style to css -->
+							<label style="margin-left:10px;">Gender</label>
+							<select class="custom-select form-control-alternative mb-3"
+								[(ngModel)]="participantToSave.genderId" name="type">
+								<option *ngFor="let gender of genders" [value]="gender.id">{{gender.name}}</option>
+							</select>
+						</div>
+					</div>
+					<!-- Description -->
+					<div class="row with-forms">
+						<div class="col-md-12">
+							<div class="form-group">
+								<!-- TODO: move style to css -->
+								<label style="margin-left:10px;">Description</label>
+								<textarea class="form-control form-control-alternative" rows="3"
+									[(ngModel)]="participantToSave.description"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row" *ngIf="participant && participant['id']">
+		<div class="col-lg-12">
+			<div id="add-listing">
+				<!-- Section -->
+				<div class="add-listing-section mb-4">
+					<!-- Headline -->
+					<div class="add-listing-headline">
+						<h3>Photos</h3>
+					</div>
+					<!-- Photos -->
+					<app-photo-editor [entityTypeId]="entityTypeId" [entityId]="participant['id']"
+						[photos]="participantToSave.photos"></app-photo-editor>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12 col-sm-12">
+			<button class="btn btn-primary" type="button"
+				[disabled]="!participantToSave.firstName||!participantToSave.lastName||!participantToSave.genderId||!participantToSave.dateOfBirth"
+				(click)="save()">Save
+			</button>
+			<button class="btn btn-secondary" type="button" [routerLink]="['/admin/participant-list']">Cancel
+			</button>
+		</div>
+	</div>
+</div>

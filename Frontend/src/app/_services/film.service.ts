@@ -6,6 +6,7 @@ import { RecordName } from '../_models/recordName';
 import { PaginatedResult } from '../_models/pagination';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Person } from '../_models/person';
 
 @Injectable({
 	providedIn: 'root'
@@ -106,5 +107,48 @@ export class FilmService {
 	
 	delete(id: any) {
 		return this.http.delete(this.baseUrl + "film/" + id);
+	}
+
+	// TODO: move to separate service?
+	getParticipantsByFilter(name?: string, pageNumber: any = 1, itemsPerPage: any = 5): Observable<PaginatedResult<Person[]>> {
+
+		const paginatedResult: PaginatedResult<Person[]> = new PaginatedResult<Person[]>();
+
+		let params = new HttpParams();
+		params = params.append('pageSize', itemsPerPage);
+		params = params.append('pageNumber', pageNumber);		
+		if (name != null)
+			params = params.append('name', name);
+
+		return this.http.get<Person[]>(this.baseUrl + "person/", {observe: 'response', params})
+		.pipe(
+			map(response => {
+				paginatedResult.result = response.body;
+				if (response.headers.get('Pagination') != null) {
+					paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+				}
+				return paginatedResult;
+			})
+		);
+	}
+
+	// TODO: move to separate service?
+	deleteParticipant(id: any) {
+		return this.http.delete(this.baseUrl + "person/" + id);
+	}	
+
+	// TODO: move to separate service?
+	getParticipant(id) {
+		return this.http.get<Person>(this.baseUrl + "person/" + id);
+	}
+
+	// TODO: move to separate service?
+	createParticipant(participantToCreate) {
+		return this.http.post(this.baseUrl + "person", participantToCreate);
+	}
+
+	// TODO: move to separate service?
+	updateParticipant(id, participantToUpdate) {
+		return this.http.put(this.baseUrl + "person/" + id, participantToUpdate);
 	}
 }

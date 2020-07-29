@@ -7,7 +7,7 @@ namespace Application.Interfaces.Person
 {
     public interface IPersonService
     {
-        Task<IEnumerable<PersonForListDto>> GetAll();
+        Task<IEnumerable<PersonForListDto>> GetAll(PersonFilterDto personFilter);
         Task<PersonForDetailedDto> GetOne(int id);
         Task<PersonForDetailedDto> Create(PersonForSaveDto personForCreation);
         Task<PersonForDetailedDto> Update(int id, PersonForSaveDto personForUpdate);
