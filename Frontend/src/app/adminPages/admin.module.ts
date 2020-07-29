@@ -13,6 +13,8 @@ import { GlobalModule } from '../globalFrontendComponents/global.module';
 import { FormsModule } from '@angular/forms';
 import { ParticipantListComponent } from './participant/participant-list/participant-list.component';
 import { ParticipantEditorComponent } from './participant/participant-editor/participant-editor.component';
+import { UserListComponent } from './user/user-list/user-list.component';
+import { UserEditorComponent } from './user/user-editor/user-editor.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
    // Change this to your upload POST address:
@@ -34,7 +36,9 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     FilmListComponent,
 	FilmEditorComponent,
 	ParticipantListComponent,
-	ParticipantEditorComponent
+	ParticipantEditorComponent,
+	UserListComponent,
+	UserEditorComponent
   ],
   providers: [
    {

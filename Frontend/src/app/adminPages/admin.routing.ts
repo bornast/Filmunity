@@ -4,6 +4,8 @@ import { FilmListComponent } from './film/film-list/film-list.component';
 import { FilmEditorComponent } from './film/film-editor/film-editor.component';
 import { ParticipantListComponent } from './participant/participant-list/participant-list.component';
 import { ParticipantEditorComponent } from './participant/participant-editor/participant-editor.component';
+import { UserListComponent } from './user/user-list/user-list.component';
+import { UserEditorComponent } from './user/user-editor/user-editor.component';
 
 export const AdminRoutes: Routes = [
 	{
@@ -29,5 +31,13 @@ export const AdminRoutes: Routes = [
 	{
 		path: 'participant-editor/:id',
 		component: ParticipantEditorComponent
-	}
+	},
+	{
+		path: 'user-list',
+		component: UserListComponent
+	},
+	{
+		path: 'user-editor/:id',
+		component: UserEditorComponent
+	},
 ];

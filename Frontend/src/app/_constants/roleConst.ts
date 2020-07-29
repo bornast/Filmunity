@@ -1,5 +1,5 @@
 export const ROLE: any = {
-	admin: "Admin",
-	moderator: "Moderator",
-	user: "User",  
+	admin: 1,
+	moderator: 2,
+	user: 3,  
   };

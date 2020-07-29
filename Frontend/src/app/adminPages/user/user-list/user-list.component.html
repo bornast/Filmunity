@@ -1,0 +1,38 @@
+<div class="dashboard-content" *ngIf="usersForList">
+	<div class="row responsive-row">
+		<div class="col-lg-12 col-md-12">
+			<div class="dashboard-list-box mb-5">
+				<div class="db-tile">
+					<h4>Active Listings</h4>
+				</div>
+				<!-- TODO: move style to css -->
+				<div class="db-tile" style="display: flex;">
+					<input type="text" placeholder="Search" class="form-control form-control-alternative"
+						[(ngModel)]="searchTxt" name="search">
+					<span class="btn btn-primary" (click)="filter()">Filter</span>
+				</div>
+				<ul class="row border-grid">
+					<li class="col-sm-6 col-md-6 col-lg-6" *ngFor="let user of usersForList">
+						<div class="list-box-listing">
+							<div class="list-box-listing-img"><a><img src="{{user.image}}" alt=""></a></div>
+							<div class="list-box-listing-content">
+								<div class="inner">
+									<h3><a>{{user.name}}</a></h3>
+									<span>{{user.username}}</span>
+								</div>
+							</div>
+						</div>
+						<div class="btn-g pt-4">
+							<span [routerLink]="['/admin/user-editor', user.id]" class="btn btn-sm btn-primary text-white"><i class="sl sl-icon-note"></i> Edit</span>
+							<span (click)="delete(user.id)" class="btn btn-sm btn-danger text-white"><i class="sl sl-icon-close"></i> Delete</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- Pagination -->
+			<div class="clearfix"></div>
+			<pagination (pageChanged)="changePage($event)" *ngIf="pagination" [pagination]="pagination"></pagination>
+			<!-- Pagination / End -->
+		</div>
+	</div>
+</div>
