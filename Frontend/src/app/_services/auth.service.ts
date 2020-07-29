@@ -12,8 +12,6 @@ export class AuthService {
 	baseUrl = environment.apiUrl + 'auth/';
 	jwtHelper = new JwtHelperService();
 	decodedToken: any;
-	// TODO: add user interface
-	currentUser: any;
 
 	constructor(private http: HttpClient) { }
 
@@ -28,7 +26,6 @@ export class AuthService {
 					const user = response;
 					if (user) {
 						this.storeUserInfoToLocalStorage(user);
-						// this.currentUser = user.user;
 					}
 				})
 			);
@@ -41,7 +38,6 @@ export class AuthService {
 					const user = response;
 					if (user) {
 						this.storeUserInfoToLocalStorage(user);
-						// this.currentUser = user.user;
 					}
 				})
 			);
@@ -59,7 +55,6 @@ export class AuthService {
 					const user = response;
 					if (user) {
 						this.storeUserInfoToLocalStorage(user);
-						// this.currentUser = user.user;
 					}
 				})
 			);
@@ -87,11 +82,20 @@ export class AuthService {
 		return isMatch;
 	}
 
+	logout() {		
+		localStorage.removeItem('filmunity-token');
+		localStorage.removeItem('filmunity-username');
+		localStorage.removeItem('filmunity-userId');
+		localStorage.removeItem('filmunity-refreshToken');
+		this.decodedToken = null;
+	}
+
 	private storeUserInfoToLocalStorage(tokenObject: any) {
 		this.decodedToken = this.jwtHelper.decodeToken(tokenObject.token);
 		localStorage.setItem('filmunity-token', tokenObject.token);
 		localStorage.setItem('filmunity-refreshToken', tokenObject.refreshToken);
+		localStorage.setItem('filmunity-userId', this.decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
 		localStorage.setItem('filmunity-username', this.decodedToken.username);
-	}
+	}	
 
 }

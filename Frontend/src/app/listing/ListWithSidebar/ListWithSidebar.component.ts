@@ -40,8 +40,6 @@ export class ListWithSidebarComponent implements OnInit {
 		let filmsForList = [];
 
 		films.result.forEach(film => {
-			// TODO: genre should be multiple tags with genre
-			// TODO: add both imdb and filmunity rating
 			let filmForList = {
 				genre: film.genres,
 				title: film.title,

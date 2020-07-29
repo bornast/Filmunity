@@ -19,6 +19,7 @@ import { AboutComponent } from './About/About.component';
 import { GlobalModule } from '../globalFrontendComponents/global.module';
 
 import { PagesRoutes } from './pages.routing';
+import { FormsModule } from '@angular/forms';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
    // Change this to your upload POST address:
@@ -32,7 +33,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   imports: [
     CommonModule,
     GlobalModule,
-    DropzoneModule,
+	DropzoneModule,
+	FormsModule,
     RouterModule.forChild(PagesRoutes),
   ],
   declarations: [ 

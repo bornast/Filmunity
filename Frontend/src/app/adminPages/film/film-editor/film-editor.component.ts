@@ -163,7 +163,6 @@ export class FilmEditorComponent implements OnInit {
 	}
 
 	removeParticipant(index: number) {
-		// TODO: remove at specific index
 		this.filmToSave.participantsRoles.splice(index, 1);
 	}
 
