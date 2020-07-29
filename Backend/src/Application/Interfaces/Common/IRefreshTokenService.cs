@@ -7,6 +7,6 @@ namespace Application.Interfaces.Common
     {
         Task MarkAsUsed(string refreshToken, string jti, bool commit = false);
         Task MarkAsInvalid(string jti, bool commit = false);
-        Task<RefreshToken> CreateRefreshToken(string jti, User user, bool commit = false);
+        Task<RefreshToken> CreateRefreshToken(string jti, Domain.Entities.User user, bool commit = false);
     }
 }

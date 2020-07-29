@@ -39,7 +39,7 @@ namespace Application.Services
         {
             Validate(userForRegistration);
 
-            var existingUser = await _uow.Repository<User>()
+            var existingUser = await _uow.Repository<Domain.Entities.User>()
                 .FindOneAsync(new UserWithRolesSpecification(userForRegistration.Username));
 
             if (existingUser != null)

@@ -44,7 +44,7 @@ namespace Application.Services.Common
                 await _uow.SaveAsync();
         }
 
-        public async Task<RefreshToken> CreateRefreshToken(string jti, User user, bool commit = false)
+        public async Task<RefreshToken> CreateRefreshToken(string jti, Domain.Entities.User user, bool commit = false)
         {
             var refreshToken = new RefreshToken
             {

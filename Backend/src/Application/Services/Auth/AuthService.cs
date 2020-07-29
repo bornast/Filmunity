@@ -34,7 +34,7 @@ namespace Application.Services
 
         public async Task<TokenDto> Login(UserForLoginDto userForLogin)
         {
-            var user = await _uow.Repository<User>().FindOneAsync(new UserWithRolesSpecification(userForLogin.Username));
+            var user = await _uow.Repository<Domain.Entities.User>().FindOneAsync(new UserWithRolesSpecification(userForLogin.Username));
 
             Guard.Against.Unauthorized(user);
             Guard.Against.Unauthorized(_hashService.VerifyPasswordHash(userForLogin.Password, user.PasswordHash, user.PasswordSalt));
@@ -44,7 +44,7 @@ namespace Application.Services
 
         public async Task Register(UserForRegistrationDto userForRegistration)
         {            
-            var user = _mapper.Map<User>(userForRegistration);
+            var user = _mapper.Map<Domain.Entities.User>(userForRegistration);
 
             var password = _hashService.CreatePasswordHash(userForRegistration.Password);
             user.PasswordHash = password.PasswordHash;
@@ -52,7 +52,7 @@ namespace Application.Services
 
             user.Roles.Add(new UserRole { RoleId = (int)Roles.User });
 
-            _uow.Repository<User>().Add(user);
+            _uow.Repository<Domain.Entities.User>().Add(user);
             await _uow.SaveAsync();
         }
 
@@ -64,7 +64,7 @@ namespace Application.Services
 
             await _refreshTokenService.MarkAsUsed(tokenForRefresh.RefreshToken, jti, commit: false);
 
-            var user = await _uow.Repository<User>().FindOneAsync(new UserWithRolesSpecification(_jwtService.GetUserIdFromToken(validatedToken)));
+            var user = await _uow.Repository<Domain.Entities.User>().FindOneAsync(new UserWithRolesSpecification(_jwtService.GetUserIdFromToken(validatedToken)));
 
             return await _jwtService.GenerateJwtToken(user);
         }
@@ -73,7 +73,7 @@ namespace Application.Services
         {
             var userInfo = await _facebookService.GetUserInfoAsync(facebookLogin.AccessToken);
 
-            var user = await _uow.Repository<User>().FindOneAsync(new UserWithRolesSpecification(username: userInfo.Email));
+            var user = await _uow.Repository<Domain.Entities.User>().FindOneAsync(new UserWithRolesSpecification(username: userInfo.Email));
 
             if (user == null)
             {
@@ -81,7 +81,7 @@ namespace Application.Services
 
                 await Register(userToRegister);
 
-                user = await _uow.Repository<User>().FindOneAsync(new UserWithRolesSpecification(username: userInfo.Email));
+                user = await _uow.Repository<Domain.Entities.User>().FindOneAsync(new UserWithRolesSpecification(username: userInfo.Email));
             }
 
             return await _jwtService.GenerateJwtToken(user);

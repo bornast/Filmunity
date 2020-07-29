@@ -39,12 +39,36 @@
 												<input class="form-control" placeholder="Password" type="password" name="password" [(ngModel)]="registerObject.password">
 											</div>
 										</div>
+										<div class="form-group mb-3">
+											<div class="input-group input-group-alternative">
+												<div class="input-group-prepend">
+													<span class="input-group-text"><i class="fa fa-file-text"></i></span>
+												</div>
+												<input class="form-control" placeholder="First name" name="firstName" [(ngModel)]="registerObject.firstName">
+											</div>
+										</div>
+										<div class="form-group mb-3">
+											<div class="input-group input-group-alternative">
+												<div class="input-group-prepend">
+													<span class="input-group-text"><i class="fa fa-file-text"></i></span>
+												</div>
+												<input class="form-control" placeholder="Last name" name="lastName" [(ngModel)]="registerObject.lastName">
+											</div>
+										</div>
+										<div class="form-group mb-3">
+											<div class="input-group input-group-alternative">
+												<div class="input-group-prepend">
+													<span class="input-group-text"><i class="fa fa-file-text"></i></span>
+												</div>
+												<input class="form-control" placeholder="Interests" name="interests" [(ngModel)]="registerObject.interests">
+											</div>
+										</div>
 										<div class="text-center">
 											<button 
 												type="button" 
 												class="btn btn-primary mt-4" 
 												(click)="register()"
-												[disabled]="(registerObject.username == null || registerObject.username == '') || (registerObject.email == null || registerObject.email == '') || (registerObject.password == null || registerObject.password == '')"
+												[disabled]="!registerObject.username||!registerObject.username||!registerObject.email||!registerObject.email||!registerObject.firstName||!registerObject.lastName||!registerObject.password"
 											>Register
 											</button>
 										</div>

@@ -19,7 +19,9 @@ namespace Infrastructure.Data.Configurations
 
             builder.Property(u => u.Email).IsRequired();
 
-            builder.Property(u => u.StatusId).HasDefaultValue((int)Common.Enums.Status.WaitingActivation);
+            builder.Property(u => u.FirstName).IsRequired();
+
+            builder.Property(u => u.LastName).IsRequired();
         }
     }
 }

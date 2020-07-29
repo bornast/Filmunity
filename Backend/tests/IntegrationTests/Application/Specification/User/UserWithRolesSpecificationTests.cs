@@ -5,7 +5,6 @@ using FluentAssertions;
 using NUnit.Framework;
 using System.Threading.Tasks;
 using static IntegrationTests.Testing;
-using Statuses = Common.Enums.Status;
 
 namespace IntegrationTests.Application.Specification
 {
@@ -24,8 +23,9 @@ namespace IntegrationTests.Application.Specification
                 Email = $"{username}@gmail.com",
                 PasswordHash = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 },
                 PasswordSalt = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 },
-                StatusId = (int)Statuses.WaitingActivation,
-                Roles = { new UserRole { RoleId = (int)Roles.User } }
+                Roles = { new UserRole { RoleId = (int)Roles.User } },
+                FirstName = "FirstName",
+                LastName = "LastName"
             });
 
             // Act
@@ -48,7 +48,8 @@ namespace IntegrationTests.Application.Specification
                 Email = $"{username}@gmail.com",
                 PasswordHash = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 },
                 PasswordSalt = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 },
-                StatusId = (int)Statuses.WaitingActivation
+                FirstName = "FirstName",
+                LastName = "LastName"
             });
 
             // Act

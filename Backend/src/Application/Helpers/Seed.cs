@@ -17,10 +17,9 @@ namespace Application.Helpers
         {
             _uow = uow;
 
-            if (_uow.Repository<Status>().Count(x => x.Id > 0).Result > 0)
+            if (_uow.Repository<EntityType>().Count(x => x.Id > 0).Result > 0)
                 return;
 
-            SeedStatus();
             SeedEntityTypes();
             SeedUserWithRoles(hashService);
             SeedGender();
@@ -30,18 +29,6 @@ namespace Application.Helpers
             SeedFilmRole();
             SeedLanguage();
             uow.Save();
-        }
-
-        private static void SeedStatus()
-        {
-            var statuses = new List<Status>();            
-
-            foreach (var status in EnumLibrary.GetIdAndNameDictionaryOfEnumType(typeof(Common.Enums.Status)))
-            {
-                statuses.Add(new Status { Id = status.Key, Name = status.Value });
-            }
-
-            _uow.Repository<Status>().AddRange(statuses);
         }
 
         private static void SeedEntityTypes()
@@ -68,7 +55,7 @@ namespace Application.Helpers
 
                 roles.Add(roleToAdd);
 
-                // TODO: set this password in config or something
+                // TODO: set this password in config
                 var password = hashService.CreatePasswordHash("password");
                 var user = new User
                 {
@@ -76,11 +63,12 @@ namespace Application.Helpers
                     PasswordHash = password.PasswordHash,
                     PasswordSalt = password.PasswordSalt,
                     Email = $"{role.Value}@testmail.com",
-                    StatusId = (int)Common.Enums.Status.Activated,
                     Roles = new List<UserRole>
                     {
                         new UserRole { Role = roleToAdd }
-                    }
+                    },
+                    FirstName = "FirstName",
+                    LastName = "LastName"
                 };
 
                 users.Add(user);

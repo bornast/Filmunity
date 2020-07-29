@@ -22,7 +22,6 @@ export class FilmListComponent implements OnInit {
 	constructor(private filmService: FilmService, private route: ActivatedRoute, private toast: ToastService) { }
 
 	ngOnInit() {
-		this.filmType = this.route.snapshot.queryParamMap.get("filmType");
 		this.loadFilms();
 	}
 

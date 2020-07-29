@@ -38,7 +38,7 @@ namespace Application.Services
             return Convert.ToInt32(claimsPrincipal.Claims.Single(x => x.Type == ClaimTypes.NameIdentifier).Value);
         }
 
-        public async Task<TokenDto> GenerateJwtToken(User user)
+        public async Task<TokenDto> GenerateJwtToken(Domain.Entities.User user)
         {
             Guard.Against.Null(user, nameof(user));
 

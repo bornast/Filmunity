@@ -51,8 +51,7 @@ namespace IntegrationTests
             {
                 TablesToIgnore = new[] 
                 { 
-                    "__EFMigrationsHistory", 
-                    "Status", 
+                    "__EFMigrationsHistory",
                     "Gender", 
                     "FilmType", 
                     "Genre",

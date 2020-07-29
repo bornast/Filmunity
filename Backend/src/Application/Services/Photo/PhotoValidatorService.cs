@@ -111,7 +111,7 @@ namespace Application.Services.Photo
         {
             if (entityTypeId == (int)EntityTypes.Film || entityId == (int)EntityTypes.Person)
             {
-                var user = await _uow.Repository<User>().FindOneAsync(new UserWithRolesSpecification((int)_currentUserService.UserId));
+                var user = await _uow.Repository<Domain.Entities.User>().FindOneAsync(new UserWithRolesSpecification((int)_currentUserService.UserId));
 
                 var validRoles = new List<int>
                 {
