@@ -32,6 +32,8 @@ export const AppRoutes: Routes = [
 	{
 		path: 'admin',
 		component: AdminPanelLayoutComponent,
+		canActivate: [AuthGuard],
+		data: {roles: ['Admin', 'Moderator']},
 		children: [{
 			path: '',
 			loadChildren: () => import('./adminPages/admin.module').then(m => m.AdminModule)

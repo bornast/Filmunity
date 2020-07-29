@@ -3,6 +3,7 @@ import { FilmService } from 'src/app/_services/film.service';
 import { ActivatedRoute } from '@angular/router';
 import { Film } from 'src/app/_models/film';
 import { Pagination, PaginatedResult } from 'src/app/_models/pagination';
+import { ToastService } from 'src/app/_services/toast.service';
 
 @Component({
 	selector: 'admin-list',
@@ -18,14 +19,14 @@ export class ListComponent implements OnInit {
 	pageNumber: any = 1;
 	searchTxt: string;
 
-	constructor(private filmService: FilmService, private route: ActivatedRoute) { }
+	constructor(private filmService: FilmService, private route: ActivatedRoute, private toast: ToastService) { }
 
 	ngOnInit() {
 		this.filmType = this.route.snapshot.queryParamMap.get("filmType");
 		this.loadFilms();
 	}
 
-	loadFilms() { 
+	loadFilms() {
 		this.filmService.getFilmsByFilter(this.filmType, null, null, this.searchTxt, this.pageNumber, 4).subscribe((films) => {
 			this.pagination = films.pagination;
 			this.filmsForList = this.transformFilmForList(films);
@@ -38,6 +39,7 @@ export class ListComponent implements OnInit {
 
 		films.result.forEach(film => {
 			let filmForList = {
+				id: film.id,
 				genre: film.genres,
 				title: film.title,
 				description: film.description,
@@ -55,6 +57,18 @@ export class ListComponent implements OnInit {
 	changePage(pageNumber: number) {
 		this.pageNumber = pageNumber;
 		this.loadFilms();
+	}
+
+	delete(id: any) {
+		if (confirm("Are you sure to delete this record")) {
+			this.filmService.delete(id).subscribe(() => {
+				this.pageNumber = 1;
+				this.loadFilms();
+				this.toast.success("Successfully delete!");
+			}, () => {
+				this.toast.error("Failed to delete!");
+			});
+		}
 	}
 
 }

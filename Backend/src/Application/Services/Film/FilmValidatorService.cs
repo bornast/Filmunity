@@ -4,6 +4,7 @@ using Application.Interfaces;
 using Application.Interfaces.Common;
 using Application.Interfaces.Film;
 using Application.Specifications.Film;
+using Application.Specifications.Watchlist;
 using Common.Enums;
 using Common.Exceptions;
 using Common.Libs;
@@ -70,7 +71,19 @@ namespace Application.Services
 
             ThrowValidationErrorsIfNotEmpty();
         }
-        
+
+        public async Task ValidateForDeletion(int id)
+        {
+            var film = await _uow.Repository<Film>().FindByIdAsync(id);
+            AddValidationErrorIfValueIsNull(film, "Film", $"Id {id} not found");
+
+            var watchlist = await _uow.Repository<Domain.Entities.Watchlist>().FindOneAsync(new WatchlistFilterSpecification(id));
+            if (watchlist != null)
+                AddValidationError("Film", $"Film cannot be delete because it is listed in a existing watchlist!");
+
+            ThrowValidationErrorsIfNotEmpty();
+        }
+
         #region private methods        
 
         private async Task ValidateCountry(int countryId)

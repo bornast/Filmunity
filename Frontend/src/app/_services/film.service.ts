@@ -99,8 +99,12 @@ export class FilmService {
 		return this.http.post(this.baseUrl + "photo/setMain/" + photoId, {});
 	}
 
+	// TODO: move to separate service?
 	deletePhoto(photoId: any) {
 		return this.http.delete(this.baseUrl + "photo/" + photoId);
 	}
 	
+	delete(id: any) {
+		return this.http.delete(this.baseUrl + "film/" + id);
+	}
 }

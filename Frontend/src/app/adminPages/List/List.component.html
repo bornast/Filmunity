@@ -3,7 +3,7 @@
 		<div class="col-lg-12 col-md-12">
 			<div class="dashboard-list-box mb-5">
 				<!-- TODO: move style to css -->
-				<span class="btn btn-primary" (click)="addNew()">Add new <i class="fa fa-plus"></i></span>
+				<span [routerLink]="['/admin/film-editor']" class="btn btn-primary" (click)="addNew()">Add new <i class="fa fa-plus"></i></span>
 				<div class="db-tile">
 					<h4>Active Listings</h4>
 				</div>
@@ -25,8 +25,8 @@
 							</div>
 						</div>
 						<div class="btn-g pt-4">
-							<a class="btn btn-sm btn-primary text-white"><i class="sl sl-icon-note"></i> Edit</a>
-							<a class="btn btn-sm btn-danger text-white"><i class="sl sl-icon-close"></i> Delete</a>
+							<span [routerLink]="['/admin/film-editor', film.id]" class="btn btn-sm btn-primary text-white"><i class="sl sl-icon-note"></i> Edit</span>
+							<span (click)="delete(film.id)" class="btn btn-sm btn-danger text-white"><i class="sl sl-icon-close"></i> Delete</span>
 						</div>
 					</li>
 				</ul>

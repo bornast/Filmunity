@@ -73,7 +73,7 @@ const MENUITEMS = [
       {state: 'reviews', name: 'Reviews', type: 'link'},
       {state: 'bookmarks', name: 'Bookmarks', type: 'link'},
       {state: 'list', name: 'My Listing', type: 'link'},
-      {state: 'add-list', name: 'Add List', type: 'link'},
+      {state: 'film-editor', name: 'Film editor', type: 'link'},
       {state: 'profile', name: 'Profile', type: 'link'}
     ]
   },
@@ -83,7 +83,7 @@ const MENUITEMS = [
     type: 'sub',
     children: [
       {state: 'booking', name: 'Booking', type: 'link'},
-      {state: 'add-listing', name: 'Add Listing', type: 'link'},
+      {state: 'film-editor', name: 'Film editor', type: 'link'},
       {state: 'user-profile', name: 'Profile', type: 'link'},
       {
          state: 'blog', 

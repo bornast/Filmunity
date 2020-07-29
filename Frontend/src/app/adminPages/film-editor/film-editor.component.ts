@@ -8,16 +8,13 @@ import { Film } from 'src/app/_models/film';
 import { ActivatedRoute } from '@angular/router';
 import { ENTITYTYPE } from 'src/app/_constants/entityTypeConst';
 
-// TODO:
-// rename component, authroize routes 
-
 @Component({
-	selector: 'admin-add-list',
-	templateUrl: './AddList.component.html',
-	styleUrls: ['./AddList.component.scss'],
+	selector: 'admin-film-editor',
+	templateUrl: './film-editor.component.html',
+	styleUrls: ['./film-editor.component.scss'],
 	encapsulation: ViewEncapsulation.None
 })
-export class AddListComponent implements OnInit {
+export class FilmEditorComponent implements OnInit {
 
 	entityTypeId: any = ENTITYTYPE.film;
 	crudAction: any = CRUDACTION.create;

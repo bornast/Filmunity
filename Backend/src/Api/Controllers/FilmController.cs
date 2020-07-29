@@ -64,6 +64,8 @@ namespace Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            await _filmValidatorService.ValidateForDeletion(id);
+
             await _filmService.Delete(id);
 
             return Ok();

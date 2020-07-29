@@ -35,9 +35,8 @@ export class AuthGuard implements CanActivate {
 	}
 
 	private handleUnauthorizedAccess(): boolean {
-		this.toast.error('You are not authorised to access this area');
-		// this.router.navigate(['home']);
-		this._location.back();
+		this.toast.error('You are not authorized to access this area');
+		this.router.navigate(['home']);
 		return false;
 	}
 
