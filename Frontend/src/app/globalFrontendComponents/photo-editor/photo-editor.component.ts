@@ -3,6 +3,7 @@ import { Photo } from 'src/app/_models/photo';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
 import { ToastService } from 'src/app/_services/toast.service';
+import { FilmService } from 'src/app/_services/film.service';
 
 @Component({
   selector: 'app-photo-editor',
@@ -20,7 +21,7 @@ export class PhotoEditorComponent implements OnInit {
 	baseUrl = environment.apiUrl;
 	currentMain: Photo;
 
-	constructor(private toast: ToastService) { }
+	constructor(private toast: ToastService, private filmService: FilmService) { }
 
 	ngOnInit() {
 		this.initializeUploader();
@@ -57,38 +58,27 @@ export class PhotoEditorComponent implements OnInit {
 					isMain: res.isMain,
 				};
 				this.photos.push(photo);
-				// if (photo.isMain) {
-				// 	this.authService.changeMemberPhoto(photo.url);
-				// 	this.authService.currentUser.photoUrl = photo.url;
-				// 	localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
-				// }
 			}
 		};
 	}
 
 	setMainPhoto(photo: Photo) {
-		// this.userService.setMainPhoto(this.authService.decodedToken.nameid, photo.id).subscribe(() => {
-		// 	this.currentMain = this.photos.filter(p => p.isMain === true)[0]; // find the previous main photo and set it to false
-		// 	this.currentMain.isMain = false;
-		// 	photo.isMain = true; // set the selected main photo to true
-		// 	// this.getMemberPhotoChange.emit(photo.url);
-		// 	this.authService.changeMemberPhoto(photo.url);
-		// 	this.authService.currentUser.photoUrl = photo.url;
-		// 	localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
-		// }, error => {
-		// 	this.alertify.error(error);
-		// });		
+		this.filmService.setMainPhoto(photo.id).subscribe(() => {
+			this.currentMain = this.photos.filter(p => p.isMain === true)[0]; // find the previous main photo and set it to false
+			this.currentMain.isMain = false;
+			photo.isMain = true; // set the selected main photo to true
+		}, () => {
+			this.toast.error("Failed to set the photo as main!");
+		});		
 	}
 
-	deletePhoto(id: number) {
-		// this.alertify.confirm('Are you sure you want to delete this photo?', () => {
-		// 	this.userService.deletePhoto(this.authService.decodedToken.nameid, id).subscribe(() => {
-		// 		this.photos.splice(this.photos.findIndex(p => p.id === id), 1);
-		// 		this.alertify.success('Photo has been deleted');
-		// 	}, error => {
-		// 		this.alertify.error('Failed to delete the photo');
-		// 	});
-		// });
+	deletePhoto(id: number) {		
+		this.filmService.deletePhoto(id).subscribe(() => {
+			this.photos.splice(this.photos.findIndex(p => p.id === id), 1);
+			this.toast.success('Photo has been deleted');
+		}, () => {
+			this.toast.error('Failed to delete the photo');
+		});
 	}
 
 }

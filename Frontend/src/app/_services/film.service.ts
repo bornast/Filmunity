@@ -92,4 +92,15 @@ export class FilmService {
 	getFilmRole() {
 		return this.http.get<RecordName[]>(this.baseUrl + "filmRole/recordNames");
 	}
+
+
+	// TODO: move to separate service?
+	setMainPhoto(photoId: any) {
+		return this.http.post(this.baseUrl + "photo/setMain/" + photoId, {});
+	}
+
+	deletePhoto(photoId: any) {
+		return this.http.delete(this.baseUrl + "photo/" + photoId);
+	}
+	
 }

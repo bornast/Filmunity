@@ -25,6 +25,7 @@ using Application.Validators;
 using Application.Validators.Common;
 using Application.Validators.Film;
 using Application.Validators.Person;
+using Application.Validators.Photo;
 using Application.Validators.Rating;
 using Application.Validators.Watchlist;
 using AutoMapper;

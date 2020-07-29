@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Application.Validators
+namespace Application.Validators.Photo
 {
     public class PhotoForCreationDtoValidator : AbstractValidator<PhotoForCreationDto>, IObjectValidator<PhotoForCreationDtoValidator>
     {

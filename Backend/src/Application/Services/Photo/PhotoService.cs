@@ -4,6 +4,8 @@ using Application.Interfaces.Common;
 using Application.Interfaces.Photo;
 using Application.Specifications.Photo;
 using AutoMapper;
+using Common.Exceptions;
+using Domain.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -47,6 +49,32 @@ namespace Application.Services.Photo
             return photoToReturn;
         }
 
+        public async Task Delete(int photoId)
+        {
+            var photo = await _uow.Repository<Domain.Entities.Photo>().FindByIdAsync(photoId);
+
+            _uow.Repository<Domain.Entities.Photo>().Remove(photo);
+
+            await _uow.SaveAsync();
+        }
+
+        public async Task SetMain(int photoId)
+        {
+            var photo = await _uow.Repository<Domain.Entities.Photo>().FindByIdAsync(photoId);
+
+            var photoSpecification = new PhotoFilterSpecification(photo.EntityTypeId, photo.EntityId);
+
+            var userPhotos = await _uow.Repository<Domain.Entities.Photo>().FindAsync(photoSpecification);
+
+            var mainPhoto = userPhotos.FirstOrDefault(x => x.IsMain);
+
+            mainPhoto.IsMain = false;
+
+            photo.IsMain = true;
+
+            await _uow.SaveAsync();
+        }
+
         public async Task<IEnumerable<PhotoForDetailedDto>> GetEntityPhotos(int entityTypeId, int entityId) 
         {
             var photoSpecification = new PhotoFilterSpecification(entityTypeId, entityId);
@@ -80,6 +108,6 @@ namespace Application.Services.Photo
             {
                 await IncludeMainPhoto(entity, entityTypeId);
             }
-        }
+        }        
     }
 }

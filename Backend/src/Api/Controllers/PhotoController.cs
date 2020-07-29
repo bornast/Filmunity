@@ -4,12 +4,13 @@ using Api.ActionFilters;
 using System.Threading.Tasks;
 using Application.Dtos.Photo;
 using Application.Interfaces.Photo;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AuthorizeRoles(Roles.Admin, Roles.Moderator)]
+    [Authorize]
     public class PhotoController : ControllerBase
     {
         private readonly IPhotoService _photoService;
@@ -31,5 +32,24 @@ namespace Api.Controllers
             return Ok(photo);
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePhoto(int id)
+        {
+            await _photoValidatorService.ValidateForDeletion(id);
+
+            await _photoService.Delete(id);
+
+            return Ok();
+        }
+
+        [HttpPost("setMain/{id}")]
+        public async Task<IActionResult> SetMainPhoto(int id)
+        {
+            await _photoValidatorService.ValidateForSetMain(id);
+
+            await _photoService.SetMain(id);
+
+            return Ok();
+        }
     }
 }

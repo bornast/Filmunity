@@ -49,6 +49,10 @@ namespace Api.Middlewares
                     code = HttpStatusCode.Unauthorized;
                     result = "";
                     break;
+                case ForbiddenException _:
+                    code = HttpStatusCode.Forbidden;
+                    result = "";
+                    break;
                 case NotFoundException _:
                     code = HttpStatusCode.NotFound;
                     result = "";

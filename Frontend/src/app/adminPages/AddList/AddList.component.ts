@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ENTITYTYPE } from 'src/app/_constants/entityTypeConst';
 
 // TODO:
-// 1.add photos, 2.rename component, 3.authroize routes 
+// rename component, authroize routes 
 
 @Component({
 	selector: 'admin-add-list',
