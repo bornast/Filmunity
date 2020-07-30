@@ -11,9 +11,11 @@ namespace Infrastructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Rating> builder)
         {
-            builder.HasKey(ur => new { ur.UserId, ur.FilmId });
+            builder.Ignore(x => x.Id);
 
-            builder.Property(u => u.RatingValue).IsRequired();
+            builder.HasKey(x => new { x.UserId, x.FilmId });
+
+            builder.Property(x => x.RatingValue).IsRequired();
 
             builder.HasOne(x => x.Film)
                 .WithMany(x => x.Ratings)

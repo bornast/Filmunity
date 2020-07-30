@@ -25,7 +25,7 @@ import { SmallGallerySliderComponent } from '../globalFrontendComponents/SmallGa
 import { SidebarLayoutOneComponent } from './SidebarLayoutOne/SidebarLayoutOne.component';
 import { SidebarLayoutTwoComponent } from './SidebarLayoutTwo/SidebarLayoutTwo.component';
 import { SidebarLayoutThreeComponent } from './SidebarLayoutThree/SidebarLayoutThree.component';
-
+import { RatingModule } from 'ng-starrating';
 import { ListingRoutes } from './listing.routing';
 
 import { GlobalModule } from '../globalFrontendComponents/global.module';
@@ -38,7 +38,8 @@ import { FormsModule } from '@angular/forms';
 	FormsModule,
     GlobalModule,
     SlickCarouselModule,
-    NouisliderModule,
+	NouisliderModule,
+	RatingModule,
     AgmCoreModule.forRoot({apiKey: 'AIzaSyBtdO5k6CRntAMJCF-H5uZjTCoSGX95cdk'}),
     RouterModule.forChild(ListingRoutes),
   ],

@@ -48,6 +48,8 @@ namespace Application.Services
 
             await _photoService.IncludePhotos(filmToReturn, (int)EntityTypes.Film);
 
+            await _photoService.IncludeMainPhoto(filmToReturn.Participants.Select(x => x.Participant), (int)EntityTypes.Person);
+
             filmToReturn.ImdbRating = await _omdbService.GetImdbFilmRating(filmToReturn.Title);
 
             return filmToReturn;

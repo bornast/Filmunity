@@ -85,6 +85,9 @@ export class ErrorInterceptor implements HttpInterceptor {
 			this.router.navigate(['/session/login']);
 		}
 
+		else if (error.status === 404) {
+		}
+
 		else if (error instanceof HttpErrorResponse) {
 			this.handleErrorMessages(error.error);
 		}

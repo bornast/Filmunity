@@ -47,7 +47,7 @@ export const ListingRoutes: Routes = [{
   component: HalfScreenMapGridComponent
 },
 {
-  path: 'detail/version1',
+  path: 'film/:id',
   component: ListingDetailOneComponent
 },
 {

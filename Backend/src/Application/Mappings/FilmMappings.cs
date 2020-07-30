@@ -22,7 +22,7 @@ namespace Application.Mappings
                 .ForMember(x => x.Participants, opt =>
                 opt.MapFrom(x => x.Participants.Select(x => new ParticipantRoleForDetailedDto
                 {
-                    Participant = new RecordNameDto
+                    Participant = new ParticipantWithPhotoDto
                     {
                         Id = x.PersonId,
                         Name = x.Person.FirstName + " " + x.Person.LastName

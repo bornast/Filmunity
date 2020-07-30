@@ -44,5 +44,17 @@ namespace Api.Controllers
             return Ok();
         }
 
+        [Authorize]
+        [HttpGet("getLoggedUserRating/{filmId}")]
+        public async Task<IActionResult> GetLoggedUserRating(int filmId)
+        {
+            var rating = await _ratingService.GetLoggedUserRating(filmId);
+
+            if (rating == null)
+                return NotFound();
+
+            return Ok(rating);
+        }
+
     }
 }

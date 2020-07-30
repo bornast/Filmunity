@@ -11,9 +11,9 @@ namespace Infrastructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Review> builder)
         {
-            builder.HasKey(ur => new { ur.UserId, ur.FilmId });
+            builder.Ignore(x => x.Id);
 
-            builder.Property(u => u.Description).IsRequired();
+            builder.HasKey(x => new { x.UserId, x.FilmId, x.Description });
 
             builder.HasOne(x => x.Film)
                 .WithMany(x => x.Reviews)

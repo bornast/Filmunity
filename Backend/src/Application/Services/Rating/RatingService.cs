@@ -4,6 +4,7 @@ using Application.Interfaces.Common;
 using Application.Interfaces.Photo;
 using Application.Interfaces.Rating;
 using Application.Specifications.Film;
+using Application.Specifications.Rating;
 using AutoMapper;
 using Domain.Entities;
 using System;
@@ -21,6 +22,19 @@ namespace Application.Services.Rating
         {
             _uow = uow;
             _currentUserService = currentUserService;
+        }
+
+        public async Task<RatingDto> GetLoggedUserRating(int filmId)
+        {
+            var rating = await _uow.Repository<Domain.Entities.Rating>().FindOneAsync(new RatingFromUserSpecification((int)_currentUserService.UserId, filmId));
+
+            if (rating == null)
+                return null;
+
+            return new RatingDto
+            {
+                Rating = rating.RatingValue
+            };
         }
 
         public async Task Rate(int id, RatingDto rating)

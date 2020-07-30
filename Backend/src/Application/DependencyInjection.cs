@@ -9,6 +9,7 @@ using Application.Interfaces.Language;
 using Application.Interfaces.Person;
 using Application.Interfaces.Photo;
 using Application.Interfaces.Rating;
+using Application.Interfaces.Review;
 using Application.Interfaces.User;
 using Application.Interfaces.Watchlist;
 using Application.Services;
@@ -21,6 +22,7 @@ using Application.Services.Language;
 using Application.Services.Person;
 using Application.Services.Photo;
 using Application.Services.Rating;
+using Application.Services.Review;
 using Application.Services.User;
 using Application.Services.Watchlist;
 using Application.Validators;
@@ -29,6 +31,7 @@ using Application.Validators.Film;
 using Application.Validators.Person;
 using Application.Validators.Photo;
 using Application.Validators.Rating;
+using Application.Validators.Review;
 using Application.Validators.User;
 using Application.Validators.Watchlist;
 using AutoMapper;
@@ -59,6 +62,7 @@ namespace Application
             services.AddScoped<ILanguageService, LanguageService>();
             services.AddScoped<IFilmRoleService, FilmRoleService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IReviewService, ReviewService>();
             services.AddValidation();
         }
 
@@ -93,6 +97,9 @@ namespace Application
 
             services.AddTransient<IObjectValidator<UserForUpdateDtoValidator>, UserForUpdateDtoValidator>();
             services.AddScoped<IUserValidatorService, UserValidatorService>();
+
+            services.AddTransient<IObjectValidator<ReviewForCreationDtoValidator>, ReviewForCreationDtoValidator>();
+            services.AddScoped<IReviewValidatorService, ReviewValidatorService>();
         }
 
     }

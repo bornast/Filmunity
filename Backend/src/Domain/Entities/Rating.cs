@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain.Entities
 {
-    public class Rating
+    public class Rating : BaseEntity
     {
         public Film Film { get; set; }
         public int FilmId { get; set; }

@@ -41,6 +41,7 @@ export class ListWithSidebarComponent implements OnInit {
 
 		films.result.forEach(film => {
 			let filmForList = {
+				id: film.id,
 				genre: film.genres,
 				title: film.title,
 				description: film.description,

@@ -191,4 +191,49 @@ export class FilmService {
 		return this.http.put(this.baseUrl + "user/" + id, userToUpdate);
 	}
 
+	// TODO: move to separate service?
+	unrateFilm(id) {
+		return this.http.post(this.baseUrl + "rating/unrate/" + id, {});
+	}
+
+	// TODO: move to separate service?
+	rateFilm(id, objectToPost) {
+		return this.http.post(this.baseUrl + "rating/rate/" + id, objectToPost);
+	}
+
+	// TODO: move to separate service?
+	getLoggedUserRating(filmId) {
+		return this.http.get(this.baseUrl + "rating/getLoggedUserRating/" + filmId);
+	}	
+
+	// TODO: move to separate service?
+	reviewFilm(objectToPost) {
+		return this.http.post(this.baseUrl + "review/", objectToPost);
+	}
+
+	// TODO: move to separate service?
+	getFilmReviews(filmId: any, pageNumber: any = 1, itemsPerPage: any = 5): Observable<PaginatedResult<any[]>> {
+		// return this.http.post(this.baseUrl + "review/", objectToPost);
+
+		const paginatedResult: PaginatedResult<any[]> = new PaginatedResult<any[]>();
+
+		let params = new HttpParams();
+		params = params.append('pageSize', itemsPerPage);
+		params = params.append('pageNumber', pageNumber);		
+		params = params.append('filmId', filmId);
+		params = params.append('orderByDescending', "CreatedAt");
+
+		return this.http.get<any[]>(this.baseUrl + "review/", {observe: 'response', params})
+		.pipe(
+			map(response => {
+				paginatedResult.result = response.body;
+				if (response.headers.get('Pagination') != null) {
+					paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+				}
+				return paginatedResult;
+			})
+		);
+
+	}
+
 }
