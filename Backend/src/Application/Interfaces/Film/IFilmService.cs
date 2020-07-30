@@ -1,4 +1,5 @@
-﻿using Application.Dtos.Film;
+﻿using Application.Dtos.Common;
+using Application.Dtos.Film;
 using Application.Dtos.Rating;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,5 +13,6 @@ namespace Application.Interfaces.Film
         Task<FilmForDetailedDto> Create(FilmForCreationDto filmForCreation);
         Task<FilmForDetailedDto> Update(int id, FilmForUpdateDto filmForUpdate);
         Task Delete(int id);
+        Task<IEnumerable<RecordNameDto>> GetRecordNames();
     }
 }

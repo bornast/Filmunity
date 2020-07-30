@@ -20,40 +20,42 @@ import { GlobalModule } from '../globalFrontendComponents/global.module';
 
 import { PagesRoutes } from './pages.routing';
 import { FormsModule } from '@angular/forms';
+import { WatchlistEditorComponent } from './watchlist-editor/watchlist-editor.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
-   // Change this to your upload POST address:
-    url: 'https://httpbin.org/post',
-    maxFilesize: 50,
-    acceptedFiles: 'image/*'
-  };
+	// Change this to your upload POST address:
+	url: 'https://httpbin.org/post',
+	maxFilesize: 50,
+	acceptedFiles: 'image/*'
+};
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    GlobalModule,
-	DropzoneModule,
-	FormsModule,
-    RouterModule.forChild(PagesRoutes),
-  ],
-  declarations: [ 
-   PricingComponent,
-   InvoiceComponent,
-   ContactComponent,
-   AboutComponent,
-    UserProfileComponent,
-    BookingComponent,
-    BlogListingComponent,
-    BlogDetailComponent,
-    AddListingComponent
-  ],
-  providers: [
-   {
-     provide: DROPZONE_CONFIG,
-     useValue: DEFAULT_DROPZONE_CONFIG
-   }
- ]
+	imports: [
+		CommonModule,
+		GlobalModule,
+		DropzoneModule,
+		FormsModule,
+		RouterModule.forChild(PagesRoutes),
+	],
+	declarations: [
+		PricingComponent,
+		InvoiceComponent,
+		ContactComponent,
+		AboutComponent,
+		UserProfileComponent,
+		BookingComponent,
+		BlogListingComponent,
+		BlogDetailComponent,
+		AddListingComponent,
+		WatchlistEditorComponent
+	],
+	providers: [
+		{
+			provide: DROPZONE_CONFIG,
+			useValue: DEFAULT_DROPZONE_CONFIG
+		}
+	]
 })
 
-export class PagesModule {}
+export class PagesModule { }

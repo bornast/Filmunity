@@ -50,6 +50,9 @@ namespace Application.Mappings
                     HandleFilmGenres(src, dest);
                     HandleFilmParticipants(src, dest);
                 });
+
+            CreateMap<Film, RecordNameDto>()
+                .ForMember(x => x.Name, opt => opt.MapFrom(x => $"{x.Title} ({x.Year})"));
         }
 
         private void HandleFilmGenres(FilmForUpdateDto src, Film dest)

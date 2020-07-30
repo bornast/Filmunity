@@ -8,7 +8,7 @@ namespace Infrastructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<FilmWatchlist> builder)
         {
-            builder.HasKey(x => new { x.Sequence, x.WatchlistId, x.FilmId });
+            builder.HasKey(x => new { x.WatchlistId, x.FilmId });
 
             builder.HasOne(x => x.Watchlist)
                 .WithMany(x => x.Films)

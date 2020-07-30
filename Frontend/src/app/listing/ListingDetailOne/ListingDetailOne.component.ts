@@ -34,7 +34,6 @@ export class ListingDetailOneComponent implements OnInit {
 		this.filmService.getFilm(id).subscribe((film) => {
 			this.film = film;
 
-			console.log("ASDIJASDIO", this.gallerySlider);
 			if (!this.gallerySlider)
 				this.prepareGallerySlider();
 

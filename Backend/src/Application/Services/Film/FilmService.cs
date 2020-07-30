@@ -1,4 +1,5 @@
-﻿using Application.Dtos.Film;
+﻿using Application.Dtos.Common;
+using Application.Dtos.Film;
 using Application.Dtos.Rating;
 using Application.Extensions;
 using Application.Interfaces;
@@ -105,6 +106,15 @@ namespace Application.Services
             _uow.Repository<Film>().Remove(film);
 
             await _uow.SaveAsync();
+        }
+
+        public async Task<IEnumerable<RecordNameDto>> GetRecordNames()
+        {
+            var films = await _uow.Repository<Film>().FindAsync();
+
+            var filmsToReturn = _mapper.Map<IEnumerable<RecordNameDto>>(films);
+
+            return filmsToReturn;
         }
 
     }

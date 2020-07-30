@@ -15,6 +15,7 @@ export interface Film {
 	language: RecordName;
     year: string;
     duration: string;
-    participants: any[];
+	participants: any[];
+	sequence?: any;
 }
 

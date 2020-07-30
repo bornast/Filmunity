@@ -46,7 +46,7 @@ namespace Application.Services.Watchlist
                 throw new NotFoundException(nameof(Domain.Entities.Watchlist));
 
             if (_currentUserService.UserId != watchlist.UserId)
-                throw new UnauthorizedException();
+                throw new ForbiddenException();
 
             ValidateSequence(watchlistForUpdate.Films.Select(x => x.Sequence).ToList());
 
@@ -84,7 +84,7 @@ namespace Application.Services.Watchlist
                 throw new NotFoundException(nameof(Domain.Entities.Watchlist));
 
             if (_currentUserService.UserId != watchlist.UserId)
-                throw new UnauthorizedException();
+                throw new ForbiddenException();
 
             var film = watchlist.Films.FirstOrDefault(x => x.FilmId == markAsUnwatched.FilmId);
             AddValidationErrorIfValueIsNull(film, "Film", $"Id {markAsUnwatched.FilmId} not found in watchlist!");

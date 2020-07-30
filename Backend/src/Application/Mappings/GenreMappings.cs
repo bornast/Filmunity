@@ -8,7 +8,7 @@ namespace Application.Mappings
     {
         public GenreMappings()
         {
-            CreateMap<Genre, RecordNameDto>();            
+            CreateMap<Genre, RecordNameDto>();
         }
     }
 }

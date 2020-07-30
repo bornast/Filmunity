@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Person } from '../_models/person';
 import { User } from '../_models/user';
+import { Watchlist } from '../_models/watchlist';
 
 @Injectable({
 	providedIn: 'root'
@@ -234,6 +235,25 @@ export class FilmService {
 			})
 		);
 
+	}
+
+	// TODO: move to separate service?
+	getWatchlist(id) {
+		return this.http.get<Watchlist>(this.baseUrl + "watchlist/" + id);
+	}
+
+	// TODO: move to separate service?
+	createWatchlist(watchlistToCreate) {
+		return this.http.post(this.baseUrl + "watchlist", watchlistToCreate);
+	}
+
+	// TODO: move to separate service?
+	updateWatchlist(id, watchlistToUpdate) {
+		return this.http.put(this.baseUrl + "watchlist/" + id, watchlistToUpdate);
+	}
+
+	getFilms() {
+		return this.http.get<RecordName[]>(this.baseUrl + "film/recordNames");
 	}
 
 }

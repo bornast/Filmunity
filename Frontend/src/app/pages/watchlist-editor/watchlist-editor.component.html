@@ -1,0 +1,87 @@
+<div class="main-wrapper">
+	<div class="content">
+		<!-- Container -->
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div id="add-listing" class="separated-form">
+						<!-- Section -->
+						<div class="add-listing-section mb-4">
+							<!-- Headline -->
+							<div class="add-listing-headline">
+								<h3>Basic Informations</h3>
+							</div>
+							<!-- Title -->
+							<div class="row with-forms">
+								<div class="col-md-12">
+									<div class="form-group">
+										<input type="text" placeholder="Title"
+											class="form-control form-control-alternative"
+											[(ngModel)]="watchlistToSave.title">
+									</div>
+								</div>
+							</div>
+							<!-- Description -->
+							<div class="row with-forms">
+								<div class="col-md-12">
+									<div class="form-group">
+										<input type="text" placeholder="Description"
+											class="form-control form-control-alternative"
+											[(ngModel)]="watchlistToSave.description">
+									</div>
+								</div>
+							</div>
+							<!-- Films -->
+
+
+							<div class="row with-forms" *ngFor="let watchlistFilm of watchlistToSave.films; let i = index">																
+								<div class="col-md-8">
+									<!-- TODO: move style to css -->
+									<label style="margin-left:10px;">Film</label>
+									<select class="custom-select form-control-alternative mb-3" #filmId
+										(change)="updateFilm(i, filmId.selectedIndex-1)">
+										<option value=""></option>
+										<option *ngFor="let film of films" [selected]="film.id == watchlistFilm.filmId"
+											[ngValue]="film.id">
+											{{film.name}}
+										</option>
+									</select>
+								</div>
+								<!-- TODO: move style to css -->
+								<div style="padding-top: 30px;" class="col-md-1">
+									<button class="btn btn-primary" (click)="addEmptyFilm()">Add</button>
+								</div>
+								<!-- TODO: move style to css -->
+								<div style="padding-top: 30px;" class="col-md-2">
+									<button class="btn btn-danger" (click)="removeFilm(i)"
+										[disabled]="watchlistToSave.films.length == 1">Remove
+									</button>
+								</div>
+								<!-- TODO: move to css -->
+								<div class="col-md-1" style="margin-top: 2rem;">
+									<i class="fa fa-arrow-up" (click)="topReorder(i)"></i>
+									<i class="fa fa-arrow-down ml-3" (click)="bottomReorder(i)"></i>
+								</div>
+							</div>
+						</div>
+						<!-- Section / End -->
+
+						<!-- Section -->
+						<div class="add-listing-section mb-4" *ngIf="watchlist && watchlist['id']">
+							<!-- Headline -->
+							<div class="add-listing-headline">
+								<h3>Photos</h3>
+							</div>
+							<app-photo-editor [entityTypeId]="entityTypeId" [entityId]="watchlist['id']"
+								[photos]="watchlistToSave.photos"></app-photo-editor>
+						</div>
+						<!-- Section / End -->
+						<button class="btn btn-lg btn-primary mt-4" type="button"
+							[disabled]="!watchlistToSave.title||!areFilmsValid()" (click)="save()">Save
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

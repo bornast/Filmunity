@@ -83,13 +83,7 @@ namespace Application.Services.Watchlist
 
             await _uow.SaveAsync();
 
-            var watchlistToReturn = _mapper.Map<WatchlistForDetailedDto>(watchlist);
-
-            await _photoService.IncludeMainPhoto(watchlistToReturn.Films, (int)EntityTypes.Film);
-
-            await _photoService.IncludePhotos(watchlistToReturn, (int)EntityTypes.Watchlist);
-
-            return watchlistToReturn;
+            return await GetOne(watchlist.Id);
         }
 
         public async Task Delete(int id)
