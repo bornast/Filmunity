@@ -30,6 +30,8 @@ import { ListingRoutes } from './listing.routing';
 
 import { GlobalModule } from '../globalFrontendComponents/global.module';
 import { FormsModule } from '@angular/forms';
+import { WatchlistListComponent } from './watchlist-list/watchlist-list.component';
+import { WatchlistViewComponent } from './watchlist-view/watchlist-view.component';
 
 
 @NgModule({
@@ -58,7 +60,9 @@ import { FormsModule } from '@angular/forms';
      SmallGallerySliderComponent,
      SidebarLayoutOneComponent,
      SidebarLayoutTwoComponent,
-     SidebarLayoutThreeComponent
+	 SidebarLayoutThreeComponent,
+	 WatchlistListComponent,
+	 WatchlistViewComponent
    ]
 })
 

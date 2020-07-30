@@ -21,9 +21,9 @@ namespace Api.Controllers
         }        
         
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] WatchlistFilterDto watchlistFilter)
         {
-            return Ok(await _watchlistService.GetAll());
+            return Ok(await _watchlistService.GetAll(watchlistFilter));
         }
 
         [HttpGet("{id}", Name = "GetWatchlist")]

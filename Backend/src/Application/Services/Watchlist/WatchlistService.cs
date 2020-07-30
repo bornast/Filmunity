@@ -1,4 +1,5 @@
 ﻿using Application.Dtos.Watchlist;
+using Application.Extensions;
 using Application.Interfaces;
 using Application.Interfaces.Common;
 using Application.Interfaces.Photo;
@@ -7,6 +8,7 @@ using Application.Specifications.Watchlist;
 using AutoMapper;
 using Common.Enums;
 using Common.Exceptions;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,16 +21,19 @@ namespace Application.Services.Watchlist
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _currentUserService;
         private readonly IPhotoService _photoService;
+        private readonly IHttpContextAccessor _context;
 
         public WatchlistService(IUnitOfWork uow, 
             IMapper mapper, 
             ICurrentUserService currentUserService, 
-            IPhotoService photoService)
+            IPhotoService photoService,
+            IHttpContextAccessor context)
         {
             _uow = uow;
             _mapper = mapper;
             _currentUserService = currentUserService;
             _photoService = photoService;
+            _context = context;
         }
 
         public async Task<WatchlistForDetailedDto> GetOne(int id)
@@ -47,9 +52,11 @@ namespace Application.Services.Watchlist
             return watchlistToReturn;
         }
 
-        public async Task<IEnumerable<WatchlistForListDto>> GetAll()
+        public async Task<IEnumerable<WatchlistForListDto>> GetAll(WatchlistFilterDto watchlistFilter)
         {
-            var watchlists = await _uow.Repository<Domain.Entities.Watchlist>().FindAsync();
+            var watchlists = await _uow.Repository<Domain.Entities.Watchlist>().FindAsyncWithPagination(new WatchlistFilterPaginatedSpecification(watchlistFilter));
+
+            _context.HttpContext.Response.AddPagination(watchlists.CurrentPage, watchlists.PageSize, watchlists.TotalCount, watchlists.TotalPages);
 
             var watchlistsToReturn = _mapper.Map<IEnumerable<WatchlistForListDto>>(watchlists);
 

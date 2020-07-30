@@ -256,4 +256,34 @@ export class FilmService {
 		return this.http.get<RecordName[]>(this.baseUrl + "film/recordNames");
 	}
 
+	// TODO: move to separate service?
+	getWatchlistByFilter(userId?: any, title?: string, pageNumber: any = 1, itemsPerPage: any = 5): Observable<PaginatedResult<Watchlist[]>> {
+
+		const paginatedResult: PaginatedResult<Watchlist[]> = new PaginatedResult<Watchlist[]>();
+
+		let params = new HttpParams();
+		params = params.append('pageSize', itemsPerPage);
+		params = params.append('pageNumber', pageNumber);
+		
+		if (userId != null)
+			params = params.append('orderByDescending', userId);
+		if (title != null)
+			params = params.append('title', title);
+
+		return this.http.get<Watchlist[]>(this.baseUrl + "watchlist/", {observe: 'response', params})
+		.pipe(
+			map(response => {
+				paginatedResult.result = response.body;
+				if (response.headers.get('Pagination') != null) {
+					paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+				}
+				return paginatedResult;
+			})
+		);
+	}
+
+	// TODO: move to separate service?
+	deleteWatchlist(watchlistId: any) {
+		return this.http.delete(this.baseUrl + "watchlist/" + watchlistId);
+	}
 }

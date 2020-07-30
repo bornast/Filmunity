@@ -1,0 +1,32 @@
+T<div class="main-wrapper">
+	<!-- Content -->
+	<div id="content">
+		<div class="container">
+			<div class="profile-page">
+				<div class="card card-profile shadow">
+					<br>
+					<div class="pb-5">
+ 						<!-- TODO: move to css -->
+						<div class="px-4" style="text-align: center;">
+							<h3>My Watchlists</h3>
+						</div>
+						<div class="row p-4 list-img-wrap" *ngFor="let watchlist of watchlists">
+							<div class="col-md-2 list-img">
+								<img *ngIf="watchlist.mainPhoto" [src]="watchlist.mainPhoto.url" class="img-fluid rounded-circle shadow-lg">
+							</div>
+							<div class="col-md-10">
+								<h5 class="text-primary">{{watchlist.title}}</h5>
+								<p>{{watchlist.description}}</p>
+								<button class="btn btn-sm btn-primary" type="button" [routerLink]="['/listing/watchlist', watchlist.id]">Edit</button>
+								<button class="btn btn-sm btn-danger" type="button" (click)="delete(watchlist.id)">Remove</button>
+							</div>
+						</div>
+						<div class="px-4">
+							<pagination (pageChanged)="changePage($event)" *ngIf="pagination" [pagination]="pagination"></pagination>
+						</div>						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -6,7 +6,7 @@ namespace Application.Interfaces.Watchlist
 {
     public interface IWatchlistService
     {
-        Task<IEnumerable<WatchlistForListDto>> GetAll();
+        Task<IEnumerable<WatchlistForListDto>> GetAll(WatchlistFilterDto watchlistFilter);
         Task<WatchlistForDetailedDto> GetOne(int id);
         Task<WatchlistForDetailedDto> Create(WatchlistForCreationDto watchlistForCreation);
         Task<WatchlistForDetailedDto> Update(int id, WatchlistForUpdateDto watchlistForUpdate);

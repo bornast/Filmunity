@@ -9,6 +9,7 @@ import { PricingComponent } from './Pricing/Pricing.component';
 import { InvoiceComponent } from './Invoice/Invoice.component';
 import { ContactComponent } from './Contact/Contact.component';
 import { AboutComponent } from './About/About.component';
+import { UserWatchlistsComponent } from './user-watchlists/user-watchlists.component';
 
 export const PagesRoutes: Routes = [{
   path: 'user-profile',
@@ -49,4 +50,8 @@ export const PagesRoutes: Routes = [{
 {
   path: 'add-listing',
   component: AddListingComponent
-}];
+},
+{
+	path: 'user-watchlists',
+	component: UserWatchlistsComponent
+  }];

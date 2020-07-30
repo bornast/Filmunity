@@ -27,7 +27,8 @@ const MENUITEMS = [
 				name: 'List Layout',
 				type: 'sub',
 				children: [
-					{ state: 'with-sidebar', name: 'With Sidebar', type: 'link' },
+					{ state: 'with-sidebar', name: 'Films', type: 'link' },
+					{ state: 'watchlist-list', name: 'Watchlists', type: 'link' },
 					{ state: 'full-width', name: 'Full Width', type: 'link' },
 					{ state: 'full-width-map', name: 'Full Width + Map', type: 'link' }
 				]
@@ -127,6 +128,7 @@ export class MenuItems {
 				type: 'sub',
 				children: [
 					{ state: 'add-listing', name: 'My profile', type: 'link' },
+					{ state: 'user-watchlists', name: 'My watchlists', type: 'link' },
 					{ state: 'logout', name: 'Logout', type: 'link' },
 				]
 			};			

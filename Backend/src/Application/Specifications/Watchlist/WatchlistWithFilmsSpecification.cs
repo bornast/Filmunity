@@ -5,7 +5,7 @@
         public WatchlistWithFilmsSpecification(int id)
             : base(x => x.Id == id)
         {
-            AddInclude($"{nameof(Domain.Entities.Watchlist.Films)}");
+            AddInclude($"{nameof(Domain.Entities.Watchlist.Films)}.{nameof(Domain.Entities.FilmWatchlist.Film)}");
         }
     }
 }
