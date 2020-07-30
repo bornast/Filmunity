@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Watchlist } from 'src/app/_models/watchlist';
 import { Pagination } from 'src/app/_models/pagination';
-import { ToastService } from 'src/app/_services/toast.service';
 import { FilmService } from 'src/app/_services/film.service';
 
 @Component({
@@ -17,7 +16,7 @@ export class WatchlistListComponent implements OnInit {
 	pagination: Pagination;
 	pageNumber: any = 1;
 
-	constructor(private filmService: FilmService, private toast: ToastService) { }
+	constructor(private filmService: FilmService) { }
 
 	ngOnInit() {
 		this.loggedUserId = localStorage.getItem('filmunity-userId');
@@ -34,18 +33,6 @@ export class WatchlistListComponent implements OnInit {
 	changePage(pageNumber: number) {
 		this.pageNumber = pageNumber;
 		this.loadWatchlists();
-	}
-
-	delete(id: any) {
-		if (confirm("Are you sure to delete this record")) {
-			this.filmService.deleteWatchlist(id).subscribe(() => {
-				this.pageNumber = 1;
-				this.loadWatchlists();
-				this.toast.success("Successfully delete!");
-			}, () => {
-				this.toast.error("Failed to delete!");
-			});
-		}
 	}
 
 	filter() {

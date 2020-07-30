@@ -29,6 +29,7 @@ const MENUITEMS = [
 				children: [
 					{ state: 'with-sidebar', name: 'Films', type: 'link' },
 					{ state: 'watchlist-list', name: 'Watchlists', type: 'link' },
+					{ state: 'user-list', name: 'Users', type: 'link' },
 					{ state: 'full-width', name: 'Full Width', type: 'link' },
 					{ state: 'full-width-map', name: 'Full Width + Map', type: 'link' }
 				]

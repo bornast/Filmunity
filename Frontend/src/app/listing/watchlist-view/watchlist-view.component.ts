@@ -12,7 +12,6 @@ export class WatchlistViewComponent implements OnInit {
 
 	gallerySlider: any;
 	watchlist: Watchlist;
-	reviews: any[];
 
 	constructor(private filmService: FilmService,  private route: ActivatedRoute) { }
 
@@ -23,7 +22,6 @@ export class WatchlistViewComponent implements OnInit {
 	getWatchlist(id: any) {
 		this.filmService.getWatchlist(id).subscribe((watchlist) => {
 			this.watchlist = watchlist;
-			console.log("watchlist", watchlist);
 			if (!this.gallerySlider)
 				this.prepareGallerySlider();
 		});

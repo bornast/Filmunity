@@ -32,6 +32,8 @@ import { GlobalModule } from '../globalFrontendComponents/global.module';
 import { FormsModule } from '@angular/forms';
 import { WatchlistListComponent } from './watchlist-list/watchlist-list.component';
 import { WatchlistViewComponent } from './watchlist-view/watchlist-view.component';
+import { UsersListComponent } from './users-list/users-list.component';
+import { UserViewComponent } from './user-view/user-view.component';
 
 
 @NgModule({
@@ -62,7 +64,9 @@ import { WatchlistViewComponent } from './watchlist-view/watchlist-view.componen
      SidebarLayoutTwoComponent,
 	 SidebarLayoutThreeComponent,
 	 WatchlistListComponent,
-	 WatchlistViewComponent
+	 WatchlistViewComponent,
+	 UsersListComponent,
+	 UserViewComponent
    ]
 })
 

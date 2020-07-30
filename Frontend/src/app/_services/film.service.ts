@@ -266,7 +266,7 @@ export class FilmService {
 		params = params.append('pageNumber', pageNumber);
 		
 		if (userId != null)
-			params = params.append('orderByDescending', userId);
+			params = params.append('userId', userId);
 		if (title != null)
 			params = params.append('title', title);
 

@@ -1,0 +1,59 @@
+<br>
+<br>
+<div class="main-wrapper" *ngIf="user">
+	<!-- Content -->
+	<div id="content">
+		<div class="container">
+			<div class="profile-page">
+				<div class="card card-profile shadow">
+					<div class="px-4">
+						<div class="row justify-content-center">
+							<div class="col-lg-3 order-lg-2">
+								<div class="card-profile-image">
+									<a href="#">
+										<img *ngIf="user.mainPhoto" src="{{user.mainPhoto.url}}" class="rounded-circle">
+									</a>
+								</div>
+							</div>
+							<div class="col-lg-4 order-lg-3 text-lg-right align-self-lg-center">
+								<div class="card-profile-actions py-4 mt-lg-0">
+									<a href="#" class="btn btn-sm btn-info mr-4">Send Friend Request</a>
+								</div>
+							</div>
+							<div class="col-lg-4 order-lg-1">
+								<div class="card-profile-stats d-flex justify-content-center"></div>
+							</div>
+						</div>
+						<div class="text-center mt-5">
+							<h3>{{user.firstName + " " + user.lastName}}</h3>
+							<div class="h6 font-weight-300"><i class="ni location_pin mr-2"></i>{{user.username}}</div>
+						</div>
+						<div class="mt-5 py-5 border-top text-center">
+							<div class="row justify-content-center">
+								<div class="col-lg-9">
+									<p>{{user.interests}}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="pb-5" *ngIf="watchlists && watchlists.length > 0">
+						<div class="px-4">
+							<h3>Watchlists</h3>
+						</div>
+						<div class="row p-4 list-img-wrap" *ngFor="let watchlist of watchlists">
+							<div class="col-md-2 list-img">
+								<img *ngIf="watchlist.mainPhoto" src="{{watchlist.mainPhoto.url}}" class="img-fluid rounded-circle shadow-lg">
+							</div>
+							<div class="col-md-10">
+								<!-- TODO: move to css -->
+								<h5 style="cursor: pointer;" [routerLink]="['/listing/watchlist-view', watchlist.id]" routerLinkActive="router-link-active"  class="text-primary">{{watchlist.title}}</h5>
+								<p>{{watchlist.description}}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<br>
