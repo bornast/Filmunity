@@ -11,7 +11,6 @@ import { FilmService } from 'src/app/_services/film.service';
 export class WatchlistListComponent implements OnInit {
 
 	searchTxt: any;
-	loggedUserId: any;
 	watchlists: Watchlist[];
 	pagination: Pagination;
 	pageNumber: any = 1;
@@ -19,12 +18,11 @@ export class WatchlistListComponent implements OnInit {
 	constructor(private filmService: FilmService) { }
 
 	ngOnInit() {
-		this.loggedUserId = localStorage.getItem('filmunity-userId');
 		this.loadWatchlists();
 	}
 
 	loadWatchlists() {		
-		this.filmService.getWatchlistByFilter(this.loggedUserId, this.searchTxt, this.pageNumber, 4).subscribe((watchlists) => {
+		this.filmService.getWatchlistByFilter(null, this.searchTxt, this.pageNumber, 4).subscribe((watchlists) => {
 			this.pagination = watchlists.pagination;
 			this.watchlists = watchlists.result;
 		});

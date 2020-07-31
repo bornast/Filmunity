@@ -6,25 +6,13 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { NouisliderModule } from 'ng2-nouislider';
 
 import { ListWithSidebarComponent } from './ListWithSidebar/ListWithSidebar.component';
-import { ListFullWidthComponent } from './ListFullWidth/ListFullWidth.component';
-import { ListFullWidthMapComponent } from './ListFullWidthMap/ListFullWidthMap.component'; 
-
-import { GridWithSidebarComponent } from './GridWithSidebar/GridWithSidebar.component';
-import { GridFullWidthComponent } from './GridFullWidth/GridFullWidth.component';
-import { GridFullWidthMapComponent } from './GridFullWidthMap/GridFullWidthMap.component';
-
-import { HalfScreenMapListComponent } from './HalfScreenMapList/HalfScreenMapList.component';
-import { HalfScreenMapGridComponent } from './HalfScreenMapGrid/HalfScreenMapGrid.component';
 
 import { ListingDetailOneComponent } from './ListingDetailOne/ListingDetailOne.component';
-import { ListingDetailTwoComponent } from './ListingDetailTwo/ListingDetailTwo.component';
 
 import { GallerySliderComponent } from '../globalFrontendComponents/GallerySlider/GallerySlider.component';
 import { SmallGallerySliderComponent } from '../globalFrontendComponents/SmallGallerySlider/SmallGallerySlider.component';
 
 import { SidebarLayoutOneComponent } from './SidebarLayoutOne/SidebarLayoutOne.component';
-import { SidebarLayoutTwoComponent } from './SidebarLayoutTwo/SidebarLayoutTwo.component';
-import { SidebarLayoutThreeComponent } from './SidebarLayoutThree/SidebarLayoutThree.component';
 import { RatingModule } from 'ng-starrating';
 import { ListingRoutes } from './listing.routing';
 
@@ -37,37 +25,27 @@ import { UserViewComponent } from './user-view/user-view.component';
 
 
 @NgModule({
-  imports: [
-	CommonModule,
-	FormsModule,
-    GlobalModule,
-    SlickCarouselModule,
-	NouisliderModule,
-	RatingModule,
-    AgmCoreModule.forRoot({apiKey: 'AIzaSyBtdO5k6CRntAMJCF-H5uZjTCoSGX95cdk'}),
-    RouterModule.forChild(ListingRoutes),
-  ],
-  declarations: [ 
-     ListWithSidebarComponent,
-     ListFullWidthComponent,
-     ListFullWidthMapComponent,
-     GridWithSidebarComponent,
-     GridFullWidthComponent,
-     GridFullWidthMapComponent,
-     HalfScreenMapListComponent,
-     HalfScreenMapGridComponent,
-     ListingDetailOneComponent,
-     ListingDetailTwoComponent,
-     GallerySliderComponent,
-     SmallGallerySliderComponent,
-     SidebarLayoutOneComponent,
-     SidebarLayoutTwoComponent,
-	 SidebarLayoutThreeComponent,
-	 WatchlistListComponent,
-	 WatchlistViewComponent,
-	 UsersListComponent,
-	 UserViewComponent
-   ]
+	imports: [
+		CommonModule,
+		FormsModule,
+		GlobalModule,
+		SlickCarouselModule,
+		NouisliderModule,
+		RatingModule,
+		AgmCoreModule.forRoot({ apiKey: 'AIzaSyBtdO5k6CRntAMJCF-H5uZjTCoSGX95cdk' }),
+		RouterModule.forChild(ListingRoutes),
+	],
+	declarations: [
+		ListWithSidebarComponent,
+		ListingDetailOneComponent,
+		GallerySliderComponent,
+		SmallGallerySliderComponent,
+		SidebarLayoutOneComponent,
+		WatchlistListComponent,
+		WatchlistViewComponent,
+		UsersListComponent,
+		UserViewComponent
+	]
 })
 
-export class ListingModule {}
+export class ListingModule { }
