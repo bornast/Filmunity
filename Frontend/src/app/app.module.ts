@@ -17,7 +17,6 @@ import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 import { HeaderComponent } from './core/Header/Header.component';
 import { FooterComponent } from './core/Footer/Footer.component';
 import { MenuComponent } from './core/Menu/Menu.component';
-import { SignInComponent } from './core/SignInPopup/SignIn.component';
 
 import { AdminHeaderComponent } from './core/AdminHeader/AdminHeader.component';
 import { AdminSidebarComponent } from './core/AdminSidebar/AdminSidebar.component';
@@ -50,7 +49,6 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
       HeaderComponent,
       FooterComponent,
       MenuComponent,
-      SignInComponent,
       AdminHeaderComponent,
       AdminSidebarComponent
   ],

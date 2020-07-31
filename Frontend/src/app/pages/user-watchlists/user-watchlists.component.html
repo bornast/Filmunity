@@ -10,6 +10,10 @@
 						<div class="px-4" style="text-align: center;">
 							<h3>My Watchlists</h3>
 						</div>
+						<!-- TODO: move to css -->
+						<div class="px-4" style="text-align: right;">
+							<span [routerLink]="['/listing/watchlist']" class="btn btn-primary">Add new <i class="fa fa-plus"></i></span>
+						</div>
 						<div class="row p-4 list-img-wrap" *ngFor="let watchlist of watchlists">
 							<div class="col-md-2 list-img">
 								<img *ngIf="watchlist.mainPhoto" [src]="watchlist.mainPhoto.url" class="img-fluid rounded-circle shadow-lg">
