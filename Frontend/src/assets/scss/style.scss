@@ -67,11 +67,8 @@
 
 
 @import "custom/reboot.scss";
-@import "custom/global.scss";
-@import "custom/utilities.scss";
 
-@import "custom/accordion.scss";
-@import "custom/alerts.scss";
+
 @import "custom/avatars.scss";
 @import "custom/badge.scss";
 @import "custom/buttons.scss";
@@ -98,29 +95,17 @@
 @import "custom/block.scss";
 
 
-// Vendor
-
-@import "custom/vendor/bootstrap-datepicker.scss";
-@import "custom/vendor/headroom.scss";
-@import "custom/vendor/nouislider.scss";
-
-
 
 @import "variables";
 
-@import "footer";
+
 @import "navigation";
 @import "main-search";
-@import "inner-container";
-@import "map-banner";
-@import "datepicker";
 
 @import "pricing";
 @import "pages/pages";
 @import "third-party/third-party";
 @import "component/component";
-
-@import "custom/rtl.scss";
 
 
 
