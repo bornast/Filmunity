@@ -14,5 +14,7 @@ namespace Domain.Entities
         public string Interests { get; set; }
         public ICollection<UserRole> Roles { get; set; } = new List<UserRole>();
         public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
+        public ICollection<Friendship> Senders { get; set; }
+        public ICollection<Friendship> Receivers { get; set; }
     }
 }

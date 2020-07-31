@@ -4,6 +4,7 @@ using Application.Interfaces.Country;
 using Application.Interfaces.EntityType;
 using Application.Interfaces.Film;
 using Application.Interfaces.FilmRole;
+using Application.Interfaces.Friendship;
 using Application.Interfaces.Genre;
 using Application.Interfaces.Language;
 using Application.Interfaces.Person;
@@ -17,6 +18,7 @@ using Application.Services.Common;
 using Application.Services.Country;
 using Application.Services.EntityType;
 using Application.Services.FilmRole;
+using Application.Services.Friendship;
 using Application.Services.Genre;
 using Application.Services.Language;
 using Application.Services.Person;
@@ -63,6 +65,7 @@ namespace Application
             services.AddScoped<IFilmRoleService, FilmRoleService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IReviewService, ReviewService>();
+            services.AddScoped<IFriendshipService, FriendshipService>();
             services.AddValidation();
         }
 
@@ -100,6 +103,8 @@ namespace Application
 
             services.AddTransient<IObjectValidator<ReviewForCreationDtoValidator>, ReviewForCreationDtoValidator>();
             services.AddScoped<IReviewValidatorService, ReviewValidatorService>();
+
+            services.AddScoped<IFriendshipValidatorService, FriendshipValidatorService>();
         }
 
     }

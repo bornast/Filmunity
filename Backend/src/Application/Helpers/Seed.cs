@@ -21,6 +21,7 @@ namespace Application.Helpers
                 return;
 
             SeedEntityTypes();
+            SeedFriendshipStatus();
             SeedUserWithRoles(hashService);
             SeedGender();
             SeedFilmType();
@@ -41,6 +42,18 @@ namespace Application.Helpers
             }
 
             _uow.Repository<EntityType>().AddRange(entityTypes);
+        }
+
+        private static void SeedFriendshipStatus()
+        {
+            var friendshipStatus = new List<FriendshipStatus>();
+
+            foreach (var status in EnumLibrary.GetIdAndNameDictionaryOfEnumType(typeof(Common.Enums.FriendshipStatus)))
+            {
+                friendshipStatus.Add(new FriendshipStatus { Id = status.Key, Name = status.Value });
+            }
+
+            _uow.Repository<FriendshipStatus>().AddRange(friendshipStatus);
         }
 
         private static void SeedUserWithRoles(IHashService hashService)
