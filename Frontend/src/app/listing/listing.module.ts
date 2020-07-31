@@ -6,16 +6,11 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { NouisliderModule } from 'ng2-nouislider';
 
 import { ListWithSidebarComponent } from './ListWithSidebar/ListWithSidebar.component';
-
 import { ListingDetailOneComponent } from './ListingDetailOne/ListingDetailOne.component';
-
 import { GallerySliderComponent } from '../globalFrontendComponents/GallerySlider/GallerySlider.component';
-import { SmallGallerySliderComponent } from '../globalFrontendComponents/SmallGallerySlider/SmallGallerySlider.component';
-
 import { SidebarLayoutOneComponent } from './SidebarLayoutOne/SidebarLayoutOne.component';
 import { RatingModule } from 'ng-starrating';
 import { ListingRoutes } from './listing.routing';
-
 import { GlobalModule } from '../globalFrontendComponents/global.module';
 import { FormsModule } from '@angular/forms';
 import { WatchlistListComponent } from './watchlist-list/watchlist-list.component';
@@ -39,7 +34,6 @@ import { UserViewComponent } from './user-view/user-view.component';
 		ListWithSidebarComponent,
 		ListingDetailOneComponent,
 		GallerySliderComponent,
-		SmallGallerySliderComponent,
 		SidebarLayoutOneComponent,
 		WatchlistListComponent,
 		WatchlistViewComponent,
