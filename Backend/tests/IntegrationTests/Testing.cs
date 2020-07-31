@@ -58,7 +58,8 @@ namespace IntegrationTests
                     "Country",
                     "FilmRole",
                     "Language",
-                    "Roles"
+                    "Roles",
+                    "EntityType"
                 }
             };
             EnsureDatabase();

@@ -1,4 +1,5 @@
-﻿using Application.Dtos.Friendship;
+﻿using Application.Dtos.Common;
+using Application.Dtos.Friendship;
 using Application.Dtos.User;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,10 @@ namespace Application.Interfaces.Friendship
     public interface IFriendshipService
     {
         Task<IEnumerable<FriendRequestForListDto>> GetAllFriendRequests();
-        Task<IEnumerable<FriendDto>> GetAllFriends();
+        Task<IEnumerable<FriendDto>> GetAllFriends(FriendshipFilterDto friendshipFilter);
         Task SendFriendRequest(int userId);
         Task AcceptFriendRequest(int userId);
         Task DeclineFriendRequest(int userId);
+        Task<RecordNameDto> GetFriendShipStatus(int userId);
     }
 }

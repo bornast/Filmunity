@@ -7,6 +7,6 @@ namespace Application.Dtos.Friendship
 {
     public class FriendshipFilterDto : BaseFilter
     {
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
     }
 }

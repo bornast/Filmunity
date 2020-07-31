@@ -8,23 +8,22 @@
 					<div class="pb-5">
  						<!-- TODO: move to css -->
 						<div class="px-4" style="text-align: center;">
-							<h3>My Watchlists</h3>
+							<h3>My Friends</h3>
 						</div>
-						<div class="row p-4 list-img-wrap" *ngFor="let watchlist of watchlists">
+						<div class="row p-4 list-img-wrap" *ngFor="let friend of friends">
 							<div class="col-md-2 list-img">
-								<img *ngIf="watchlist.mainPhoto" [src]="watchlist.mainPhoto.url" class="img-fluid rounded-circle shadow-lg">
+								<img *ngIf="friend.mainPhoto" [src]="friend.mainPhoto.url" class="img-fluid rounded-circle shadow-lg">
 							</div>
 							<div class="col-md-10">
-								<h5 class="text-primary">{{watchlist.title}}</h5>
-								<p>{{watchlist.description}}</p>
-								<button class="btn btn-sm btn-primary" type="button" [routerLink]="['/listing/watchlist', watchlist.id]">Edit</button>
-								<button class="btn btn-sm btn-danger" type="button" (click)="delete(watchlist.id)">Remove</button>
+								<!-- TODO: move to css -->
+								<h5 style="cursor: pointer;" [routerLink]="['/listing/user-view/', friend.id]" routerLinkActive="router-link-active"  class="text-primary">{{friend.firstName + " " + friend.lastName}}</h5>
+								<p>{{friend.username}}</p>
 							</div>
 						</div>
 						<div class="px-4">
 							<pagination (pageChanged)="changePage($event)" *ngIf="pagination" [pagination]="pagination"></pagination>
-						</div>						
-					</div>
+						</div>					
+					</div>					
 				</div>
 			</div>
 		</div>

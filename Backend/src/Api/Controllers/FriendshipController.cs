@@ -29,9 +29,9 @@ namespace Api.Controllers
         }
 
         [HttpGet("getAllFriends")]
-        public async Task<IActionResult> GetAllFriends()
+        public async Task<IActionResult> GetAllFriends([FromQuery] FriendshipFilterDto friendshipFilter)
         {
-            return Ok(await _friendshipService.GetAllFriends());
+            return Ok(await _friendshipService.GetAllFriends(friendshipFilter));
         }
 
         [Authorize]
@@ -67,7 +67,12 @@ namespace Api.Controllers
             return Ok();
         }
 
-
+        [Authorize]
+        [HttpGet("getFriendshipStatus/{userId}")]
+        public async Task<IActionResult> GetFriendshipStatus(int userId)
+        {
+            return Ok(await _friendshipService.GetFriendShipStatus(userId));
+        }
     }
 
 }

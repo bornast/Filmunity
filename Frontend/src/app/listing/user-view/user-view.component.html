@@ -17,7 +17,21 @@
 							</div>
 							<div class="col-lg-4 order-lg-3 text-lg-right align-self-lg-center">
 								<div class="card-profile-actions py-4 mt-lg-0">
-									<a href="#" class="btn btn-sm btn-info mr-4">Send Friend Request</a>
+									<button 
+										*ngIf="loggedUserId && friendshipStatus && friendshipStatus.id == 0"
+										class="btn btn-sm btn-info mr-4"
+										(click)="sendFriendRequest(user.id)"
+									>Send Friend Request</button>
+									<button 
+										*ngIf="loggedUserId && friendshipStatus && friendshipStatus.id == 1"
+										class="btn btn-sm btn-info mr-4"
+										disabled
+									>Friend Request Sent</button>
+									<button 
+										*ngIf="loggedUserId && friendshipStatus && friendshipStatus.id == 3"
+										class="btn btn-sm btn-danger mr-4"
+										disabled
+									>Friend Request declined</button>
 								</div>
 							</div>
 							<div class="col-lg-4 order-lg-1">

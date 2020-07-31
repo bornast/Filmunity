@@ -10,6 +10,8 @@ import { InvoiceComponent } from './Invoice/Invoice.component';
 import { ContactComponent } from './Contact/Contact.component';
 import { AboutComponent } from './About/About.component';
 import { UserWatchlistsComponent } from './user-watchlists/user-watchlists.component';
+import { FriendshipRequestListComponent } from './friendship-request-list/friendship-request-list.component';
+import { FriendsListComponent } from './friends-list/friends-list.component';
 
 export const PagesRoutes: Routes = [{
   path: 'user-profile',
@@ -54,4 +56,13 @@ export const PagesRoutes: Routes = [{
 {
 	path: 'user-watchlists',
 	component: UserWatchlistsComponent
-  }];
+  },
+  {
+	path: 'friendship-request-list',
+	component: FriendshipRequestListComponent
+  },
+  {
+	path: 'friend-list',
+	component: FriendsListComponent
+  }
+];

@@ -1,4 +1,5 @@
-﻿using Application.Dtos.Friendship;
+﻿using Application.Dtos.Common;
+using Application.Dtos.Friendship;
 using Application.Dtos.User;
 using Application.Extensions;
 using Application.Interfaces;
@@ -50,9 +51,11 @@ namespace Application.Services.Friendship
             return friendshipRequestsToReturn;
         }
 
-        public async Task<IEnumerable<FriendDto>> GetAllFriends()
+        public async Task<IEnumerable<FriendDto>> GetAllFriends(FriendshipFilterDto friendshipFilter)
         {
-            var friendshipSpec = new FriendshipAllFriendsPaginatedSpecification(new FriendshipFilterDto { UserId = (int)_currentUserService.UserId});
+            friendshipFilter.UserId = _currentUserService.UserId;
+
+            var friendshipSpec = new FriendshipAllFriendsPaginatedSpecification(friendshipFilter);
 
             var friendships = await _uow.Repository<Domain.Entities.Friendship>().FindAsyncWithPagination(friendshipSpec);
 
@@ -126,6 +129,28 @@ namespace Application.Services.Friendship
             friendship.StatusId = (int)FriendshipStatus.Declined;
 
             await _uow.SaveAsync();
+        }
+
+        public async Task<RecordNameDto> GetFriendShipStatus(int userId)
+        {
+            var friendshipSpecification = new FriendshipFilterSpecification((int)_currentUserService.UserId, userId);
+
+            var friendship = await _uow.Repository<Domain.Entities.Friendship>().FindOneAsync(friendshipSpecification);
+
+            if (friendship == null)
+            {
+                return new RecordNameDto
+                {
+                    Id = 0,
+                    Name = "None"
+                };
+            }
+
+            return new RecordNameDto
+            {
+                Id = friendship.StatusId,
+                Name = Enum.GetName(typeof(FriendshipStatus), friendship.StatusId) 
+            };
         }
     }
 

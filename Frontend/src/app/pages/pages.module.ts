@@ -22,6 +22,8 @@ import { PagesRoutes } from './pages.routing';
 import { FormsModule } from '@angular/forms';
 import { WatchlistEditorComponent } from './watchlist-editor/watchlist-editor.component';
 import { UserWatchlistsComponent } from './user-watchlists/user-watchlists.component';
+import { FriendshipRequestListComponent } from './friendship-request-list/friendship-request-list.component';
+import { FriendsListComponent } from './friends-list/friends-list.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 	// Change this to your upload POST address:
@@ -50,7 +52,9 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 		BlogDetailComponent,
 		AddListingComponent,
 		WatchlistEditorComponent,
-		UserWatchlistsComponent
+		UserWatchlistsComponent,
+		FriendshipRequestListComponent,
+		FriendsListComponent
 	],
 	providers: [
 		{

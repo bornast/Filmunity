@@ -1,0 +1,30 @@
+<div class="main-wrapper">
+	<!-- Content -->
+	<div id="content">
+		<div class="container">
+			<div class="profile-page">
+				<div class="card card-profile shadow">
+					<br>
+					<div class="pb-5">
+ 						<!-- TODO: move to css -->
+						<div class="px-4" style="text-align: center;">
+							<h3>My Friendship Requests</h3>
+						</div>
+						<div class="row p-4 list-img-wrap" *ngFor="let friendshipRequest of friendshipRequests">
+							<div class="col-md-2 list-img">
+								<img *ngIf="friendshipRequest.mainPhoto" [src]="friendshipRequest.mainPhoto.url" class="img-fluid rounded-circle shadow-lg">
+							</div>
+							<div class="col-md-10">
+								<!-- TODO: move to css -->
+								<h5 style="cursor: pointer;" [routerLink]="['/listing/user-view/', friendshipRequest.id]" routerLinkActive="router-link-active"  class="text-primary">{{friendshipRequest.firstName + " " + friendshipRequest.lastName}}</h5>
+								<p>{{friendshipRequest.username}}</p>
+								<button class="btn btn-sm btn-primary" type="button" (click)="acceptFriendshipRequest(friendshipRequest.id)">Accept</button>
+								<button class="btn btn-sm btn-danger" type="button" (click)="declineFriendshipRequest(friendshipRequest.id)">Decline</button>
+							</div>
+						</div>					
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

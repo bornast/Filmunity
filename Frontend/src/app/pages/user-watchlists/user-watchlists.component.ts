@@ -47,9 +47,4 @@ export class UserWatchlistsComponent implements OnInit {
 		}
 	}
 
-	filter() {
-		this.pageNumber = 1;
-		this.loadWatchlists();
-	}
-
 }

@@ -129,7 +129,9 @@ export class MenuItems {
 				type: 'sub',
 				children: [
 					{ state: 'add-listing', name: 'My profile', type: 'link' },
-					{ state: 'user-watchlists', name: 'My watchlists', type: 'link' },
+					{ state: 'user-watchlists', name: 'My Watchlists', type: 'link' },
+					{ state: 'friendship-request-list', name: 'My Friendship Requests', type: 'link' },
+					{ state: 'friend-list', name: 'My Friends', type: 'link' },
 					{ state: 'logout', name: 'Logout', type: 'link' },
 				]
 			};			
