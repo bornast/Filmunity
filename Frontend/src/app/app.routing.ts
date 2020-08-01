@@ -1,9 +1,11 @@
 import { Routes } from '@angular/router';
 
-import { AdminPanelLayoutComponent } from './layouts/adminPanel/AdminPanelLayout.component';
-import { FrontendPanelLayoutComponent } from './layouts/frontendPanel/FrontendPanel.component';
-import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
+
 import { AuthGuard } from './_guards/auth.guard';
+import { FrontendPanelLayoutComponent } from './_components/layouts/frontend-panel/frontend-panel.component';
+import { AdminPanelLayoutComponent } from './_components/layouts/admin-panel/admin-panel-layout.component';
+import { AuthLayoutComponent } from './_components/layouts/auth/auth-layout.component';
+
 
 export const AppRoutes: Routes = [
 	{
@@ -16,17 +18,15 @@ export const AppRoutes: Routes = [
 		component: FrontendPanelLayoutComponent,
 		children: [{
 			path: 'home',
-			// canActivate: [AuthGuard],
-			// data: {roles: ['Admin', 'Moderator']},
-			loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+			loadChildren: () => import('./_components/dashboard/dashboard.module').then(m => m.DashboardModule)
 		},
 		{
 			path: 'listing',
-			loadChildren: () => import('./listing/listing.module').then(m => m.ListingModule)
+			loadChildren: () => import('./_components/listing/listing.module').then(m => m.ListingModule)
 		},
 		{
 			path: 'pages',
-			loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
+			loadChildren: () => import('./_components/pages/pages.module').then(m => m.PagesModule)
 		}]
 	},
 	{
@@ -36,7 +36,7 @@ export const AppRoutes: Routes = [
 		data: {roles: ['Admin', 'Moderator']},
 		children: [{
 			path: '',
-			loadChildren: () => import('./adminPages/admin.module').then(m => m.AdminModule)
+			loadChildren: () => import('./_components/admin/admin.module').then(m => m.AdminModule)
 		}]
 	},
 	{
@@ -44,7 +44,7 @@ export const AppRoutes: Routes = [
 		component: AuthLayoutComponent,		
 		children: [{
 			path: '',
-			loadChildren: () => import('./session/session.module').then(m => m.SessionModule)
+			loadChildren: () => import('./_components/auth/session.module').then(m => m.SessionModule)
 		}]
 	}
 ];

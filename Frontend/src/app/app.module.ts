@@ -10,24 +10,22 @@ import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
-import { AdminPanelLayoutComponent } from './layouts/adminPanel/AdminPanelLayout.component';
-import { FrontendPanelLayoutComponent } from './layouts/frontendPanel/FrontendPanel.component';
-import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 
-import { HeaderComponent } from './core/Header/Header.component';
-import { FooterComponent } from './core/Footer/Footer.component';
-import { MenuComponent } from './core/Menu/Menu.component';
-
-import { AdminHeaderComponent } from './core/AdminHeader/AdminHeader.component';
-import { AdminSidebarComponent } from './core/AdminSidebar/AdminSidebar.component';
-
-import { MenuItems } from './core/Menu/menu-items';
-import { AdminMenuItems } from './core/AdminHeader/admin-menu-items';
 
 
 import { ToastrModule } from 'ngx-toastr';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { JwtModule } from '@auth0/angular-jwt';
+import { AdminHeaderComponent } from './_components/admin/header/header.component';
+import { AdminSidebarComponent } from './_components/admin/sidebar/sidebar.component';
+import { AdminMenuItems } from './_components/admin/header/menu-items';
+import { AdminPanelLayoutComponent } from './_components/layouts/admin-panel/admin-panel-layout.component';
+import { FrontendPanelLayoutComponent } from './_components/layouts/frontend-panel/frontend-panel.component';
+import { HeaderComponent } from './_components/header/header.component';
+import { FooterComponent } from './_components/footer/footer.component';
+import { MenuComponent } from './_components/menu/menu.component';
+import { MenuItems } from './_components/menu/menu-items';
+import { AuthLayoutComponent } from './_components/layouts/auth/auth-layout.component';
 
 export function tokenGetter() {
 	return localStorage.getItem('filmunity-token');
