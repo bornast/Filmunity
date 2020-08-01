@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { FILMTYPE } from 'src/app/_constants/filmTypeConst';
 
 export interface Menu {
 	state: string;
@@ -8,41 +9,14 @@ export interface Menu {
 }
 
 const MENUITEMS = [
-	{
-		state: '',
-		name: 'Home',
-		type: 'sub',
-		children: [
-			{ state: 'home', name: 'Home', type: 'link' },
-		]
-	},
-	{
-		state: '',
-		name: 'Listing',
-		type: 'sub',
-		children: [
-			{ state: 'film-list', name: 'Films', type: 'link' },
-			{ state: 'watchlist-list', name: 'Watchlists', type: 'link' },
-			{ state: 'user-list', name: 'Users', type: 'link' }
-		]
-	},
-	{
-		state: 'admin',
-		name: 'User Panel',
-		type: 'sub',
-		children: [
-			{ state: 'film-list', name: 'Films', type: 'link' }
-		]
-	},
-	{
-		state: 'auth',
-		name: 'Auth',
-		type: 'sub',
-		children: [
-			{ state: 'login', name: 'Login', type: 'link' },
-			{ state: 'signup', name: 'Register', type: 'link' }
-		]
-	}
+	{ state: '/home', name: 'Home', type: 'link' },
+	{ state: '/movie-list', name: 'Movies', type: 'link'},
+	{ state: '/tvshow-list', name: 'Tv Shows', type: 'link'},
+	{ state: '/watchlist-list', name: 'Watchlists', type: 'link' },
+	{ state: '/user-list', name: 'Users', type: 'link' },
+	{ state: '/admin/film-list', name: 'Admin Panel', type: 'link', allowedRoles: ['Admin', 'Moderator']},
+	{ state: '/auth/login', name: 'Login', type: 'link', isLoggedIn: false, },
+	{ state: '/auth/register', name: 'Register', type: 'link', isLoggedIn: false, }
 ];
 
 
@@ -54,7 +28,7 @@ export class MenuItems {
 		let username = localStorage.getItem('filmunity-username');
 		if (username) {
 			let profileMenu = {
-				state: '',
+				state: '/',
 				name: localStorage.getItem('filmunity-username'),
 				type: 'sub',
 				children: [

@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { AuthService } from 'src/app/_services/auth.service';
 declare var $ : any;
 
 @Component({
@@ -10,13 +11,12 @@ declare var $ : any;
 export class AdminSidebarComponent implements OnInit {
 
    // sidebarIn : boolean = false;
-   constructor(){}
+   constructor(private authService: AuthService){}
 
    ngOnInit(){}
 
-   ngAfterViewInit()
-   {
-
+   hasRole(allowedRoles: string[]) {
+	   return this.authService.userHasRole(allowedRoles);
    }
 
    toggleMenu()

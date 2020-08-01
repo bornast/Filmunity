@@ -263,8 +263,9 @@ export class FilmService {
 
 		let params = new HttpParams();
 		params = params.append('pageSize', itemsPerPage);
-		params = params.append('pageNumber', pageNumber);
-		
+		params = params.append('pageNumber', pageNumber);				
+		params = params.append('orderByDescending', "createdAt");
+
 		if (userId != null)
 			params = params.append('userId', userId);
 		if (title != null)

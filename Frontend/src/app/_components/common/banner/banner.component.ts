@@ -47,6 +47,6 @@ export class BannerComponent implements OnInit {
 	}
 
 	search() {
-		this.router.navigate(['/listing/list/with-sidebar'], { queryParams: { searchTxt: this.searchTxt, filmType: this.selectedCategoryOption } });
+		this.router.navigate(['/film-list'], { queryParams: { searchTxt: this.searchTxt, filmType: this.selectedCategoryOption } });
 	}
 }

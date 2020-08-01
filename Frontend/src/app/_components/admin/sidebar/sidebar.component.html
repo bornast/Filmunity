@@ -4,8 +4,7 @@
          <ul data-submenu-title="Main">
 			<li><a [routerLink]="['/admin/film-list']"><i class="fa fa-video-camera"></i> Films</a></li>
 			<li><a [routerLink]="['/admin/participant-list']"><i class="fa fa-users"></i> Film Participants</a></li>
-			<!-- TODO: only admin or moderators can see this -->
-			<li><a [routerLink]="['/admin/user-list']"><i class="fa fa-user"></i> Users</a></li>
+			<li *ngIf="hasRole(['Admin'])"><a [routerLink]="['/admin/user-list']"><i class="fa fa-user"></i> Users</a></li>
          </ul>
       </div>
    </div>

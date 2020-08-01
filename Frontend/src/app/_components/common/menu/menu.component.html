@@ -1,29 +1,55 @@
 <nav id="navigation" class="style-1" *ngIf="menuItems">
-   <ul id="responsive">
-      <li *ngFor="let menuitem of menuItems" [ngClass]="{'open-menu': selectedMenu == menuitem.name}">
-         <a class="current" [routerLink]="['/', menuitem.state]" *ngIf="menuitem.type === 'link'">{{ menuitem.name }}</a>
-         <a class="current" *ngIf="menuitem.type === 'sub'" (click)="menuClick(menuitem.name)">{{ menuitem.name }}</a>
-         <ul *ngIf="menuitem.type === 'sub'">
-            <li *ngFor="let childitem of menuitem.children" [ngClass]="{'open-menu': selectedSubMenu == childitem.name}">
-			   <a *ngIf="childitem.name === 'Logout'" (click)="logout()">{{ childitem.name }}</a>
-			   <a 
-			   		*ngIf="childitem.type === 'link' && childitem.name !== 'Logout' && menuitem.state.length > 0"
-					[routerLink]="['/', menuitem.state, childitem.state ]"					
-				>{{ childitem.name }}
-				</a>
-				<a 
-			   		*ngIf="childitem.type === 'link' && childitem.name !== 'Logout' && menuitem.state.length == 0"
-					[routerLink]="['/', childitem.state ]"					
-				>{{ childitem.name }}
-				</a>
-               <a *ngIf="childitem.type === 'sub' && childitem.name !== 'Logout'" (click)="subMenuClick(childitem.name)">{{ childitem.name }}</a>
-               <ul *ngIf="childitem.type === 'sub' && childitem.name !== 'Logout'">
-                  <li *ngFor="let subchilditem of childitem.children">
-                     <a [routerLink]="['/', menuitem.state, childitem.state, subchilditem.state ]">{{ subchilditem.name }}</a>
-                  </li>
-               </ul>
-            </li>
-         </ul>
-      </li>
-   </ul>
+	<ul id="responsive">
+		<li 
+			*ngFor="let menuitem of menuItems" 
+			[ngClass]="{'open-menu': selectedMenu == menuitem.name}"
+		>
+		
+			<a 
+				class="current" 
+				[routerLink]="[menuitem.state]"
+				*ngIf="menuitem.type === 'link'
+				&& ((menuitem.allowedRoles && hasRole(menuitem.allowedRoles)) || menuitem.allowedRoles == null)
+				&& (menuitem.isLoggedIn == null || (menuitem.isLoggedIn === false && !isLoggedIn) || (menuitem.isLoggedIn && isLoggedIn))"
+			>{{ menuitem.name }}</a>
+
+			<a 
+				class="current" 
+				*ngIf="menuitem.type === 'sub'"
+				(click)="menuClick(menuitem.name)"
+			>{{ menuitem.name }}</a>
+
+			<ul *ngIf="menuitem.type === 'sub'">
+				<li 
+					*ngFor="let childitem of menuitem.children"
+					[ngClass]="{'open-menu': selectedSubMenu == childitem.name}"
+				>
+					<a 
+						*ngIf="childitem.name === 'Logout'" 
+						(click)="logout()"
+					>{{ childitem.name }}</a>
+
+					<a 
+						*ngIf="childitem.type === 'link' && childitem.name !== 'Logout' && menuitem.state.length > 0"
+						[routerLink]="[menuitem.state, childitem.state ]"
+					>{{ childitem.name }}</a>
+
+					<a *ngIf="childitem.type === 'sub' && childitem.name !== 'Logout'"
+						(click)="subMenuClick(childitem.name)"
+					>{{ childitem.name }}</a>
+					
+					<ul *ngIf="childitem.type === 'sub' && childitem.name !== 'Logout'">
+						
+						<li *ngFor="let subchilditem of childitem.children">
+							
+							<a
+								[routerLink]="[menuitem.state, childitem.state, subchilditem.state ]"
+							>{{ subchilditem.name }}</a>
+
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+	</ul>
 </nav>

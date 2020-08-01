@@ -36,6 +36,8 @@ export class UserDetailComponent implements OnInit {
 	}
 
 	getFriendshipStatus(userId: any) {
+		if (!this.loggedUserId)
+			return;
 		this.filmService.getFriendshipStatus(userId).subscribe((friendshipStatus) => {
 			this.friendshipStatus = friendshipStatus;
 		});

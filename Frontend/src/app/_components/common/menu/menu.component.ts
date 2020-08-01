@@ -12,6 +12,7 @@ declare var $: any;
 })
 export class MenuComponent implements OnInit {
 
+	isLoggedIn: any
 	menuItems: any;
 	selectedMenu: any = null;
 	selectedSubMenu: any = null;
@@ -24,6 +25,7 @@ export class MenuComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.isLoggedIn = localStorage.getItem('filmunity-userId') != null;
 		this.menuItems = this.menuItemsService.getAll();
 	}
 
@@ -47,7 +49,11 @@ export class MenuComponent implements OnInit {
 
 	logout() {
 		this.authService.logout();
-		this.router.navigate(['/session/login']);
+		this.router.navigate(['/auth/login']);
+	}
+
+	hasRole(allowedRoles: string[]) {
+		return this.authService.userHasRole(allowedRoles);
 	}
 
 }

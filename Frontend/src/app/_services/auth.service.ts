@@ -63,16 +63,13 @@ export class AuthService {
 	loggedIn(): boolean {		
 		const token = localStorage.getItem('filmunity-token');
 		return token != null;
-		// TODO: check if token is expired
-		// return !this.jwtHelper.isTokenExpired(token);
 	}
 
 	userHasRole(allowedRoles): boolean {
 		let isMatch = false;
 		if (this.decodedToken == null)
 			return isMatch;
-		const userRoles = this.decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] as Array<string>;
-		console.log("user roles are", userRoles);
+		const userRoles = this.decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] as Array<string>;		
 		allowedRoles.forEach(element => {
 			if (userRoles.includes(element)) {
 				isMatch = true;

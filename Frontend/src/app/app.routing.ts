@@ -25,6 +25,7 @@ import { MyProfileComponent } from './_components/user/my-profile/my-profile.com
 import { UserWatchlistsComponent } from './_components/user/user-watchlists/user-watchlists.component';
 import { FriendshipRequestListComponent } from './_components/friendship/friendship-request-list/friendship-request-list.component';
 import { FriendsListComponent } from './_components/friendship/friends-list/friends-list.component';
+import { FILMTYPE } from './_constants/filmTypeConst';
 
 
 export const AppRoutes: Routes = [
@@ -41,6 +42,18 @@ export const AppRoutes: Routes = [
 			{
 				path: 'film-list',
 				component: FilmListComponent
+			},
+			{
+				path: 'movie-list',
+				component: FilmListComponent,
+				data: {filmType: FILMTYPE.movie}
+
+			},
+			{
+				path: 'tvshow-list',
+				component: FilmListComponent,
+				data: {filmType: FILMTYPE.tvShow}
+
 			},
 			{
 				path: 'film/:id',
@@ -92,39 +105,46 @@ export const AppRoutes: Routes = [
 		path: 'admin',
 		component: AdminPanelLayoutComponent,
 		canActivate: [AuthGuard],
-		data: { roles: ['Admin', 'Moderator'] },
 		children: [
 			{
 				path: 'film-list',
-				component: AdminFilmListComponent
+				component: AdminFilmListComponent,
+				data: { roles: ['Admin', 'Moderator'] }
 			},
 			{
 				path: 'film-editor',
-				component: AdminFilmEditorComponent
+				component: AdminFilmEditorComponent,
+				data: { roles: ['Admin', 'Moderator'] }
 			},
 			{
 				path: 'film-editor/:id',
-				component: AdminFilmEditorComponent
+				component: AdminFilmEditorComponent,
+				data: { roles: ['Admin', 'Moderator'] }
 			},
 			{
 				path: 'participant-list',
-				component: AdminParticipantListComponent
+				component: AdminParticipantListComponent,
+				data: { roles: ['Admin', 'Moderator'] }
 			},
 			{
 				path: 'participant-editor',
-				component: AdminParticipantEditorComponent
+				component: AdminParticipantEditorComponent,
+				data: { roles: ['Admin', 'Moderator'] }
 			},
 			{
 				path: 'participant-editor/:id',
-				component: AdminParticipantEditorComponent
+				component: AdminParticipantEditorComponent,
+				data: { roles: ['Admin', 'Moderator'] }
 			},
 			{
 				path: 'user-list',
-				component: AdminUserListComponent
+				component: AdminUserListComponent,
+				data: { roles: ['Admin'] }
 			},
 			{
 				path: 'user-editor/:id',
-				component: AdminUserEditorComponent
+				component: AdminUserEditorComponent,
+				data: { roles: ['Admin'] }
 			}
 		]
 	},

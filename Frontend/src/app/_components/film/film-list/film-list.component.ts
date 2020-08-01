@@ -21,9 +21,8 @@ export class FilmListComponent implements OnInit {
 	constructor(private filmService: FilmService, private route: ActivatedRoute) { }
 
 	ngOnInit() {
-
 		this.filters.searchTxt = this.route.snapshot.queryParamMap.get("searchTxt");
-		this.filters.filmType = this.route.snapshot.queryParamMap.get("filmType");
+		this.filters.filmType = this.route.snapshot.queryParamMap.get("filmType") ?? this.route.snapshot.data['filmType'];
 		this.displayFilterSidebar = true;		
 		this.loadFilms();
 	}

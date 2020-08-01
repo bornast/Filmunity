@@ -3,6 +3,7 @@ import { FilmService } from 'src/app/_services/film.service';
 import { Film } from 'src/app/_models/film';
 import { FILMTYPE } from 'src/app/_constants/filmTypeConst';
 import { PaginatedResult } from 'src/app/_models/pagination';
+import { Watchlist } from 'src/app/_models/watchlist';
 
 @Component({
   selector: 'dashboard-one',
@@ -14,35 +15,13 @@ export class HomeComponent implements OnInit{
 
 	moviesForCarousel: any[];
 	tvShowsForCarousel: any[];
+	watchlistsForCarousel: any[];
 
 	bannerTitle: string = 'Find Nearby Attractions';
 	bannerDesc : string = 'Expolore top-rated attractions, activities and more';
 	bannerImage: string = 'assets/images/main-search-background-01.jpg';
 
 	recentBlogTitle : string = 'Recent Blog';
-	blogs : any = [
-							{
-								tag   : 'Tips',
-								date  : '22 August 2018',
-								title : 'Take a Look at Hotels for All Budgets',
-								desc  : 'Sed sed tristique nibh iam porta volutpat finibus. Donec in aliquet urneget mattis lorem. Pellentesque pellentesque', 
-								image : 'assets/images/post-1.jpg'
-							},
-							{
-								tag   : 'Tips',
-								date  : '22 August 2018',
-								title : 'The 50 Greatest Street Arts In London',
-								desc  : 'Sed sed tristique nibh iam porta volutpat finibus. Donec in aliquet urneget mattis lorem. Pellentesque pellentesque.', 
-								image : 'assets/images/post-2.jpg'
-							},
-							{
-								tag   : 'Tips',
-								date  : '22 August 2018',
-								title : 'The Best Cofee Shops In Sydney Neighborhoods',
-								desc  : 'Sed sed tristique nibh iam porta volutpat finibus. Donec in aliquet urneget mattis lorem. Pellentesque pellentesque.', 
-								image : 'assets/images/post-3.jpg'
-							}
-						];
 
 	constructor(private filmService: FilmService) {}
 
@@ -54,6 +33,30 @@ export class HomeComponent implements OnInit{
 		this.filmService.getTopRatedFilms(FILMTYPE.tvShow, 7).subscribe((tvShows) => {
 			this.tvShowsForCarousel = this.transformFilmForCarousel(tvShows);
 		});
+
+		this.filmService.getWatchlistByFilter(null, null, 1, 3).subscribe((watchlists) => {
+			this.watchlistsForCarousel = this.transformWatchlistForCarousel(watchlists.result);
+		});
+	}
+
+	private transformWatchlistForCarousel(watchlists: Watchlist[]): any[] {
+
+		let watchlistsForCarousel = [];
+
+		watchlists.forEach(watchlist => {
+
+			let watchlistForCarousel = {
+				id: watchlist.id,
+				title: watchlist.title,
+				desc : watchlist.description,
+				image: watchlist.mainPhoto != null ? watchlist.mainPhoto.url : "",
+			};
+
+			watchlistsForCarousel.push(watchlistForCarousel)
+
+		});
+
+		return watchlistsForCarousel;
 	}
 
 	private transformFilmForCarousel(films: Film[]): any[] {
@@ -63,6 +66,7 @@ export class HomeComponent implements OnInit{
 		films.forEach(film => {
 
 			let filmForCarousel = {
+				id: film.id,
 				title: film.title,
 				subTitle : film.rating,
 				image: film.mainPhoto != null ? film.mainPhoto.url : "",

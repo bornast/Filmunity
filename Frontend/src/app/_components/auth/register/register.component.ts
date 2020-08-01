@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
 
 		this.authService.register(this.registerObject).subscribe(() => {
 			this.toast.success('Registered successfully');
-			this.router.navigate(['/session/login']);
+			this.router.navigate(['/auth/login']);
 		});
 	}
 }
