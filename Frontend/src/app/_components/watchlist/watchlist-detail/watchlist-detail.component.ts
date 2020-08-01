@@ -5,10 +5,10 @@ import { Watchlist } from 'src/app/_models/watchlist';
 
 @Component({
   selector: 'app-watchlist-view',
-  templateUrl: './watchlist-view.component.html',
-  styleUrls: ['./watchlist-view.component.css']
+  templateUrl: './watchlist-detail.component.html',
+  styleUrls: ['./watchlist-detail.component.css']
 })
-export class WatchlistViewComponent implements OnInit {
+export class WatchlistDetailComponent implements OnInit {
 
 	gallerySlider: any;
 	watchlist: Watchlist;

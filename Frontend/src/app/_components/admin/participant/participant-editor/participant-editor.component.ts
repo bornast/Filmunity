@@ -13,7 +13,7 @@ import { ENTITYTYPE } from 'src/app/_constants/entityTypeConst';
   templateUrl: './participant-editor.component.html',
   styleUrls: ['./participant-editor.component.css']
 })
-export class ParticipantEditorComponent implements OnInit {
+export class AdminParticipantEditorComponent implements OnInit {
 
 	entityTypeId: any = ENTITYTYPE.person;
 	crudAction: any = CRUDACTION.create;

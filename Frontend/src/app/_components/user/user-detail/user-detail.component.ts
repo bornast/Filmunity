@@ -8,10 +8,10 @@ import { RecordName } from 'src/app/_models/recordName';
 
 @Component({
   selector: 'app-user-view',
-  templateUrl: './user-view.component.html',
-  styleUrls: ['./user-view.component.css']
+  templateUrl: './user-detail.component.html',
+  styleUrls: ['./user-detail.component.css']
 })
-export class UserViewComponent implements OnInit {
+export class UserDetailComponent implements OnInit {
 
 	loggedUserId: any;
 	user: User;

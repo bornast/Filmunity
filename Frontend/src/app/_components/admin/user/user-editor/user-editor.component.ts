@@ -13,7 +13,7 @@ import { ROLE } from 'src/app/_constants/roleConst';
   templateUrl: './user-editor.component.html',
   styleUrls: ['./user-editor.component.css']
 })
-export class UserEditorComponent implements OnInit {
+export class AdminUserEditorComponent implements OnInit {
 
 	entityTypeId: any = ENTITYTYPE.user;
 	user: User;

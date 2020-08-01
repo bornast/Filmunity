@@ -9,28 +9,21 @@ export interface Menu {
 
 const MENUITEMS = [
 	{
-		state: 'home',
+		state: '',
 		name: 'Home',
 		type: 'sub',
 		children: [
-			{ state: 'version1', name: 'Home Version 1', type: 'link' },
+			{ state: 'home', name: 'Home', type: 'link' },
 		]
 	},
 	{
-		state: 'listing',
+		state: '',
 		name: 'Listing',
 		type: 'sub',
 		children: [
-			{
-				state: 'list',
-				name: 'List Layout',
-				type: 'sub',
-				children: [
-					{ state: 'with-sidebar', name: 'Films', type: 'link' },
-					{ state: 'watchlist-list', name: 'Watchlists', type: 'link' },
-					{ state: 'user-list', name: 'Users', type: 'link' }
-				]
-			}			
+			{ state: 'film-list', name: 'Films', type: 'link' },
+			{ state: 'watchlist-list', name: 'Watchlists', type: 'link' },
+			{ state: 'user-list', name: 'Users', type: 'link' }
 		]
 	},
 	{
@@ -42,8 +35,8 @@ const MENUITEMS = [
 		]
 	},
 	{
-		state: 'session',
-		name: 'Session',
+		state: 'auth',
+		name: 'Auth',
 		type: 'sub',
 		children: [
 			{ state: 'login', name: 'Login', type: 'link' },
@@ -61,11 +54,11 @@ export class MenuItems {
 		let username = localStorage.getItem('filmunity-username');
 		if (username) {
 			let profileMenu = {
-				state: 'pages',
+				state: '',
 				name: localStorage.getItem('filmunity-username'),
 				type: 'sub',
 				children: [
-					{ state: 'add-listing', name: 'My profile', type: 'link' },
+					{ state: 'my-profile', name: 'My profile', type: 'link' },
 					{ state: 'user-watchlists', name: 'My Watchlists', type: 'link' },
 					{ state: 'friendship-request-list', name: 'My Friendship Requests', type: 'link' },
 					{ state: 'friend-list', name: 'My Friends', type: 'link' },

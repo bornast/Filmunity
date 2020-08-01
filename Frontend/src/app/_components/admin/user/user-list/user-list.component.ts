@@ -11,7 +11,7 @@ import { User } from 'src/app/_models/user';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
-export class UserListComponent implements OnInit {
+export class AdminUserListComponent implements OnInit {
 
 	usersForList: any[];
 	pagination: Pagination;

@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
-import { AdminMenuItems } from './menu-items';
+import { AdminMenuItems } from './admin-menu-items';
 
 @Component({
   selector: 'app-admin-header',

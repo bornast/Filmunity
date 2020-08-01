@@ -11,7 +11,7 @@ import { ToastService } from 'src/app/_services/toast.service';
 	styleUrls: ['./film-list.component.scss'],
 	encapsulation: ViewEncapsulation.None
 })
-export class FilmListComponent implements OnInit {
+export class AdminFilmListComponent implements OnInit {
 
 	filmsForList: any[];
 	filmType: any;

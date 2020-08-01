@@ -14,7 +14,7 @@ import { ENTITYTYPE } from 'src/app/_constants/entityTypeConst';
 	styleUrls: ['./film-editor.component.scss'],
 	encapsulation: ViewEncapsulation.None
 })
-export class FilmEditorComponent implements OnInit {
+export class AdminFilmEditorComponent implements OnInit {
 
 	entityTypeId: any = ENTITYTYPE.film;
 	crudAction: any = CRUDACTION.create;

@@ -6,7 +6,16 @@
          <ul *ngIf="menuitem.type === 'sub'">
             <li *ngFor="let childitem of menuitem.children" [ngClass]="{'open-menu': selectedSubMenu == childitem.name}">
 			   <a *ngIf="childitem.name === 'Logout'" (click)="logout()">{{ childitem.name }}</a>
-               <a [routerLink]="['/', menuitem.state, childitem.state ]" *ngIf="childitem.type === 'link' && childitem.name !== 'Logout'">{{ childitem.name }}</a>
+			   <a 
+			   		*ngIf="childitem.type === 'link' && childitem.name !== 'Logout' && menuitem.state.length > 0"
+					[routerLink]="['/', menuitem.state, childitem.state ]"					
+				>{{ childitem.name }}
+				</a>
+				<a 
+			   		*ngIf="childitem.type === 'link' && childitem.name !== 'Logout' && menuitem.state.length == 0"
+					[routerLink]="['/', childitem.state ]"					
+				>{{ childitem.name }}
+				</a>
                <a *ngIf="childitem.type === 'sub' && childitem.name !== 'Logout'" (click)="subMenuClick(childitem.name)">{{ childitem.name }}</a>
                <ul *ngIf="childitem.type === 'sub' && childitem.name !== 'Logout'">
                   <li *ngFor="let subchilditem of childitem.children">

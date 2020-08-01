@@ -10,7 +10,7 @@ import { Person } from 'src/app/_models/person';
 	templateUrl: './participant-list.component.html',
 	styleUrls: ['./participant-list.component.css']
 })
-export class ParticipantListComponent implements OnInit {
+export class AdminParticipantListComponent implements OnInit {
 
 	participantsForList: any[];
 	pagination: Pagination;
