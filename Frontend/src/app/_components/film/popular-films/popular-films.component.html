@@ -2,9 +2,9 @@
 	<div class="container">
 		<div class="block-head text-center mb-5">
 			<h2 class="head-line display-3">
-				{{Title}}
+				{{title}}
 			</h2>
-			<p class="lead mt-2 head-desc text-primary">{{Desc}}</p>
+			<p class="lead mt-2 head-desc text-primary">{{desc}}</p>
 		</div>
 	</div>
 	<!-- Categories Carousel -->
@@ -13,7 +13,7 @@
 			<!-- Item -->
 			<ngx-slick-carousel class="carousel fullwidth-slick-carousel category-carousel" #slickModal="slick-carousel"
 				[config]="slideConfig">
-				<div ngxSlickItem *ngFor="let item of Data" class="slide fw-carousel-item slide" >
+				<div ngxSlickItem *ngFor="let item of data" class="slide fw-carousel-item slide" >
 					<div class="category-box-container text-center" [routerLink]="['/film', item.id]">
 						<div class="category-box">
 							<div class="category-box-content">
@@ -27,7 +27,7 @@
 							{{item.image != null | json}}
 							<div 
 								class="category-box-background"
-								[ngStyle]="{'background-image': 'url(' + (item.image != null ? item.image : '../../assets/images/image-not-found.jpg') + ')'}">
+								[ngStyle]="{'background-image': 'url(' + (item.image != null ? item.image : '../../assets/images/image-not-found2.jpg') + ')'}">
 							</div>
 						</div>
 					</div>

@@ -60,7 +60,6 @@
 								<img *ngIf="watchlist.mainPhoto" src="{{watchlist.mainPhoto.url}}" class="img-fluid rounded-circle shadow-lg">
 							</div>
 							<div class="col-md-10">
-								<!-- TODO: move to css -->
 								<h5 style="cursor: pointer;" [routerLink]="['/watchlist', watchlist.id]" routerLinkActive="router-link-active"  class="text-primary">{{watchlist.title}}</h5>
 								<p>{{watchlist.description}}</p>
 							</div>

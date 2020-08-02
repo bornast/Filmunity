@@ -15,7 +15,7 @@ export class PaginationComponent implements OnInit {
 	paginationOptions: string[];
 	selectedPaginationOption: string;
 
-	constructor(private router: Router) { }	
+	constructor() { }	
 
 	ngOnInit() {
 		this.loadPagination();

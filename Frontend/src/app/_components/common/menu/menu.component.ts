@@ -16,6 +16,7 @@ export class MenuComponent implements OnInit {
 	menuItems: any;
 	selectedMenu: any = null;
 	selectedSubMenu: any = null;
+	
 	constructor(public menuItemsService: MenuItems, private router: Router, private authService: AuthService) {
 		this.router.events.subscribe((ev) => {
 			if (ev instanceof NavigationEnd) {

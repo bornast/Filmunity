@@ -1,7 +1,7 @@
 <div class="main-wrapper mt-5" *ngIf="user">
 	<div class="content pt-5">
 		<!-- Container -->
-		<div class="container">
+		<div class="container mt-3">
 			<div class="row">
 				<div class="col-lg-12">
 					<div id="add-listing" class="separated-form">
@@ -31,15 +31,14 @@
 							<div class="row with-forms">
 								<div class="col-md-12">
 									<div class="form-group">
-										<input type="text" placeholder="Title" class="form-control form-control-alternative" [(ngModel)]="userToSave.interests">
+										<input type="text" placeholder="Interests" class="form-control form-control-alternative" [(ngModel)]="userToSave.interests">
 									</div>
 								</div>
 							</div>
 						<!-- Role -->
 						<div class="row with-forms" *ngIf="roles">
 							<div class="col-md-12">
-								<!-- TODO: move style to css -->
-								<label style="margin-left:10px;">Role</label>
+								<label class="ml-1">Role</label>
 								<select disabled multiple class="custom-select form-control-alternative mb-3" [(ngModel)]="userToSave.roleIds" name="role">
 									<option *ngFor="let role of roles" [ngValue]="role.id">{{role.name}}</option>
 								</select>

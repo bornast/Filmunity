@@ -1,5 +1,5 @@
-<div class="dashboard-content pt-5">
-	<div class="row mt-5">
+<div class="dashboard-content">
+	<div class="row mt-3">
 		<div class="col-lg-12">
 			<div id="add-listing">
 				<!-- Section -->
@@ -11,8 +11,7 @@
 					<!-- Firstname -->
 					<div class="row with-forms">
 						<div class="col-md-12">
-							<!-- TODO: move style to css -->
-							<label style="margin-left:10px;">First Name</label>
+							<label class="ml-1">First Name</label>
 							<div class="form-group">
 								<input type="text" class="form-control form-control-alternative" [(ngModel)]="userToSave.firstName">
 							</div>
@@ -21,8 +20,7 @@
 					<!-- Lastname -->
 					<div class="row with-forms">
 						<div class="col-md-12">
-							<!-- TODO: move style to css -->
-							<label style="margin-left:10px;">Last Name</label>
+							<label class="ml-1">Last Name</label>
 							<div class="form-group">
 								<input type="text" class="form-control form-control-alternative" [(ngModel)]="userToSave.lastName">
 							</div>
@@ -31,8 +29,7 @@
 					<!-- Interests -->
 					<div class="row with-forms">
 						<div class="col-md-12">
-							<!-- TODO: move style to css -->
-							<label style="margin-left:10px;">Interests</label>
+							<label class="ml-1">Interests</label>
 							<div class="form-group">
 								<input type="text" class="form-control form-control-alternative" [(ngModel)]="userToSave.interests">
 							</div>
@@ -41,8 +38,7 @@
 					<!-- Role -->
 					<div class="row with-forms" *ngIf="roles">
 						<div class="col-md-12">
-							<!-- TODO: move style to css -->
-							<label style="margin-left:10px;">Role</label>
+							<label class="ml-1">Role</label>
 							<select multiple class="custom-select form-control-alternative mb-3" [(ngModel)]="userToSave.roleIds" name="role">
 								<option *ngFor="let role of roles" [ngValue]="role.id">{{role.name}}</option>
 							</select>

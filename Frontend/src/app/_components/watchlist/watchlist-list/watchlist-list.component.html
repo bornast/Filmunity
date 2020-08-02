@@ -1,21 +1,20 @@
 <div class="main-wrapper mt-5">
 	<!-- Content -->
 	<div class="content pt-5">
-		<div class="container">
+		<div class="container mt-3">
 			<div class="row">
 				<div class="col-lg-9 col-md-8 padding-right-30">
 					<!-- Sorting / Layout Switcher / End -->
 					<div class="row">
 						<!-- Listing Item -->
 						<div class="col-lg-12 col-md-12" *ngFor="let watchlist of watchlists">
-							<!-- TODO: MOVE STYLE TO CSS -->
 							<div class="listing-item-container list-layout mb-4" style="cursor: pointer;"
 								[routerLink]="['/watchlist', watchlist.id]">
 								<div class="listing-item">
 									<!-- Image -->
 									<div class="listing-item-image">
 										<img *ngIf="watchlist.mainPhoto" src="{{watchlist.mainPhoto.url}}" height="100%">
-										<img *ngIf="!watchlist.mainPhoto" src="/assets/images/image-not-found.jpg" height="100%">
+										<img *ngIf="!watchlist.mainPhoto" src="/assets/images/image-not-found2.jpg" height="100%">
 									</div>
 									<!-- Content -->
 									<div class="listing-item-content">

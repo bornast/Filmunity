@@ -1,11 +1,10 @@
-<div class="dashboard-content pt-5" *ngIf="usersForList">
-	<div class="row responsive-row mt-5">
+<div class="dashboard-content" *ngIf="usersForList">
+	<div class="row responsive-row mt-3">
 		<div class="col-lg-12 col-md-12">
 			<div class="dashboard-list-box mb-5">
 				<div class="db-tile">
 					<h4>Users</h4>
 				</div>
-				<!-- TODO: move style to css -->
 				<div class="db-tile" style="display: flex;">
 					<input type="text" placeholder="Search" class="form-control form-control-alternative"
 						[(ngModel)]="searchTxt" name="search">

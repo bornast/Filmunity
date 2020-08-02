@@ -1,7 +1,7 @@
-<div class="main-wrapper pt-5">
-	<div class="content mt-5">
+<div class="main-wrapper mt-5">
+	<div class="content pt-5">
 		<!-- Container -->
-		<div class="container">
+		<div class="container mt-3 mb-5">
 			<div class="row">
 				<div class="col-lg-12">
 					<div id="add-listing" class="separated-form">
@@ -36,8 +36,7 @@
 
 							<div class="row with-forms" *ngFor="let watchlistFilm of watchlistToSave.films; let i = index">																
 								<div class="col-md-8">
-									<!-- TODO: move style to css -->
-									<label style="margin-left:10px;">Film</label>
+									<label class="ml-1">Film</label>
 									<select class="custom-select form-control-alternative mb-3" #filmId
 										(change)="updateFilm(i, filmId.selectedIndex-1)">
 										<option value=""></option>
@@ -47,17 +46,14 @@
 										</option>
 									</select>
 								</div>
-								<!-- TODO: move style to css -->
 								<div style="padding-top: 30px;" class="col-md-1">
 									<button class="btn btn-primary" (click)="addEmptyFilm()">Add</button>
 								</div>
-								<!-- TODO: move style to css -->
 								<div style="padding-top: 30px;" class="col-md-2">
 									<button class="btn btn-danger" (click)="removeFilm(i)"
 										[disabled]="watchlistToSave.films.length == 1">Remove
 									</button>
 								</div>
-								<!-- TODO: move to css -->
 								<div class="col-md-1" style="margin-top: 2rem;">
 									<i class="fa fa-arrow-up" (click)="topReorder(i)"></i>
 									<i class="fa fa-arrow-down ml-3" (click)="bottomReorder(i)"></i>

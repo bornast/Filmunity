@@ -16,22 +16,18 @@ export class FriendshipService {
 
 	constructor(private http: HttpClient) { }
 
-	// TODO: move to separate service?
 	getFriendshipRequests() {
 		return this.http.get<User[]>(this.baseUrl + "friendship/getAllFriendRequests");
 	}
 
-	// TODO: move to separate service?
 	acceptFriendshipRequest(userId) {
 		return this.http.post(this.baseUrl + "friendship/acceptFriendRequest/" + userId, {});
 	}
 
-	// TODO: move to separate service?
 	declineFriendshipRequest(userId) {
 		return this.http.post(this.baseUrl + "friendship/declineFriendRequest/" + userId, {});
 	}
 
-	// TODO: move to separate service?
 	getAllFriends(pageNumber: any = 1, itemsPerPage: any = 5): Observable<PaginatedResult<User[]>> {
 
 		const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
@@ -52,12 +48,10 @@ export class FriendshipService {
 			);
 	}
 
-	// TODO: move to separate service?
 	sendFriendRequest(userId) {
 		return this.http.post(this.baseUrl + "friendship/sendFriendRequest/" + userId, {});
 	}
 
-	// TODO: move to separate service?
 	getFriendshipStatus(userId) {
 		return this.http.get<RecordName>(this.baseUrl + "friendship/getFriendshipStatus/" + userId, {});
 	}

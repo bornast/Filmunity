@@ -95,7 +95,6 @@
 										aria-labelledby="tabs-icons-text-2-tab">
 										<textarea placeholder="Comment" class="form-control form-control-alternative"
 											rows="7" [(ngModel)]="loggedUserComment"></textarea>
-										<!-- TODO: move style to css -->
 
 										<button class="btn btn-primary mt-3" (click)="comment()"
 											[disabled]="!loggedUserComment">Submit
@@ -125,7 +124,6 @@
 													[src]="review.user.mainPhoto != null ? review.user.mainPhoto.url : ''">
 											</div>
 											<div class="col-md-10">
-												<!-- TODO: move to css -->
 												<h5 style="cursor: pointer;" [routerLink]="['/user/', review.user.id]" class="text-primary">{{review.user.name}}</h5>
 												<p class="text-muted">{{review.user.username}}</p>
 												<p>{{review.comment}}</p>

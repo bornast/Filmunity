@@ -1,5 +1,5 @@
-<div class="dashboard-content pt-5">
-	<div class="row mt-5">
+<div class="dashboard-content">
+	<div class="row mt-3">
 		<div class="col-lg-12">
 			<div id="add-listing">
 				<!-- Section -->
@@ -11,8 +11,7 @@
 					<!-- Title -->
 					<div class="row with-forms">
 						<div class="col-md-12">
-							<!-- TODO: move style to css -->
-							<label style="margin-left:10px;">Title</label>
+							<label class="ml-1">Title</label>
 							<div class="form-group">
 								<input type="text" class="form-control form-control-alternative" [(ngModel)]="filmToSave.title">
 							</div>
@@ -22,8 +21,7 @@
 					<div class="row with-forms">
 						<div class="col-md-12">
 							<div class="form-group">
-								<!-- TODO: move style to css -->
-								<label style="margin-left:10px;">Description</label>
+								<label class="ml-1">Description</label>
 								<textarea class="form-control form-control-alternative" rows="3" [(ngModel)]="filmToSave.description"></textarea>
 							</div>
 						</div>
@@ -31,8 +29,7 @@
 					<!-- Type -->
 					<div class="row with-forms" *ngIf="types">
 						<div class="col-md-12">
-							<!-- TODO: move style to css -->
-							<label style="margin-left:10px;">Type</label>
+							<label class="ml-1">Type</label>
 							<select class="custom-select form-control-alternative mb-3" [(ngModel)]="filmToSave.typeId" name="type">
 								<option *ngFor="let type of types" [value]="type.id">{{type.name}}</option>
 							</select>
@@ -40,9 +37,8 @@
 					</div>
 					<!-- Country -->					
 					<div class="row with-forms" *ngIf="countries">
-						<div class="col-md-12">
-							<!-- TODO: move style to css -->
-							<label style="margin-left:10px;">Country</label>
+						<div class="col-md-12">							
+							<label class="ml-1">Country</label>
 							<select class="custom-select form-control-alternative mb-3" [(ngModel)]="filmToSave.countryId" name="country">
 								<option *ngFor="let country of countries" [value]="country.id">{{country.name}}</option>
 							</select>
@@ -51,8 +47,7 @@
 					<!-- Language -->
 					<div class="row with-forms" *ngIf="languages">
 						<div class="col-md-12">
-							<!-- TODO: move style to css -->
-							<label style="margin-left:10px;">Language</label>
+							<label class="ml-1">Language</label>
 							<select class="custom-select form-control-alternative mb-3" [(ngModel)]="filmToSave.languageId" name="language">
 								<option *ngFor="let language of languages" [value]="language.id">{{language.name}}</option>
 							</select>
@@ -61,8 +56,7 @@
 					<!-- Genres -->
 					<div class="row with-forms" *ngIf="genres">
 						<div class="col-md-12">
-							<!-- TODO: move style to css -->
-							<label style="margin-left:10px;">Genre</label>
+							<label class="ml-1">Genre</label>
 							<select multiple class="custom-select form-control-alternative mb-3" [(ngModel)]="filmToSave.genreIds" name="genre">
 								<option *ngFor="let genre of genres" [ngValue]="genre.id">{{genre.name}}</option>
 							</select>
@@ -71,8 +65,7 @@
 					<!-- Year -->
 					<div class="row with-forms">
 						<div class="col-md-12">
-							<!-- TODO: move style to css -->
-							<label style="margin-left:10px;">Year</label>
+							<label class="ml-1">Year</label>
 							<div class="form-group">
 								<input type="text" class="form-control form-control-alternative" [(ngModel)]="filmToSave.year">
 							</div>
@@ -81,8 +74,7 @@
 					<!-- Duration -->
 					<div class="row with-forms">
 						<div class="col-md-12">
-							<!-- TODO: move style to css -->
-							<label style="margin-left:10px;">Duration</label>
+							<label class="ml-1">Duration</label>
 							<div class="form-group">
 								<input type="text" class="form-control form-control-alternative" [(ngModel)]="filmToSave.duration">
 							</div>
@@ -91,8 +83,7 @@
 					<!-- Participants -->
 					<div class="row with-forms" *ngFor="let participant of filmToSave.participantsRoles; let i = index">
 						<div class="col-md-5">
-							<!-- TODO: move style to css -->
-							<label style="margin-left:10px;">Person</label>
+							<label class="ml-1">Person</label>
 							<select class="custom-select form-control-alternative mb-3" #personId (change)="updateParticipant(i, personId.selectedIndex-1)">
 								<option value=""></option>
 								<option 
@@ -104,8 +95,7 @@
 							</select>
 						</div>
 						<div class="col-md-5">
-							<!-- TODO: move style to css -->
-							<label style="margin-left:10px;">Role</label>
+							<label class="ml-1">Role</label>
 							<select class="custom-select form-control-alternative mb-3" #roleId (change)="updateParticipantRole(i, roleId.selectedIndex-1)">
 								<option value=""></option>
 								<option 
@@ -116,11 +106,9 @@
 								</option>
 							</select>
 						</div>
-						<!-- TODO: move style to css -->
 						<div style="padding-top: 30px;" class="col-md-1">
 							<button class="btn btn-primary" (click)="addEmptyParticipant()">Add</button>
 						</div>
-						<!-- TODO: move style to css -->
 						<div style="padding-top: 30px;" class="col-md-1">
 							<button 
 								class="btn btn-danger" 

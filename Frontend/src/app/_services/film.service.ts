@@ -18,7 +18,6 @@ export class FilmService {
 
 	constructor(private http: HttpClient) { }
 
-	// TODO: refactor these methods
 	getTopRatedFilms(filmType?: any, itemsPerPage: any = 10) {
 
 		let params = new HttpParams();

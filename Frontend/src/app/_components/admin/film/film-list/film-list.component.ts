@@ -42,7 +42,7 @@ export class AdminFilmListComponent implements OnInit {
 				genre: film.genres,
 				title: film.title,
 				description: film.description,
-				image: film.mainPhoto != null ? film.mainPhoto.url : "/assets/images/image-not-found.jpg",
+				image: film.mainPhoto != null ? film.mainPhoto.url : "/assets/images/image-not-found2.jpg",
 				rating: film.rating,
 				imdbRating: film.imdbRating
 			};

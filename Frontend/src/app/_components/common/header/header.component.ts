@@ -11,37 +11,9 @@ import { filter } from 'rxjs/operators';
 })
 export class HeaderComponent implements OnInit {
 
-   private _router: Subscription;
-   url: string;
-
-   isFixedClass : boolean = false; 
-
-   constructor(private router: Router){}
+   constructor(){}
 
    ngOnInit(){
-      // this._router = this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
-      //    this.url = event.url;
-      //    if (this.isFixedHeader()) {
-      //       this.isFixedClass = true;
-      //    }
-      //    else
-      //    {
-      //       this.isFixedClass = false;
-      //    }
-      // });
    }
 
-   isFixedHeader()
-   {
-      if (this.url === '/listing/half-map/grid' || this.url === '/listing/half-map/list') {
-         return true;
-       } else {
-         return false
-       }
-   }
-
-   ngAfterViewInit()
-   {
-     
-   }
 }

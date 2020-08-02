@@ -9,11 +9,9 @@ declare var $ : any;
 })
 export class GallerySliderComponent implements OnInit {
 
-   /** Title for baner **/
-   @Input('title') Title: any = 'Dummy Title';
+   @Input('title') title: any;
 
-   /** Background for baner **/
-   @Input('data') Data: any;
+   @Input('data') data: any;
 
    slideConfig =   
       {

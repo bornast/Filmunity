@@ -60,7 +60,6 @@ export class AdminFilmEditorComponent implements OnInit {
 				this.getFilm(film["id"]);
 			}, (error) => {
 				this.toast.error("Failed to create!");
-				console.log("error is ", error);
 			});
 		}
 		else {
@@ -69,7 +68,6 @@ export class AdminFilmEditorComponent implements OnInit {
 				this.getFilm(film["id"]);
 			}, (error) => {
 				this.toast.error("Failed to update!");
-				console.log("error is ", error);
 			});
 		}		
 	}

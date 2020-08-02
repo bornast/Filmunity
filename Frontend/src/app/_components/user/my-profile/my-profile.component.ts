@@ -47,7 +47,6 @@ export class MyProfileComponent implements OnInit{
 			this.getUser(user["id"]);
 		}, (error) => {
 			this.toast.error("Failed to update!");
-			console.log("error is ", error);
 		});		
 	}
 

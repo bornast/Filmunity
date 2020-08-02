@@ -53,7 +53,6 @@ export class AdminParticipantEditorComponent implements OnInit {
 				this.getParticipant(participant["id"]);
 			}, (error) => {
 				this.toast.error("Failed to create!");
-				console.log("error is ", error);
 			});
 		}
 		else {
@@ -62,7 +61,6 @@ export class AdminParticipantEditorComponent implements OnInit {
 				this.getParticipant(participant["id"]);
 			}, (error) => {
 				this.toast.error("Failed to update!");
-				console.log("error is ", error);
 			});
 		}		
 	}

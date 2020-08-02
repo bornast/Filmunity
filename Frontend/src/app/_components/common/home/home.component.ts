@@ -7,7 +7,7 @@ import { Watchlist } from 'src/app/_models/watchlist';
 import { WatchlistService } from 'src/app/_services/watchlist.service';
 
 @Component({
-  selector: 'dashboard-one',
+  selector: 'home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   encapsulation: ViewEncapsulation.None
@@ -18,18 +18,14 @@ export class HomeComponent implements OnInit{
 	tvShowsForCarousel: any[];
 	watchlistsForCarousel: any[];
 
-	bannerImage: string = 'assets/images/main-search-background-01.jpg';
-
-	recentBlogTitle : string = 'Recent Blog';
-
 	constructor(private filmService: FilmService, private watchlistService: WatchlistService) {}
 
 	ngOnInit() {
-		this.filmService.getTopRatedFilms(FILMTYPE.movie, 7).subscribe((movies) => {
+		this.filmService.getTopRatedFilms(FILMTYPE.movie, 5).subscribe((movies) => {
 			this.moviesForCarousel = this.transformFilmForCarousel(movies);
 		});
 
-		this.filmService.getTopRatedFilms(FILMTYPE.tvShow, 7).subscribe((tvShows) => {
+		this.filmService.getTopRatedFilms(FILMTYPE.tvShow, 5).subscribe((tvShows) => {
 			this.tvShowsForCarousel = this.transformFilmForCarousel(tvShows);
 		});
 

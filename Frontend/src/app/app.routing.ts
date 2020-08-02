@@ -69,11 +69,15 @@ export const AppRoutes: Routes = [
 			},
 			{
 				path: 'watchlist-editor',
-				component: WatchlistEditorComponent
+				component: WatchlistEditorComponent,
+				canActivate: [AuthGuard],
+				data: { roles: ['Admin', 'Moderator', 'User'] }
 			},
 			{
 				path: 'watchlist-editor/:id',
-				component: WatchlistEditorComponent
+				component: WatchlistEditorComponent,
+				canActivate: [AuthGuard],
+				data: { roles: ['Admin', 'Moderator', 'User'] }
 			},
 			{
 				path: 'user-list',
@@ -85,19 +89,27 @@ export const AppRoutes: Routes = [
 			},
 			{
 				path: 'friend-list',
-				component: FriendsListComponent
+				component: FriendsListComponent,
+				canActivate: [AuthGuard],
+				data: { roles: ['Admin', 'Moderator', 'User'] }
 			},
 			{
 				path: 'my-profile',
-				component: MyProfileComponent
+				component: MyProfileComponent,
+				canActivate: [AuthGuard],
+				data: { roles: ['Admin', 'Moderator', 'User'] }
 			},
 			{
 				path: 'user-watchlists',
-				component: UserWatchlistsComponent
+				component: UserWatchlistsComponent,
+				canActivate: [AuthGuard],
+				data: { roles: ['Admin', 'Moderator', 'User'] }
 			},
 			{
 				path: 'friendship-request-list',
-				component: FriendshipRequestListComponent
+				component: FriendshipRequestListComponent,
+				canActivate: [AuthGuard],
+				data: { roles: ['Admin', 'Moderator', 'User'] }
 			}
 		]
 	},
@@ -156,7 +168,7 @@ export const AppRoutes: Routes = [
 				path: 'login',
 				component: LoginComponent
 			}, {
-				path: 'signup',
+				path: 'register',
 				component: RegisterComponent
 			}
 		]

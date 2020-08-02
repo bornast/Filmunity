@@ -17,7 +17,14 @@ export class AuthGuard implements CanActivate {
 			next.firstChild.data['roles], if we werent protecting 
 			child routes it would be: next.data['roles]
 		*/
-		const roles = next.firstChild.data['roles'] as Array<string>;
+		
+		let roles: string[];
+		
+		if (next.firstChild != null)
+			roles = next.firstChild.data['roles'] as Array<string>;
+		else
+			roles = next.data['roles'] as Array<string>;
+			
 		if (roles) {
 			const match = this.authService.userHasRole(roles);
 			if (match) {

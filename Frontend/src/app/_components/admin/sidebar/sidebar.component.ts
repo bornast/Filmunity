@@ -10,7 +10,7 @@ declare var $ : any;
 })
 export class AdminSidebarComponent implements OnInit {
 
-   // sidebarIn : boolean = false;
+	
    constructor(private authService: AuthService){}
 
    ngOnInit(){}

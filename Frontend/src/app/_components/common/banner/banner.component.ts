@@ -15,9 +15,9 @@ export class BannerComponent implements OnInit {
 	categoryOptions: any[];
 	selectedCategoryOption: string;
 
-	@Input('title') Title: any;
-	@Input('desc') Desc: any;
-	@Input('bgImageUrl') BgImageUrl: any = 'assets/images/main-search-background-01.jpg';
+	@Input('title') title: any;
+	@Input('desc') desc: any;
+	@Input('bgImageUrl') bgImageUrl: any;
 
 	constructor(private router: Router) { }
 

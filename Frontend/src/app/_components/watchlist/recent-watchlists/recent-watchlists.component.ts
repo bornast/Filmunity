@@ -8,11 +8,9 @@ import { Component, OnInit, Input, Output, AfterViewInit, ViewEncapsulation } fr
 })
 export class RecentWatchlistsComponent implements OnInit {
 
-   /** Title for baner **/
-   @Input('title') Title: any = 'Dummy Title';
+   @Input('title') title: any = 'Dummy Title';
 
-   /** Background for baner **/
-   @Input('data') Data: any;
+   @Input('data') data: any;
 
    constructor(){}
 

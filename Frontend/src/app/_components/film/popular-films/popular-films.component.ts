@@ -8,9 +8,9 @@ import { Component, OnInit, Input, Output, AfterViewInit, ViewEncapsulation } fr
 })
 export class PopularFilmsComponent implements OnInit {
 
-	@Input('title') Title: any;
-	@Input('desc') Desc: any;
-	@Input('data') Data: any;
+	@Input('title') title: any;
+	@Input('desc') desc: any;
+	@Input('data') data: any;
 
 	slideConfig = {
 		centerMode: true,
