@@ -10,32 +10,36 @@ import { WatchlistService } from 'src/app/_services/watchlist.service';
 })
 export class WatchlistDetailComponent implements OnInit {
 
-	gallerySlider: any;
 	watchlist: Watchlist;
+	imageObject: Array<object>;
 
 	constructor(private watchlistService: WatchlistService,  private route: ActivatedRoute) { }
 
 	ngOnInit() {
-		this.getWatchlist(this.route.snapshot.params['id']);
+		this.getWatchlist(this.route.snapshot.params['id']);		
 	}
 
 	getWatchlist(id: any) {
 		this.watchlistService.getWatchlist(id).subscribe((watchlist) => {
 			this.watchlist = watchlist;
-			if (!this.gallerySlider)
-				this.prepareGallerySlider();
+			if (!this.imageObject)
+				this.prepareImageObject();
 		});
 	}
 
-	prepareGallerySlider() {
-		this.gallerySlider = [];
+	prepareImageObject() {
+		if (!this.watchlist.photos || this.watchlist.photos.length == 0)
+			return;
+			
+		this.imageObject = [];
 
 		this.watchlist.photos.forEach(photo => {
-			let galleryPhoto = {
-				image: photo.url
+			let img = {
+				image: photo.url,
+				thumbImage: photo.url
 			};
-			this.gallerySlider.push(galleryPhoto);
+			this.imageObject.push(img);
 		});
-	}	
+	}
 
 }

@@ -20,6 +20,7 @@ export class UserDetailComponent implements OnInit {
 	user: User;
 	watchlists: Watchlist[];
 	friendshipStatus: RecordName;
+	imageObject: Array<object>;
 
 	constructor(private userService: UserService, private friendshipService: FriendshipService, private route: ActivatedRoute, private toast: ToastService, private watchlistService: WatchlistService) { }
 
@@ -28,13 +29,15 @@ export class UserDetailComponent implements OnInit {
 
 		let userId = this.route.snapshot.params['id'];
 		this.getUser(userId);
-		this.getFriendshipStatus(userId);
+		this.getFriendshipStatus(userId);		
 	}	
 
 	getUser(id: any) {
-		this.userService.getUser(id).subscribe((user) => {
+		this.userService.getUser(id).subscribe((user) => {			
 			this.user = user;
 			this.getWatchlist(user.id);
+			if (!this.imageObject)
+				this.prepareImageObject();
 		});
 	}
 
@@ -58,6 +61,21 @@ export class UserDetailComponent implements OnInit {
 			this.getFriendshipStatus(userId);
 		}, () => {
 			this.toast.error("Failed to send a friend request!");
+		});
+	}
+
+	prepareImageObject() {
+		if (!this.user.photos || this.user.photos.length == 0)
+			return;
+			
+		this.imageObject = [];
+
+		this.user.photos.forEach(photo => {
+			let img = {
+				image: photo.url,
+				thumbImage: photo.url
+			};
+			this.imageObject.push(img);
 		});
 	}
 

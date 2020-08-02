@@ -19,17 +19,17 @@
 							<div class="col-lg-4 order-lg-3 text-lg-right align-self-lg-center">
 								<div class="card-profile-actions py-4 mt-lg-0">
 									<button 
-										*ngIf="loggedUserId && friendshipStatus && friendshipStatus.id == 0"
+										*ngIf="loggedUserId && loggedUserId != user.id && friendshipStatus && friendshipStatus.id == 0"
 										class="btn btn-sm btn-info mr-4"
 										(click)="sendFriendRequest(user.id)"
 									>Send Friend Request</button>
 									<button 
-										*ngIf="loggedUserId && friendshipStatus && friendshipStatus.id == 1"
+										*ngIf="loggedUserId && loggedUserId != user.id && friendshipStatus && friendshipStatus.id == 1"
 										class="btn btn-sm btn-info mr-4"
 										disabled
 									>Friend Request Sent</button>
 									<button 
-										*ngIf="loggedUserId && friendshipStatus && friendshipStatus.id == 3"
+										*ngIf="loggedUserId && loggedUserId != user.id && friendshipStatus && friendshipStatus.id == 3"
 										class="btn btn-sm btn-danger mr-4"
 										disabled
 									>Friend Request declined</button>
@@ -39,6 +39,8 @@
 								<div class="card-profile-stats d-flex justify-content-center"></div>
 							</div>
 						</div>
+						<br>
+						<br>
 						<div class="text-center mt-5">
 							<h3>{{user.firstName + " " + user.lastName}}</h3>
 							<div class="h6 font-weight-300"><i class="ni location_pin mr-2"></i>{{user.username}}</div>
@@ -51,9 +53,12 @@
 							</div>
 						</div>
 					</div>
+					<br *ngIf="imageObject">
+					<app-image-slider *ngIf="imageObject" [imageObject]="imageObject"></app-image-slider>
+					<hr *ngIf="imageObject">
 					<div class="pb-5" *ngIf="watchlists && watchlists.length > 0">
 						<div class="px-4">
-							<h3>Watchlists</h3>
+							<h3 style="text-align: center;">Watchlists</h3>
 						</div>
 						<div class="row p-4 list-img-wrap" *ngFor="let watchlist of watchlists">
 							<div class="col-md-2 list-img">

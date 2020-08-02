@@ -51,6 +51,8 @@ import { WatchlistEditorComponent } from './_components/watchlist/watchlist-edit
 import { UserWatchlistsComponent } from './_components/user/user-watchlists/user-watchlists.component';
 import { FriendshipRequestListComponent } from './_components/friendship/friendship-request-list/friendship-request-list.component';
 import { FriendsListComponent } from './_components/friendship/friends-list/friends-list.component';
+import { NgImageSliderModule } from 'ng-image-slider';
+import { ImageSliderComponent } from './_components/common/image-slider/image-slider.component';
 
 export function tokenGetter() {
 	return localStorage.getItem('filmunity-token');
@@ -93,7 +95,8 @@ export function tokenGetter() {
 		WatchlistEditorComponent,
 		UserWatchlistsComponent,
 		FriendshipRequestListComponent,
-		FriendsListComponent
+		FriendsListComponent,
+		ImageSliderComponent
 	],
 	imports: [
 		BrowserModule,
@@ -103,6 +106,7 @@ export function tokenGetter() {
 		FileUploadModule,
 		BrowserAnimationsModule,
 		NouisliderModule,
+		NgImageSliderModule,
 		RatingModule,
 		ToastrModule.forRoot({
 			timeOut: 8000,

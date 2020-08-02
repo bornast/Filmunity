@@ -66,11 +66,17 @@
 							</div>
 						</div>
 						<br>
+						<br>
 						<div class="text-center mt-5">
 							<h3>{{watchlist.title}}</h3>
 							<div class="h6 font-weight-300"><i class="ni location_pin mr-2"></i>{{watchlist.description}}</div>
 						</div>
+						<hr>
+						<br>
+						<app-image-slider *ngIf="imageObject" [imageObject]="imageObject"></app-image-slider>
+						<hr *ngIf="imageObject">
 					</div>
+					<h3 style="text-align: center;">Films</h3>
 					<div class="row mt-5 pl-5 list-img-wrap" *ngFor="let film of watchlist.films">
 						<div class="col-md-2 list-img">
 							<img class="img-fluid rounded-circle shadow-lg"
