@@ -4,6 +4,7 @@ import { Film } from 'src/app/_models/film';
 import { FILMTYPE } from 'src/app/_constants/filmTypeConst';
 import { PaginatedResult } from 'src/app/_models/pagination';
 import { Watchlist } from 'src/app/_models/watchlist';
+import { WatchlistService } from 'src/app/_services/watchlist.service';
 
 @Component({
   selector: 'dashboard-one',
@@ -17,13 +18,11 @@ export class HomeComponent implements OnInit{
 	tvShowsForCarousel: any[];
 	watchlistsForCarousel: any[];
 
-	bannerTitle: string = 'Find Nearby Attractions';
-	bannerDesc : string = 'Expolore top-rated attractions, activities and more';
 	bannerImage: string = 'assets/images/main-search-background-01.jpg';
 
 	recentBlogTitle : string = 'Recent Blog';
 
-	constructor(private filmService: FilmService) {}
+	constructor(private filmService: FilmService, private watchlistService: WatchlistService) {}
 
 	ngOnInit() {
 		this.filmService.getTopRatedFilms(FILMTYPE.movie, 7).subscribe((movies) => {
@@ -34,7 +33,7 @@ export class HomeComponent implements OnInit{
 			this.tvShowsForCarousel = this.transformFilmForCarousel(tvShows);
 		});
 
-		this.filmService.getWatchlistByFilter(null, null, 1, 3).subscribe((watchlists) => {
+		this.watchlistService.getWatchlistByFilter(null, null, 1, 3).subscribe((watchlists) => {
 			this.watchlistsForCarousel = this.transformWatchlistForCarousel(watchlists.result);
 		});
 	}
@@ -49,7 +48,7 @@ export class HomeComponent implements OnInit{
 				id: watchlist.id,
 				title: watchlist.title,
 				desc : watchlist.description,
-				image: watchlist.mainPhoto != null ? watchlist.mainPhoto.url : "",
+				image: watchlist.mainPhoto != null ? watchlist.mainPhoto.url : null,
 			};
 
 			watchlistsForCarousel.push(watchlistForCarousel)
@@ -69,7 +68,7 @@ export class HomeComponent implements OnInit{
 				id: film.id,
 				title: film.title,
 				subTitle : film.rating,
-				image: film.mainPhoto != null ? film.mainPhoto.url : "",
+				image: film.mainPhoto != null ? film.mainPhoto.url : null,
 			};
 
 			filmsForCarousel.push(filmForCarousel)

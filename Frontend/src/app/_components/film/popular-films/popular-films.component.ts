@@ -8,13 +8,8 @@ import { Component, OnInit, Input, Output, AfterViewInit, ViewEncapsulation } fr
 })
 export class PopularFilmsComponent implements OnInit {
 
-	/** Title for baner **/
-	@Input('title') Title: any = 'Dummy Title';
-
-	/** Description for baner **/
-	@Input('desc') Desc: any = 'Description';
-
-	/** Background for baner **/
+	@Input('title') Title: any;
+	@Input('desc') Desc: any;
 	@Input('data') Data: any;
 
 	slideConfig = {

@@ -1,4 +1,5 @@
-<div id="wrapper" (scroll)="onScrollEvent($event)" [ngClass]="{'header-top': isListingPages()}">
+<!-- TODO: move to css -->
+<div style="min-height:calc(100vh - 70px)" id="wrapper" (scroll)="onScrollEvent($event)" [ngClass]="{'header-top': isListingPages()}">
 
    <!--Header Frontend Panel -->
    <app-header></app-header>
@@ -6,13 +7,9 @@
    <!-- Main Container -->
    <router-outlet></router-outlet>
 
-   <!-- Footer Frontend Panel -->
-   <app-footer *ngIf="isFooter"></app-footer>
-
-   <!-- Back To Top Button -->
-   <div id="backtotop"><a href="#"></a></div>
-
 </div>
+
+<app-footer *ngIf="isFooter"></app-footer>
 
 
 

@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastService } from 'src/app/_services/toast.service';
 import { Person } from 'src/app/_models/person';
 import { User } from 'src/app/_models/user';
+import { UserService } from 'src/app/_services/user.service';
 
 @Component({
   selector: 'app-user-list',
@@ -18,14 +19,14 @@ export class AdminUserListComponent implements OnInit {
 	pageNumber: any = 1;
 	searchTxt: string;
 
-	constructor(private filmService: FilmService, private route: ActivatedRoute, private toast: ToastService) { }
+	constructor(private userService: UserService, private route: ActivatedRoute, private toast: ToastService) { }
 
 	ngOnInit() {
 		this.loadUsers();
 	}
 
 	loadUsers() {
-		this.filmService.getUsersByFilter(this.searchTxt, this.pageNumber, 4).subscribe((users) => {
+		this.userService.getUsersByFilter(this.searchTxt, this.pageNumber, 4).subscribe((users) => {
 			this.pagination = users.pagination;
 			this.usersForList = this.transformUserForList(users);
 		});
@@ -41,7 +42,7 @@ export class AdminUserListComponent implements OnInit {
 				name: user.firstName + " " + user.lastName,
 				username: user.username,
 				interests: user.interests,
-				image: user.mainPhoto != null ? user.mainPhoto.url : ""
+				image: user.mainPhoto != null ? user.mainPhoto.url : "/assets/images/no-image-user.png"
 			};
 
 			usersForList.push(userForList);
@@ -57,7 +58,7 @@ export class AdminUserListComponent implements OnInit {
 
 	delete(id: any) {
 		if (confirm("Are you sure to delete this record")) {
-			this.filmService.deleteUser(id).subscribe(() => {
+			this.userService.deleteUser(id).subscribe(() => {
 				this.pageNumber = 1;
 				this.loadUsers();
 				this.toast.success("Successfully delete!");

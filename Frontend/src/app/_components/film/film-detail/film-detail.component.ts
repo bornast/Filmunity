@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Film } from 'src/app/_models/film';
 import { StarRatingComponent } from 'ng-starrating';
 import { Pagination } from 'src/app/_models/pagination';
+import { UserService } from 'src/app/_services/user.service';
 
 @Component({
 	selector: 'list-detail-one',
@@ -23,7 +24,7 @@ export class FilmDetail implements OnInit {
 	reviewPagination: Pagination;
 	reviewPageNumber: any = 1;
 
-	constructor(private filmService: FilmService, private toast: ToastService, private route: ActivatedRoute) { }
+	constructor(private filmService: FilmService, private toast: ToastService, private route: ActivatedRoute, private userService: UserService) { }
 
 	ngOnInit() {
 		this.loggedUserId = localStorage.getItem("filmunity-userId");
@@ -45,6 +46,9 @@ export class FilmDetail implements OnInit {
 	}
 
 	prepareGallerySlider() {
+
+		if (!this.film.photos || this.film.photos.length == 0)
+			return;
 		this.gallerySlider = [];
 
 		this.film.photos.forEach(photo => {
@@ -87,7 +91,7 @@ export class FilmDetail implements OnInit {
 	}
 
 	getLoggedUserRating() {		
-		this.filmService.getLoggedUserRating(this.film.id).subscribe((response) => {
+		this.userService.getLoggedUserRating(this.film.id).subscribe((response) => {
 			this.loggedUserRating = response["rating"];
 		});
 	}

@@ -7,6 +7,7 @@ import { ToastService } from 'src/app/_services/toast.service';
 import { ActivatedRoute } from '@angular/router';
 import { GENDER } from 'src/app/_constants/genderConst';
 import { ENTITYTYPE } from 'src/app/_constants/entityTypeConst';
+import { FilmParticipantService } from 'src/app/_services/film-participant.service';
 
 @Component({
   selector: 'admin-participant-editor',
@@ -24,7 +25,7 @@ export class AdminParticipantEditorComponent implements OnInit {
 
 	genders: RecordName[];	
 
-	constructor(private filmService: FilmService, private toast: ToastService, private route: ActivatedRoute) { }
+	constructor(private filmParticipantService: FilmParticipantService, private toast: ToastService, private route: ActivatedRoute) { }
 
 	ngOnInit() {
 		let id = this.route.snapshot.params['id'];
@@ -38,7 +39,7 @@ export class AdminParticipantEditorComponent implements OnInit {
 	}
 
 	getParticipant(id: any) {
-		this.filmService.getParticipant(id).subscribe((participant) => {
+		this.filmParticipantService.getParticipant(id).subscribe((participant) => {
 			this.participant = participant;
 			this.loadData();
 		});
@@ -46,7 +47,7 @@ export class AdminParticipantEditorComponent implements OnInit {
 
 	save() {
 		if (this.crudAction == CRUDACTION.create) {
-			this.filmService.createParticipant(this.participantToSave).subscribe((participant) => {
+			this.filmParticipantService.createParticipant(this.participantToSave).subscribe((participant) => {
 				this.toast.success("Successfully created!");
 				this.crudAction = CRUDACTION.update;
 				this.getParticipant(participant["id"]);
@@ -56,7 +57,7 @@ export class AdminParticipantEditorComponent implements OnInit {
 			});
 		}
 		else {
-			this.filmService.updateParticipant(this.participant.id, this.participantToSave).subscribe((participant) => {
+			this.filmParticipantService.updateParticipant(this.participant.id, this.participantToSave).subscribe((participant) => {
 				this.toast.success("Successfully updated!");
 				this.getParticipant(participant["id"]);
 			}, (error) => {

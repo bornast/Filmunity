@@ -3,6 +3,7 @@ import { User } from 'src/app/_models/user';
 import { Pagination } from 'src/app/_models/pagination';
 import { FilmService } from 'src/app/_services/film.service';
 import { ToastService } from 'src/app/_services/toast.service';
+import { FriendshipService } from 'src/app/_services/friendship.service';
 
 @Component({
   selector: 'app-friendship-request-list',
@@ -13,20 +14,20 @@ export class FriendshipRequestListComponent implements OnInit {
 
 	friendshipRequests: User[];
 
-	constructor(private filmService: FilmService, private toast: ToastService) { }
+	constructor(private friendshipService: FriendshipService, private toast: ToastService) { }
 
 	ngOnInit() {
 		this.loadFriendshipRequests();
 	}
 
 	loadFriendshipRequests() {		
-		this.filmService.getFriendshipRequests().subscribe((friendshipRequests) => {
+		this.friendshipService.getFriendshipRequests().subscribe((friendshipRequests) => {
 			this.friendshipRequests = friendshipRequests;
 		});
 	}
 
 	acceptFriendshipRequest(userId: any) {
-		this.filmService.acceptFriendshipRequest(userId).subscribe(() => {
+		this.friendshipService.acceptFriendshipRequest(userId).subscribe(() => {
 			this.loadFriendshipRequests();
 			this.toast.success("Friendship request accepted!");
 		}, () => {
@@ -35,7 +36,7 @@ export class FriendshipRequestListComponent implements OnInit {
 	}
 
 	declineFriendshipRequest(userId: any) {
-		this.filmService.declineFriendshipRequest(userId).subscribe(() => {
+		this.friendshipService.declineFriendshipRequest(userId).subscribe(() => {
 			this.loadFriendshipRequests();
 			this.toast.success("Friendship request declined!");
 		}, () => {

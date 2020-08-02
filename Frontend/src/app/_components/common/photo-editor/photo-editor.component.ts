@@ -4,6 +4,8 @@ import { FileUploader } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
 import { ToastService } from 'src/app/_services/toast.service';
 import { FilmService } from 'src/app/_services/film.service';
+import { WatchlistService } from 'src/app/_services/watchlist.service';
+import { PhotoService } from 'src/app/_services/photo.service';
 
 @Component({
   selector: 'app-photo-editor',
@@ -21,7 +23,7 @@ export class PhotoEditorComponent implements OnInit {
 	baseUrl = environment.apiUrl;
 	currentMain: Photo;
 
-	constructor(private toast: ToastService, private filmService: FilmService) { }
+	constructor(private toast: ToastService, private photoService: PhotoService) { }
 
 	ngOnInit() {
 		this.initializeUploader();
@@ -63,7 +65,7 @@ export class PhotoEditorComponent implements OnInit {
 	}
 
 	setMainPhoto(photo: Photo) {
-		this.filmService.setMainPhoto(photo.id).subscribe(() => {
+		this.photoService.setMainPhoto(photo.id).subscribe(() => {
 			this.currentMain = this.photos.filter(p => p.isMain === true)[0]; // find the previous main photo and set it to false
 			this.currentMain.isMain = false;
 			photo.isMain = true; // set the selected main photo to true
@@ -73,7 +75,7 @@ export class PhotoEditorComponent implements OnInit {
 	}
 
 	deletePhoto(id: number) {		
-		this.filmService.deletePhoto(id).subscribe(() => {
+		this.photoService.deletePhoto(id).subscribe(() => {
 			this.photos.splice(this.photos.findIndex(p => p.id === id), 1);
 			this.toast.success('Photo has been deleted');
 		}, () => {

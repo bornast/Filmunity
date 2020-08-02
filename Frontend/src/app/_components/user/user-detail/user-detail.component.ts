@@ -5,6 +5,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Watchlist } from 'src/app/_models/watchlist';
 import { ToastService } from 'src/app/_services/toast.service';
 import { RecordName } from 'src/app/_models/recordName';
+import { WatchlistService } from 'src/app/_services/watchlist.service';
+import { UserService } from 'src/app/_services/user.service';
+import { FriendshipService } from 'src/app/_services/friendship.service';
 
 @Component({
   selector: 'app-user-view',
@@ -18,7 +21,7 @@ export class UserDetailComponent implements OnInit {
 	watchlists: Watchlist[];
 	friendshipStatus: RecordName;
 
-	constructor(private filmService: FilmService,  private route: ActivatedRoute, private toast: ToastService) { }
+	constructor(private userService: UserService, private friendshipService: FriendshipService, private route: ActivatedRoute, private toast: ToastService, private watchlistService: WatchlistService) { }
 
 	ngOnInit() {
 		this.loggedUserId = localStorage.getItem("filmunity-userId");
@@ -29,28 +32,28 @@ export class UserDetailComponent implements OnInit {
 	}	
 
 	getUser(id: any) {
-		this.filmService.getUser(id).subscribe((user) => {
+		this.userService.getUser(id).subscribe((user) => {
 			this.user = user;
-			this.getWatchlist(user.id)
+			this.getWatchlist(user.id);
 		});
 	}
 
 	getFriendshipStatus(userId: any) {
 		if (!this.loggedUserId)
 			return;
-		this.filmService.getFriendshipStatus(userId).subscribe((friendshipStatus) => {
+		this.friendshipService.getFriendshipStatus(userId).subscribe((friendshipStatus) => {
 			this.friendshipStatus = friendshipStatus;
 		});
 	}
 
 	getWatchlist(userId: any) {
-		this.filmService.getWatchlistByFilter(userId, null, 1, 999).subscribe((watchlists) => {
+		this.watchlistService.getWatchlistByFilter(userId, null, 1, 999).subscribe((watchlists) => {
 			this.watchlists = watchlists.result;
 		});
 	}
 
 	sendFriendRequest(userId) {
-		this.filmService.sendFriendRequest(userId).subscribe(() => {
+		this.friendshipService.sendFriendRequest(userId).subscribe(() => {
 			this.toast.success("Friend request successfully sent!");
 			this.getFriendshipStatus(userId);
 		}, () => {

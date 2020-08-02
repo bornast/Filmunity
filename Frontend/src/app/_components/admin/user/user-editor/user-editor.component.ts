@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastService } from 'src/app/_services/toast.service';
 import { FilmService } from 'src/app/_services/film.service';
 import { ROLE } from 'src/app/_constants/roleConst';
+import { UserService } from 'src/app/_services/user.service';
 
 @Component({
   selector: 'app-user-editor',
@@ -24,7 +25,7 @@ export class AdminUserEditorComponent implements OnInit {
 
 	roles: RecordName[];	
 
-	constructor(private filmService: FilmService, private toast: ToastService, private route: ActivatedRoute) { }
+	constructor(private userService: UserService, private toast: ToastService, private route: ActivatedRoute) { }
 
 	ngOnInit() {
 		let id = this.route.snapshot.params['id'];
@@ -34,14 +35,14 @@ export class AdminUserEditorComponent implements OnInit {
 	}
 
 	getUser(id: any) {
-		this.filmService.getUser(id).subscribe((user) => {
+		this.userService.getUser(id).subscribe((user) => {
 			this.user = user;
 			this.loadData();
 		});
 	}
 
 	save() {
-		this.filmService.updateUser(this.user.id, this.userToSave).subscribe((user) => {
+		this.userService.updateUser(this.user.id, this.userToSave).subscribe((user) => {
 			this.toast.success("Successfully updated!");
 			this.getUser(user["id"]);
 		}, (error) => {

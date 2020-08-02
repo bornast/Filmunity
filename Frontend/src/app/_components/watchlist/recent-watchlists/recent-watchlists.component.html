@@ -1,29 +1,30 @@
 <div class="block-space bg-secondary">
-		  <div class="block-head text-center mb-5">
-					 <h2 class="head-line display-3">
-						  {{Title}}
-					 </h2>
-					 <p class="lead mt-2 head-desc text-primary">Hassel Free Service</p>
-				</div>
-		  <div class="container">
-			 <div class="row justify-content-center">
-				<div class="col-lg-12">
-				  <div class="row row-grid">
-					 <div class="col-lg-4" *ngFor="let watchlist of Data">
+	<div class="block-head text-center mb-5">
+		<h2 class="head-line display-3">
+			{{Title}}
+		</h2>
+		<p class="lead mt-2 head-desc text-primary">Hassel Free Service</p>
+	</div>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-12">
+				<div class="row row-grid">
+					<div class="col-lg-4" *ngFor="let watchlist of Data">
 						<div class="card card-lift--hover shadow border-0">
-						  <img class="img-fluid" src="{{watchlist.image}}" alt="">
-						  <div class="card-body py-4">
-							 <h5>{{watchlist.title}}</h5>
-							 <p class="text-muted">{{watchlist.date}}</p>
-							 <p class="description mb-4">{{watchlist.desc}}</p>
-							 <a [routerLink]="['/watchlist', watchlist.id]" class="btn btn-primary">View</a>
-						  </div>
+							<!-- todo: move to css -->
+							<img class="img-fluid" style="width: 100%; height: 160px;"
+								src="{{watchlist.image != null ? watchlist.image : '../../assets/images/image-not-found.jpg'}}"
+								alt="">
+							<div class="card-body py-4">
+								<h5>{{watchlist.title}}</h5>
+								<p class="text-muted">{{watchlist.date}}</p>
+								<p class="description mb-4">{{watchlist.desc}}</p>
+								<a [routerLink]="['/watchlist', watchlist.id]" class="btn btn-primary">View</a>
+							</div>
 						</div>
-					 </div>
-				  </div>
+					</div>
 				</div>
-			 </div>
-		  </div>
-	 </div>
-
-
+			</div>
+		</div>
+	</div>
+</div>

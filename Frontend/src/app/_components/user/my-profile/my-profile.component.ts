@@ -8,6 +8,7 @@ import { FilmService } from 'src/app/_services/film.service';
 import { ToastService } from 'src/app/_services/toast.service';
 import { ActivatedRoute } from '@angular/router';
 import { ROLE } from 'src/app/_constants/roleConst';
+import { UserService } from 'src/app/_services/user.service';
 declare var $ : any;
 
 @Component({
@@ -27,21 +28,21 @@ export class MyProfileComponent implements OnInit{
 
 	roles: RecordName[];	
 
-	constructor(private filmService: FilmService, private toast: ToastService, private route: ActivatedRoute) { }
+	constructor(private userService: UserService, private toast: ToastService, private route: ActivatedRoute) { }
 
 	ngOnInit() {
 		this.getUser(localStorage.getItem("filmunity-userId"));
 	}
 
 	getUser(id: any) {
-		this.filmService.getUser(id).subscribe((user) => {
+		this.userService.getUser(id).subscribe((user) => {
 			this.user = user;
 			this.loadData();
 		});
 	}
 
 	save() {
-		this.filmService.updateUser(this.user.id, this.userToSave).subscribe((user) => {
+		this.userService.updateUser(this.user.id, this.userToSave).subscribe((user) => {
 			this.toast.success("Successfully updated!");
 			this.getUser(user["id"]);
 		}, (error) => {

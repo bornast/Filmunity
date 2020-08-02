@@ -12,6 +12,7 @@
 								<div class="card-profile-image">
 									<a href="#">
 										<img *ngIf="user.mainPhoto" src="{{user.mainPhoto.url}}" class="rounded-circle">
+										<img *ngIf="!user.mainPhoto" src="/assets/images/no-image-user.png" class="rounded-circle">
 									</a>
 								</div>
 							</div>

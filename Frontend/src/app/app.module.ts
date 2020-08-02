@@ -4,17 +4,10 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { DropzoneModule } from 'ngx-dropzone-wrapper';
-import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
-import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
-
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
-
-
-
 import { ToastrModule } from 'ngx-toastr';
-import { ErrorInterceptorProvider } from './_services/error.interceptor';
+import { ErrorInterceptorProvider } from './_interceptors/error.interceptor';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AdminHeaderComponent } from './_components/admin/header/header.component';
 import { AdminSidebarComponent } from './_components/admin/sidebar/sidebar.component';
@@ -62,13 +55,6 @@ import { FriendsListComponent } from './_components/friendship/friends-list/frie
 export function tokenGetter() {
 	return localStorage.getItem('filmunity-token');
 }
-
-const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
-	// Change this to your upload POST address:
-	url: 'https://httpbin.org/post',
-	maxFilesize: 50,
-	acceptedFiles: 'image/*'
-};
 
 @NgModule({
 	declarations: [
@@ -122,7 +108,6 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 			timeOut: 8000,
 			positionClass: 'toast-top-right'
 		}),
-		DropzoneModule,
 		RouterModule.forRoot(AppRoutes, { scrollPositionRestoration: 'enabled' }),
 		HttpClientModule,
 		JwtModule.forRoot({
@@ -136,10 +121,6 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 	providers: [
 		MenuItems,
 		AdminMenuItems,
-		{
-			provide: DROPZONE_CONFIG,
-			useValue: DEFAULT_DROPZONE_CONFIG
-		},
 		ErrorInterceptorProvider
 	],
 	bootstrap: [AppComponent]

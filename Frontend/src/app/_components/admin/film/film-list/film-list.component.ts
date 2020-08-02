@@ -42,7 +42,7 @@ export class AdminFilmListComponent implements OnInit {
 				genre: film.genres,
 				title: film.title,
 				description: film.description,
-				image: film.mainPhoto != null ? film.mainPhoto.url : "",
+				image: film.mainPhoto != null ? film.mainPhoto.url : "/assets/images/image-not-found.jpg",
 				rating: film.rating,
 				imdbRating: film.imdbRating
 			};
@@ -60,7 +60,7 @@ export class AdminFilmListComponent implements OnInit {
 
 	delete(id: any) {
 		if (confirm("Are you sure to delete this record")) {
-			this.filmService.delete(id).subscribe(() => {
+			this.filmService.deleteFilm(id).subscribe(() => {
 				this.pageNumber = 1;
 				this.loadFilms();
 				this.toast.success("Successfully delete!");

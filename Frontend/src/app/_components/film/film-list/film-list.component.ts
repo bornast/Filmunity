@@ -44,7 +44,7 @@ export class FilmListComponent implements OnInit {
 				genre: film.genres,
 				title: film.title,
 				description: film.description,
-				image: film.mainPhoto != null ? film.mainPhoto.url : "",
+				image: film.mainPhoto != null ? film.mainPhoto.url : "/assets/images/image-not-found.jpg",
 				rating: film.rating,
 				imdbRating: film.imdbRating
 			};

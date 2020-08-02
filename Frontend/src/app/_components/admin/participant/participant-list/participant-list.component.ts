@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FilmService } from 'src/app/_services/film.service';
-import { ActivatedRoute } from '@angular/router';
 import { ToastService } from 'src/app/_services/toast.service';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 import { Person } from 'src/app/_models/person';
+import { FilmParticipantService } from 'src/app/_services/film-participant.service';
 
 @Component({
 	selector: 'admin-participant-list',
@@ -17,14 +17,14 @@ export class AdminParticipantListComponent implements OnInit {
 	pageNumber: any = 1;
 	searchTxt: string;
 
-	constructor(private filmService: FilmService, private route: ActivatedRoute, private toast: ToastService) { }
+	constructor(private filmParticipantService: FilmParticipantService, private toast: ToastService) { }
 
 	ngOnInit() {
 		this.loadParticipants();
 	}
 
 	loadParticipants() {
-		this.filmService.getParticipantsByFilter(this.searchTxt, this.pageNumber, 4).subscribe((participants) => {
+		this.filmParticipantService.getParticipantsByFilter(this.searchTxt, this.pageNumber, 4).subscribe((participants) => {
 			this.pagination = participants.pagination;
 			this.participantsForList = this.transformParticipantForList(participants);
 		});
@@ -39,7 +39,7 @@ export class AdminParticipantListComponent implements OnInit {
 				id: participant.id,
 				name: participant.firstName + " " + participant.lastName,
 				description: participant.description,
-				image: participant.mainPhoto != null ? participant.mainPhoto.url : ""
+				image: participant.mainPhoto != null ? participant.mainPhoto.url : "/assets/images/no-image-user.png"
 			};
 
 			participantsForList.push(participantForList);
@@ -55,7 +55,7 @@ export class AdminParticipantListComponent implements OnInit {
 
 	delete(id: any) {
 		if (confirm("Are you sure to delete this record")) {
-			this.filmService.deleteParticipant(id).subscribe(() => {
+			this.filmParticipantService.deleteParticipant(id).subscribe(() => {
 				this.pageNumber = 1;
 				this.loadParticipants();
 				this.toast.success("Successfully delete!");

@@ -6,6 +6,7 @@ import { RecordName } from 'src/app/_models/recordName';
 import { FilmService } from 'src/app/_services/film.service';
 import { ToastService } from 'src/app/_services/toast.service';
 import { ActivatedRoute } from '@angular/router';
+import { WatchlistService } from 'src/app/_services/watchlist.service';
 
 @Component({
 	selector: 'app-watchlist-editor',
@@ -24,7 +25,7 @@ export class WatchlistEditorComponent implements OnInit {
 
 	films: RecordName[];
 
-	constructor(private filmService: FilmService, private toast: ToastService, private route: ActivatedRoute) { }
+	constructor(private filmService: FilmService, private watchlistService: WatchlistService, private toast: ToastService, private route: ActivatedRoute) { }
 
 	ngOnInit() {
 		let id = this.route.snapshot.params['id'];
@@ -38,7 +39,7 @@ export class WatchlistEditorComponent implements OnInit {
 	}
 
 	getWatchlist(id: any) {
-		this.filmService.getWatchlist(id).subscribe((watchlist) => {
+		this.watchlistService.getWatchlist(id).subscribe((watchlist) => {
 			this.watchlist = watchlist;
 			this.loadData();
 		});
@@ -46,7 +47,7 @@ export class WatchlistEditorComponent implements OnInit {
 
 	save() {
 		if (this.crudAction == CRUDACTION.create) {
-			this.filmService.createWatchlist(this.watchlistToSave).subscribe((watchlist) => {
+			this.watchlistService.createWatchlist(this.watchlistToSave).subscribe((watchlist) => {
 				this.toast.success("Successfully created!");
 				this.crudAction = CRUDACTION.update;
 				this.getWatchlist(watchlist["id"]);
@@ -55,7 +56,7 @@ export class WatchlistEditorComponent implements OnInit {
 			});
 		}
 		else {
-			this.filmService.updateWatchlist(this.watchlist.id, this.watchlistToSave).subscribe((watchlist) => {
+			this.watchlistService.updateWatchlist(this.watchlist.id, this.watchlistToSave).subscribe((watchlist) => {
 				this.toast.success("Successfully updated!");
 				this.getWatchlist(watchlist["id"]);
 			}, () => {

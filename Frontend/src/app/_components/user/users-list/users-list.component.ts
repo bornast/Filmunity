@@ -3,6 +3,7 @@ import { FilmService } from 'src/app/_services/film.service';
 import { ToastService } from 'src/app/_services/toast.service';
 import { Pagination } from 'src/app/_models/pagination';
 import { User } from 'src/app/_models/user';
+import { UserService } from 'src/app/_services/user.service';
 
 @Component({
   selector: 'app-users-list',
@@ -17,14 +18,14 @@ export class UsersListComponent implements OnInit {
 	pagination: Pagination;
 	pageNumber: any = 1;
 
-	constructor(private filmService: FilmService) { }
+	constructor(private userService: UserService) { }
 
 	ngOnInit() {
 		this.loadUsers();
 	}
 
 	loadUsers() {		
-		this.filmService.getUsersByFilter(this.searchTxt, this.pageNumber, 4).subscribe((users) => {
+		this.userService.getUsersByFilter(this.searchTxt, this.pageNumber, 4).subscribe((users) => {
 			this.pagination = users.pagination;
 			this.users = users.result;
 		});

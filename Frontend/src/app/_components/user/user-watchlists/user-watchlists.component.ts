@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FilmService } from 'src/app/_services/film.service';
 import { Pagination } from 'src/app/_models/pagination';
 import { Watchlist } from 'src/app/_models/watchlist';
 import { ToastService } from 'src/app/_services/toast.service';
+import { WatchlistService } from 'src/app/_services/watchlist.service';
 
 @Component({
 	selector: 'app-user-watchlists',
@@ -16,7 +16,7 @@ export class UserWatchlistsComponent implements OnInit {
 	pagination: Pagination;
 	pageNumber: any = 1;
 
-	constructor(private filmService: FilmService, private toast: ToastService) { }
+	constructor(private watchlistService: WatchlistService, private toast: ToastService) { }
 
 	ngOnInit() {
 		this.loggedUserId = localStorage.getItem('filmunity-userId');
@@ -24,7 +24,7 @@ export class UserWatchlistsComponent implements OnInit {
 	}
 
 	loadWatchlists() {		
-		this.filmService.getWatchlistByFilter(this.loggedUserId, null,this.pageNumber, 4).subscribe((watchlists) => {
+		this.watchlistService.getWatchlistByFilter(this.loggedUserId, null,this.pageNumber, 4).subscribe((watchlists) => {
 			this.pagination = watchlists.pagination;
 			this.watchlists = watchlists.result;
 		});
@@ -37,7 +37,7 @@ export class UserWatchlistsComponent implements OnInit {
 
 	delete(id: any) {
 		if (confirm("Are you sure to delete this record")) {
-			this.filmService.deleteWatchlist(id).subscribe(() => {
+			this.watchlistService.deleteWatchlist(id).subscribe(() => {
 				this.pageNumber = 1;
 				this.loadWatchlists();
 				this.toast.success("Successfully delete!");

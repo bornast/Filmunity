@@ -1,131 +1,148 @@
-
 <div class="main-wrapper" *ngIf="film">
-<gallery-slider *ngIf="gallerySlider" [data]="gallerySlider"></gallery-slider>
-<!-- Content -->
-<div class="container">
-   <div class="content">
-      <div class="row sticky-wrapper">
-         <div class="col-lg-12 col-md-12">
-            <div class="">
-               <div class="detail-tile mb-4">
-                  <h3>
-					 {{film.title}} ({{film.year}})
-				  </h3>
-				  <span class="text-muted ml-2">{{film.duration}}</span>
-				  <span class="text-muted ml-2">{{film.country.name}}</span>
-				  <p></p>
-                  <span *ngFor="let genre of film.genres" class="badge badge-pill badge-info text-uppercase mr-2">{{genre.name}}</span>
-               </div>
-               <div class="nav-wrapper mb-4">
-                  <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
-                     <li class="nav-item">
-                        <a class="nav-link mb-sm-3 mb-md-0 active show" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="fa fa-info-circle mr-2"></i>About</a>
-					 </li>
-					 <li class="nav-item">
-                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="fa fa-users mr-2"></i>Participants</a>
-                     </li>
-                     <li class="nav-item" *ngIf="loggedUserId">
-                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="fa fa-plus mr-2"></i>Post a Review</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-4-tab" data-toggle="tab" href="#tabs-icons-text-4" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="fa fa-list-ul mr-2"></i>Reviews</a>
-                     </li>
-                  </ul>
-               </div>
-               <div class="card shadow">
-                  <div class="card-body">
-                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade active show" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
-                           <p class="description">{{film.description}}</p>
-                           <h4 class="mb-4">
-                              Rating
-						   </h4>
-                           <div class="row mb-4">
-                              <div class="col-lg-6">
-                                 <div class="detail-list mb-2">
-                                    <div class="detail-list-label mb-1"><i aria-hidden="true" class="fa fa-star mr-2"></i><small class="text-uppercase font-weight-bold">Filmunity Rating</small></div>
-                                    <p class="m-0 text-small text-muted">{{film.rating > 0 ? film.rating : 'N/A'}}</p>
-                                 </div>
-                              </div>
-                              <div class="col-lg-6">
-                                 <div class="detail-list mb-2">
-                                    <div class="detail-list-label mb-1"><i aria-hidden="true" class="fa fa-star mr-2"></i><small class="text-uppercase font-weight-bold">Imdb Rating</small></div>
-                                    <p class="m-0 text-small text-muted">{{film.imdbRating > 0 ? film.imdbRating : 'N/A'}}</p>
-                                 </div>
-                              </div>
-						   </div>
-						   
-						<div class="row mb-4" *ngIf="loggedUserId">
-							<div class="col-lg-12">
-								<div class="detail-list-label mb-1"><i aria-hidden="true" class="fa fa-user mr-2"></i><small class="text-uppercase font-weight-bold">Your rating</small></div>
-							   <div class="detail-list mb-2">
-									<star-rating 
-										[value]="loggedUserRating" 
-										[totalstars]="10"
-										[readonly]="false" 
-										checkedcolor="#5e72e4" 
-										uncheckedcolor="black" 
-										size="24px" 
-										(rate)="onRate($event)"
-									></star-rating>
-							   </div>
-							</div>							
-						 </div>
+	<gallery-slider *ngIf="gallerySlider" [data]="gallerySlider"></gallery-slider>
+	<div *ngIf="!gallerySlider" class="row pt-5"></div>
+	<div *ngIf="!gallerySlider" class="row mt-5"></div>
+	<!-- Content -->
+	<div class="container">
+		<div class="content">
+			<div class="row sticky-wrapper">
+				<div class="col-lg-12 col-md-12">
+					<div class="">
+						<div class="detail-tile mb-4 mt-4">
+							<h3>
+								{{film.title}} ({{film.year}})
+							</h3>
+							<span class="text-muted ml-2">{{film.duration}}</span>
+							<span class="text-muted ml-2">{{film.country.name}}</span>
+							<p></p>
+							<span *ngFor="let genre of film.genres"
+								class="badge badge-pill badge-info text-uppercase mr-2">{{genre.name}}</span>
+						</div>
+						<div class="nav-wrapper mb-4">
+							<ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text"
+								role="tablist">
+								<li class="nav-item">
+									<a class="nav-link mb-sm-3 mb-md-0 active show" id="tabs-icons-text-1-tab"
+										data-toggle="tab" href="#tabs-icons-text-1" role="tab"
+										aria-controls="tabs-icons-text-1" aria-selected="true"><i
+											class="fa fa-info-circle mr-2"></i>About</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab"
+										href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3"
+										aria-selected="false"><i class="fa fa-users mr-2"></i>Cast</a>
+								</li>
+								<li class="nav-item" *ngIf="loggedUserId">
+									<a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab"
+										href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2"
+										aria-selected="false"><i class="fa fa-plus mr-2"></i>Post a Review</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-4-tab" data-toggle="tab"
+										href="#tabs-icons-text-4" role="tab" aria-controls="tabs-icons-text-3"
+										aria-selected="false"><i class="fa fa-list-ul mr-2"></i>Reviews</a>
+								</li>
+							</ul>
+						</div>
+						<div class="card shadow mb-5">
+							<div class="card-body">
+								<div class="tab-content" id="myTabContent">
+									<div class="tab-pane fade active show" id="tabs-icons-text-1" role="tabpanel"
+										aria-labelledby="tabs-icons-text-1-tab">
+										<p class="description">{{film.description}}</p>
+										<h4 class="mb-4">
+											Rating
+										</h4>
+										<div class="row mb-4">
+											<div class="col-lg-6">
+												<div class="detail-list mb-2">
+													<div class="detail-list-label mb-1"><i aria-hidden="true"
+															class="fa fa-star mr-2"></i><small
+															class="text-uppercase font-weight-bold">Filmunity
+															Rating</small></div>
+													<p class="m-0 text-small text-muted">
+														{{film.rating > 0 ? film.rating : 'N/A'}}</p>
+												</div>
+											</div>
+											<div class="col-lg-6">
+												<div class="detail-list mb-2">
+													<div class="detail-list-label mb-1"><i aria-hidden="true"
+															class="fa fa-star mr-2"></i><small
+															class="text-uppercase font-weight-bold">Imdb Rating</small>
+													</div>
+													<p class="m-0 text-small text-muted">
+														{{film.imdbRating > 0 ? film.imdbRating : 'N/A'}}</p>
+												</div>
+											</div>
+										</div>
 
-                        </div>
-                        <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">							
-							<textarea placeholder="Comment" class="form-control form-control-alternative" rows="7" [(ngModel)]="loggedUserComment"></textarea>
-							<!-- TODO: move style to css -->
-							
-							<button 
-								class="btn btn-primary mt-3" 
-								(click)="comment()" 
-								[disabled]="!loggedUserComment"
-							>Submit
-							</button>
-							
-                        </div>
-                        <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
-                           <div class="pricing-list-container">
-                              <ul>
-                                 <li *ngFor="let participantRole of film.participants">
-                                    <h5>{{participantRole.participant.name}}</h5>
-									<p>{{participantRole.role.name}}</p>
-									<span *ngIf="participantRole.participant.mainPhoto">
-										<img 
-											[width]="70"
-											class="img-fluid rounded-circle shadow-lg" 
-											[src]="participantRole.participant.mainPhoto.url">
-									</span>
-                                 </li>
-                              </ul>
-                           </div>
-                        </div>
-                        <div class="tab-pane fade" id="tabs-icons-text-4" role="tabpanel" aria-labelledby="tabs-icons-text-4-tab">
-                           <div class="row mb-5 list-img-wrap" *ngFor="let review of reviews">
-							  <div class="col-md-2 list-img">
-								  <img 
-									  class="img-fluid rounded-circle shadow-lg" 
-									  [src]="review.user.mainPhoto != null ? review.user.mainPhoto.url : ''"
-									>
+										<div class="row mb-4" *ngIf="loggedUserId">
+											<div class="col-lg-12">
+												<div class="detail-list-label mb-1"><i aria-hidden="true"
+														class="fa fa-user mr-2"></i><small
+														class="text-uppercase font-weight-bold">Your rating</small>
+												</div>
+												<div class="detail-list mb-2">
+													<star-rating [value]="loggedUserRating" [totalstars]="10"
+														[readonly]="false" checkedcolor="#5e72e4" uncheckedcolor="black"
+														size="24px" (rate)="onRate($event)"></star-rating>
+												</div>
+											</div>
+										</div>
+
+									</div>
+									<div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel"
+										aria-labelledby="tabs-icons-text-2-tab">
+										<textarea placeholder="Comment" class="form-control form-control-alternative"
+											rows="7" [(ngModel)]="loggedUserComment"></textarea>
+										<!-- TODO: move style to css -->
+
+										<button class="btn btn-primary mt-3" (click)="comment()"
+											[disabled]="!loggedUserComment">Submit
+										</button>
+
+									</div>
+									<div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel"
+										aria-labelledby="tabs-icons-text-3-tab">
+										<div class="pricing-list-container">
+											<ul>
+												<li *ngFor="let participantRole of film.participants">
+													<h5>{{participantRole.participant.name}}</h5>
+													<p>{{participantRole.role.name}}</p>
+													<span *ngIf="participantRole.participant.mainPhoto">
+														<img [width]="70" class="img-fluid rounded-circle shadow-lg"
+															[src]="participantRole.participant.mainPhoto.url">
+													</span>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="tab-pane fade" id="tabs-icons-text-4" role="tabpanel"
+										aria-labelledby="tabs-icons-text-4-tab">
+										<div class="row mb-5 list-img-wrap" *ngFor="let review of reviews">
+											<div class="col-md-2 list-img">
+												<img class="img-fluid rounded-circle shadow-lg"
+													[src]="review.user.mainPhoto != null ? review.user.mainPhoto.url : ''">
+											</div>
+											<div class="col-md-10">
+												<!-- TODO: move to css -->
+												<h5 style="cursor: pointer;" [routerLink]="['/user/', review.user.id]" class="text-primary">{{review.user.name}}</h5>
+												<p class="text-muted">{{review.user.username}}</p>
+												<p>{{review.comment}}</p>
+											</div>
+										</div>
+										<!-- Pagination -->
+										<pagination (pageChanged)="changeReviewPage($event)" *ngIf="reviewPagination"
+											[pagination]="reviewPagination"></pagination>
+										<!-- Pagination / End -->
+									</div>
+								</div>
 							</div>
-                              <div class="col-md-10">
-                                 <h5 class="text-primary">{{review.user.name}}</h5>
-                                 <p class="text-muted">{{review.user.username}}</p>
-                                 <p>{{review.comment}}</p>
-                              </div>
-						   </div>
-						   <!-- Pagination -->
-						<pagination (pageChanged)="changeReviewPage($event)" *ngIf="reviewPagination" [pagination]="reviewPagination"></pagination>
-						<!-- Pagination / End -->
-						</div>						
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>         
-      </div>
-   </div>
-</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </div>

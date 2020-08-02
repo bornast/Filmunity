@@ -15,13 +15,8 @@ export class BannerComponent implements OnInit {
 	categoryOptions: any[];
 	selectedCategoryOption: string;
 
-	/** Title for baner **/
-	@Input('title') Title: any = 'Dummy Title';
-
-	/** Description for baner **/
-	@Input('desc') Desc: any = 'Description';
-
-	/** Background for baner **/
+	@Input('title') Title: any;
+	@Input('desc') Desc: any;
 	@Input('bgImageUrl') BgImageUrl: any = 'assets/images/main-search-background-01.jpg';
 
 	constructor(private router: Router) { }

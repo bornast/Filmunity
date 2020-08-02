@@ -1,6 +1,6 @@
-<div class="main-wrapper">
+<div class="main-wrapper mt-5">
 	<!-- Content -->
-	<div class="content">
+	<div class="content pt-5">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-9 col-md-8 padding-right-30">
@@ -14,7 +14,8 @@
 								<div class="listing-item">
 									<!-- Image -->
 									<div class="listing-item-image">
-										<img *ngIf="user.mainPhoto" src="{{user.mainPhoto.url}}" alt="">
+										<img *ngIf="user.mainPhoto" src="{{user.mainPhoto.url}}" height="100%">
+										<img *ngIf="!user.mainPhoto" src="/assets/images/no-image-user.png" height="100%">
 									</div>
 									<!-- Content -->
 									<div class="listing-item-content">

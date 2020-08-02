@@ -23,8 +23,11 @@
 								<h3>{{item.title}}</h3>
 								<span> <small>{{item.subTitle}}</small> </span>
 							</div>
-							<div class="category-box-background"
-								[ngStyle]="{'background-image': 'url(' + item.image + ')'}">
+							{{item.image | json}}
+							{{item.image != null | json}}
+							<div 
+								class="category-box-background"
+								[ngStyle]="{'background-image': 'url(' + (item.image != null ? item.image : '../../assets/images/image-not-found.jpg') + ')'}">
 							</div>
 						</div>
 					</div>

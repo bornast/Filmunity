@@ -1,5 +1,5 @@
-<div class="main-wrapper" *ngIf="user">
-	<div class="content">
+<div class="main-wrapper mt-5" *ngIf="user">
+	<div class="content pt-5">
 		<!-- Container -->
 		<div class="container">
 			<div class="row">
@@ -58,7 +58,7 @@
 						</div>						
 						<!-- Section / End -->
 						<button 
-							class="btn btn-lg btn-primary mt-4" 
+							class="btn btn-lg btn-primary mt-4 mb-5" 
 							type="button" 
 							[disabled]="!userToSave.firstName||!userToSave.lastName" 
 							(click)="save()"
