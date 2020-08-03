@@ -36,25 +36,36 @@
 
 							<div class="row with-forms" *ngFor="let watchlistFilm of watchlistToSave.films; let i = index">																
 								<div class="col-md-8">
-									<label class="ml-1">Film</label>
-									<select class="custom-select form-control-alternative mb-3" #filmId
-										(change)="updateFilm(i, filmId.selectedIndex-1)">
-										<option value=""></option>
-										<option *ngFor="let film of films" [selected]="film.id == watchlistFilm.filmId"
-											[ngValue]="film.id">
-											{{film.name}}
-										</option>
-									</select>
+									<label *ngIf="i == 0" class="ml-1">Film</label>
+									<ng-select 
+										[items]="films"
+										class="custom-select form-control-alternative mt-3"
+										bindLabel="name"
+										bindValue="id"
+										[(ngModel)]="this.watchlistToSave.films[i].filmId">
+									</ng-select>
 								</div>
-								<div style="padding-top: 30px;" class="col-md-1">
+								<div style="padding-top: 50px;" class="col-md-1" *ngIf="i == 0">
 									<button class="btn btn-primary" (click)="addEmptyFilm()">Add</button>
 								</div>
-								<div style="padding-top: 30px;" class="col-md-2">
+								<div style="padding-top: 15px;" class="col-md-1" *ngIf="i > 0">
+									<button class="btn btn-primary" (click)="addEmptyFilm()">Add</button>
+								</div>
+								<div style="padding-top: 50px;" class="col-md-2" *ngIf="i == 0">
 									<button class="btn btn-danger" (click)="removeFilm(i)"
 										[disabled]="watchlistToSave.films.length == 1">Remove
 									</button>
 								</div>
-								<div class="col-md-1" style="margin-top: 2rem;">
+								<div style="padding-top: 15px;" class="col-md-2" *ngIf="i > 0">
+									<button class="btn btn-danger" (click)="removeFilm(i)"
+										[disabled]="watchlistToSave.films.length == 1">Remove
+									</button>
+								</div>
+								<div class="col-md-1" style="margin-top: 3.5rem;" *ngIf="i == 0">
+									<i class="fa fa-arrow-up" (click)="topReorder(i)"></i>
+									<i class="fa fa-arrow-down ml-3" (click)="bottomReorder(i)"></i>
+								</div>
+								<div class="col-md-1" style="margin-top: 1.5rem;" *ngIf="i > 0">
 									<i class="fa fa-arrow-up" (click)="topReorder(i)"></i>
 									<i class="fa fa-arrow-down ml-3" (click)="bottomReorder(i)"></i>
 								</div>

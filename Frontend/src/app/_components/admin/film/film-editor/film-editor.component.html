@@ -39,18 +39,26 @@
 					<div class="row with-forms" *ngIf="countries">
 						<div class="col-md-12">							
 							<label class="ml-1">Country</label>
-							<select class="custom-select form-control-alternative mb-3" [(ngModel)]="filmToSave.countryId" name="country">
-								<option *ngFor="let country of countries" [value]="country.id">{{country.name}}</option>
-							</select>
+							<ng-select 
+								[items]="countries"
+								class="custom-select form-control-alternative mt-3"
+								bindLabel="name"
+								bindValue="id"
+								[(ngModel)]="filmToSave.countryId">
+							</ng-select>
 						</div>
 					</div>
 					<!-- Language -->
 					<div class="row with-forms" *ngIf="languages">
 						<div class="col-md-12">
 							<label class="ml-1">Language</label>
-							<select class="custom-select form-control-alternative mb-3" [(ngModel)]="filmToSave.languageId" name="language">
-								<option *ngFor="let language of languages" [value]="language.id">{{language.name}}</option>
-							</select>
+							<ng-select 
+								[items]="languages"
+								class="custom-select form-control-alternative mt-3"
+								bindLabel="name"
+								bindValue="id"
+								[(ngModel)]="filmToSave.languageId">
+							</ng-select>
 						</div>
 					</div>
 					<!-- Genres -->
@@ -83,33 +91,40 @@
 					<!-- Participants -->
 					<div class="row with-forms" *ngFor="let participant of filmToSave.participantsRoles; let i = index">
 						<div class="col-md-5">
-							<label class="ml-1">Person</label>
-							<select class="custom-select form-control-alternative mb-3" #personId (change)="updateParticipant(i, personId.selectedIndex-1)">
-								<option value=""></option>
-								<option 
-									*ngFor="let person of persons"
-									[selected]="person.id == participant.participantId"
-									[ngValue]="person.id"
-									>{{person.name}}
-								</option>
-							</select>
+							<label *ngIf="i == 0" class="ml-1">Person</label>
+							<ng-select 
+								[items]="persons"
+								class="custom-select form-control-alternative mt-3"
+								bindLabel="name"
+								bindValue="id"
+								[(ngModel)]="filmToSave.participantsRoles[i].participantId">
+							</ng-select>
 						</div>
 						<div class="col-md-5">
-							<label class="ml-1">Role</label>
-							<select class="custom-select form-control-alternative mb-3" #roleId (change)="updateParticipantRole(i, roleId.selectedIndex-1)">
-								<option value=""></option>
-								<option 
-									*ngFor="let filmRole of filmRoles"
-									[selected]="filmRole.id == participant.roleId"
-									[ngValue]="filmRole.id"
-									>{{filmRole.name}}
-								</option>
-							</select>
+							<label *ngIf="i == 0" class="ml-1">Role</label>
+							<ng-select 
+								[items]="filmRoles"
+								class="custom-select form-control-alternative mt-3"
+								bindLabel="name"
+								bindValue="id"
+								[(ngModel)]="filmToSave.participantsRoles[i].roleId">
+							</ng-select>
 						</div>
-						<div style="padding-top: 30px;" class="col-md-1">
+						<div style="padding-top: 50px;" class="col-md-1" *ngIf="i == 0">
 							<button class="btn btn-primary" (click)="addEmptyParticipant()">Add</button>
 						</div>
-						<div style="padding-top: 30px;" class="col-md-1">
+						<div style="padding-top: 16px;" class="col-md-1" *ngIf="i > 0">
+							<button class="btn btn-primary" (click)="addEmptyParticipant()">Add</button>
+						</div>
+						<div style="padding-top: 50px;" class="col-md-1" *ngIf="i == 0">
+							<button 
+								class="btn btn-danger" 
+								(click)="removeParticipant(i)" 
+								[disabled]="filmToSave.participantsRoles.length == 1"
+							>Remove
+							</button>
+						</div>
+						<div style="padding-top: 16px;" class="col-md-1" *ngIf="i > 0">
 							<button 
 								class="btn btn-danger" 
 								(click)="removeParticipant(i)" 

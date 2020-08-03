@@ -121,3 +121,26 @@ body {
      display: block;
    }
  }
+
+ .ng-dropdown-panel-items {
+	border: 1px solid black;
+	background-color: white;
+	margin-top: 18px;
+    margin-left: -15px;
+}
+
+.ng-option {
+	cursor: pointer;
+}
+
+.ng-option-selected {
+	background-color: DodgerBlue;
+	color: white;
+}
+
+.ng-option {
+	&:hover {
+		background-color: DodgerBlue;
+		color: white;
+	}	
+}

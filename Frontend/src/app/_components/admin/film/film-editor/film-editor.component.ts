@@ -144,14 +144,6 @@ export class AdminFilmEditorComponent implements OnInit {
 			this.addEmptyParticipant();
 	}
 
-	updateParticipant(index: number, personIndex: string) {
-		this.filmToSave.participantsRoles[index].participantId = this.persons[personIndex].id;
-	}
-
-	updateParticipantRole(index: number, roleIndex: string) {
-		this.filmToSave.participantsRoles[index].roleId = this.filmRoles[roleIndex].id;
-	}
-
 	addEmptyParticipant() {
 		let emptyParticipant = {
 			participantId: "",

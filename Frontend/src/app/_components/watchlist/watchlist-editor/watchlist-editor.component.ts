@@ -112,10 +112,6 @@ export class WatchlistEditorComponent implements OnInit {
 			this.addEmptyFilm();
 	}
 
-	updateFilm(index: number, filmIndex: string) {
-		this.watchlistToSave.films[index].filmId = this.films[filmIndex].id;
-	}
-
 	topReorder(index: number) {
 		if (index == 0)
 			return;

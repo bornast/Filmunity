@@ -53,6 +53,7 @@ import { FriendshipRequestListComponent } from './_components/friendship/friends
 import { FriendsListComponent } from './_components/friendship/friends-list/friends-list.component';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { ImageSliderComponent } from './_components/common/image-slider/image-slider.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 export function tokenGetter() {
 	return localStorage.getItem('filmunity-token');
@@ -108,6 +109,7 @@ export function tokenGetter() {
 		NouisliderModule,
 		NgImageSliderModule,
 		RatingModule,
+		NgSelectModule,
 		ToastrModule.forRoot({
 			timeOut: 8000,
 			positionClass: 'toast-top-right'

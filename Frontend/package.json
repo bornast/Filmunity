@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "^9.1.0",
     "@angular/router": "^9.1.0",
     "@auth0/angular-jwt": "^4.2.0",
+    "@ng-select/ng-select": "^5.0.0",
     "alertifyjs": "^1.13.1",
     "chosen-js": "^1.8.7",
     "core-js": "^3.6.4",
