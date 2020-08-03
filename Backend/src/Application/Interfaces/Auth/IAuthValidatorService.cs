@@ -10,5 +10,6 @@ namespace Application.Interfaces
         void ValidateForLogin(UserForLoginDto userForLogin);
         Task ValidateBeforeTokenRefresh(TokenDto tokenForRefresh);
         Task ValidateForLoginWithFacebook(FacebookLoginDto facebookLogin);
+        void ValidateForLoginWithTwitter(TwitterLoginDto twitterLogin);
     }
 }

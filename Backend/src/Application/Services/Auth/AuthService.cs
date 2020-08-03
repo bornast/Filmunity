@@ -3,6 +3,7 @@ using Application.Dtos.User;
 using Application.Extensions;
 using Application.Interfaces;
 using Application.Interfaces.Common;
+using Application.Models;
 using Application.Specifications;
 using Ardalis.GuardClauses;
 using AutoMapper;
@@ -21,8 +22,15 @@ namespace Application.Services
         private readonly IHashService _hashService;
         private readonly IRefreshTokenService _refreshTokenService;
         private readonly IFacebookService _facebookService;
+        private readonly ITwitterService _twitterService;
 
-        public AuthService(IUnitOfWork uow, IMapper mapper, IJwtService jwtService, IHashService hashService, IRefreshTokenService refreshTokenService, IFacebookService facebookService)
+        public AuthService(IUnitOfWork uow, 
+            IMapper mapper, 
+            IJwtService jwtService, 
+            IHashService hashService, 
+            IRefreshTokenService refreshTokenService, 
+            IFacebookService facebookService,
+            ITwitterService twitterService)
         {
             _uow = uow;
             _mapper = mapper;
@@ -30,6 +38,7 @@ namespace Application.Services
             _hashService = hashService;
             _refreshTokenService = refreshTokenService;
             _facebookService = facebookService;
+            _twitterService = twitterService;
         }
 
         public async Task<TokenDto> Login(UserForLoginDto userForLogin)
@@ -82,6 +91,29 @@ namespace Application.Services
                 await Register(userToRegister);
 
                 user = await _uow.Repository<Domain.Entities.User>().FindOneAsync(new UserWithRolesSpecification(username: userInfo.Email));
+            }
+
+            return await _jwtService.GenerateJwtToken(user);
+        }
+
+        public TwitterTokenResponse GetTwitterRequestToken() 
+        {
+            return _twitterService.GetRequestToken();
+        }
+
+        public async Task<TokenDto> LoginWithTwitter(TwitterLoginDto twitterLogin)
+        {
+            var userInfo = _twitterService.GetUserInfo(twitterLogin);
+
+            var user = await _uow.Repository<Domain.Entities.User>().FindOneAsync(new UserWithRolesSpecification(username: userInfo.ScreenName));
+
+            if (user == null)
+            {
+                var userToRegister = _mapper.Map<UserForRegistrationDto>(userInfo);
+
+                await Register(userToRegister);
+
+                user = await _uow.Repository<Domain.Entities.User>().FindOneAsync(new UserWithRolesSpecification(username: userInfo.ScreenName));
             }
 
             return await _jwtService.GenerateJwtToken(user);

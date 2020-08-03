@@ -26,6 +26,7 @@ namespace Filmunity.UnitTests.Application.Services
         private Mock<IHashService> _hashService;
         private Mock<IRefreshTokenService> _refreshTokenService;
         private Mock<IFacebookService> _facebookService;
+        private Mock<ITwitterService> _twitterService;
         private UserForLoginDto _userForLoginDto;
         private UserForRegistrationDto _userForRegistrationDto;
         private Mock<IRepository<User>> _userRepo;
@@ -119,12 +120,13 @@ namespace Filmunity.UnitTests.Application.Services
             _hashService = new Mock<IHashService>();
             _refreshTokenService = new Mock<IRefreshTokenService>();
             _facebookService = new Mock<IFacebookService>();
+            _twitterService = new Mock<ITwitterService>();
             _userRepo = new Mock<IRepository<User>>();
         }
 
         private void InitializeObjects()
         {
-            _service = new AuthService(_uow.Object, _mapper.Object, _jwtService.Object, _hashService.Object, _refreshTokenService.Object, _facebookService.Object);
+            _service = new AuthService(_uow.Object, _mapper.Object, _jwtService.Object, _hashService.Object, _refreshTokenService.Object, _facebookService.Object, _twitterService.Object);
             _userForLoginDto = new UserForLoginDto
             {
                 Username = "string",

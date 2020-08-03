@@ -92,5 +92,12 @@ namespace Application.Services
 
             ThrowValidationErrorsIfNotEmpty();
         }
+
+        public void ValidateForLoginWithTwitter(TwitterLoginDto twitterLogin)
+        {
+            Validate(twitterLogin);
+
+            ThrowValidationErrorsIfNotEmpty();
+        }
     }
 }

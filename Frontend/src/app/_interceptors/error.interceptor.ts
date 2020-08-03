@@ -80,7 +80,9 @@ export class ErrorInterceptor implements HttpInterceptor {
 		if (error.status === 0) {
 			this.toast.error("Server is not responding!");
 		}
-
+		else if (error.status === 500) {
+			this.toast.error("Server error!");
+		}
 		else if (error.status === 403) {
 			this.toast.error("Forbidden!");
 		}

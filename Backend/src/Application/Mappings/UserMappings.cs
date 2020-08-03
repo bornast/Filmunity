@@ -16,6 +16,13 @@ namespace Application.Mappings
                 .ForMember(x => x.Username, opt => opt.MapFrom(x => x.Email))
                 .ForMember(x => x.Password, opt => opt.MapFrom(x => ""));
 
+            CreateMap<TwitterUser, UserForRegistrationDto>()
+                .ForMember(x => x.Username, opt => opt.MapFrom(x => x.ScreenName))
+                .ForMember(x => x.Email, opt => opt.MapFrom(x => x.Name))
+                .ForMember(x => x.FirstName, opt => opt.MapFrom(x => x.Name))
+                .ForMember(x => x.LastName, opt => opt.MapFrom(x => x.Name))
+                .ForMember(x => x.Password, opt => opt.MapFrom(x => ""));
+
             CreateMap<User, UserForListDto>();
 
             CreateMap<User, UserForDetailedDto>()

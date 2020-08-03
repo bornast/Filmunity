@@ -34,6 +34,13 @@ namespace Infrastructure
             configuration.Bind(nameof(OmdbSettings), omdbSettings);
             services.AddSingleton(omdbSettings);
             services.AddScoped<IOmdbService, OmdbService>();
+
+            services.Configure<TwitterSettings>(configuration.GetSection("TwitterSettings"));
+            var twitterSettings = new TwitterSettings();
+            configuration.Bind(nameof(TwitterSettings), twitterSettings);
+            services.AddSingleton(twitterSettings);
+            services.AddScoped<TweetSharp.ITwitterService, TweetSharp.TwitterService>();
+            services.AddScoped<ITwitterService, TwitterService>();
         }
 
     }

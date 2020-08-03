@@ -43,6 +43,22 @@ export class AuthService {
 			);
 	}
 
+	getTwitterRequestToken() {
+		return this.http.get(this.baseUrl + 'getTwitterRequestToken', {});			
+	}
+
+	loginWithTwitter(model: any) {
+		return this.http.post(this.baseUrl + 'loginWithTwitter', model)
+		.pipe(
+			map((response: any) => {
+				const user = response;
+				if (user) {
+					this.storeUserInfoToLocalStorage(user);
+				}
+			})
+		);
+	}
+
 	refreshToken() {
 		var model = {
 			token: localStorage.getItem('filmunity-token'),

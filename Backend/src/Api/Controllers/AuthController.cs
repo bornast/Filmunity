@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Api.ActionFilters;
 using Application.Dtos.Common;
+using Application.Interfaces.Common;
 
 namespace Api.Controllers
 {
@@ -61,6 +62,24 @@ namespace Api.Controllers
             await _authValidatorService.ValidateForLoginWithFacebook(facebookLogin);
 
             var token = await _authService.LoginWithFacebook(facebookLogin);
+
+            return Ok(token);
+        }
+
+        [HttpGet("getTwitterRequestToken")]
+        public IActionResult GetTwitterRequestToken()
+        {
+            var requestToken = _authService.GetTwitterRequestToken();
+
+            return Ok(requestToken);
+        }
+
+        [HttpPost("loginWithTwitter")]
+        public async Task<IActionResult> LoginWithTwitter(TwitterLoginDto twitterLogin)
+        {
+            _authValidatorService.ValidateForLoginWithTwitter(twitterLogin);
+
+            var token = await _authService.LoginWithTwitter(twitterLogin);
 
             return Ok(token);
         }

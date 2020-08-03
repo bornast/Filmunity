@@ -88,6 +88,7 @@ namespace Application
 
             services.AddTransient<IObjectValidator<TokenDtoValidator>, TokenDtoValidator>();
             services.AddTransient<IObjectValidator<FacebookLoginDtoValidator>, FacebookLoginDtoValidator>();
+            services.AddTransient<IObjectValidator<TwitterLoginDtoValidator>, TwitterLoginDtoValidator>();
             services.AddScoped<IAuthValidatorService, AuthValidatorService>();
 
             services.AddTransient<IObjectValidator<PersonForSaveDtoValidator>, PersonForSaveDtoValidator>();
