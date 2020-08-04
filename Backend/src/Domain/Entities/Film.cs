@@ -28,5 +28,6 @@ namespace Domain.Entities
         public ICollection<FilmParticipant> Participants { get; set; } = new List<FilmParticipant>();
         public ICollection<Rating> Ratings { get; set; } = new List<Rating>();
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
+        public ICollection<FilmComment> FilmComments { get; set; } = new List<FilmComment>();
     }
 }

@@ -37,10 +37,20 @@
 										href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2"
 										aria-selected="false"><i class="fa fa-plus mr-2"></i>Post a Review</a>
 								</li>
+								<li class="nav-item" *ngIf="loggedUserId">
+									<a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-5-tab" data-toggle="tab"
+										href="#tabs-icons-text-5" role="tab" aria-controls="tabs-icons-text-5"
+										aria-selected="false"><i class="fa fa-plus mr-2"></i>Post a Comment</a>
+								</li>
 								<li class="nav-item">
 									<a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-4-tab" data-toggle="tab"
 										href="#tabs-icons-text-4" role="tab" aria-controls="tabs-icons-text-3"
 										aria-selected="false"><i class="fa fa-list-ul mr-2"></i>Reviews</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-6-tab" data-toggle="tab"
+										href="#tabs-icons-text-6" role="tab" aria-controls="tabs-icons-text-3"
+										aria-selected="false"><i class="fa fa-list-ul mr-2"></i>Comments</a>
 								</li>
 							</ul>
 						</div>
@@ -93,11 +103,11 @@
 									</div>
 									<div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel"
 										aria-labelledby="tabs-icons-text-2-tab">
-										<textarea placeholder="Comment" class="form-control form-control-alternative"
-											rows="7" [(ngModel)]="loggedUserComment"></textarea>
+										<textarea placeholder="Review" class="form-control form-control-alternative"
+											rows="7" [(ngModel)]="loggedUserReview"></textarea>
 
-										<button class="btn btn-primary mt-3" (click)="comment()"
-											[disabled]="!loggedUserComment">Submit
+										<button class="btn btn-primary mt-3" (click)="review()"
+											[disabled]="!loggedUserReview">Submit
 										</button>
 
 									</div>
@@ -109,7 +119,7 @@
 													<h5>{{participantRole.participant.name}}</h5>
 													<p>{{participantRole.role.name}}</p>
 													<span *ngIf="participantRole.participant.mainPhoto">
-														<img [width]="70" class="img-fluid rounded-circle shadow-lg"
+														<img style="height: 70px;" class="img-fluid rounded-circle shadow-lg"
 															[src]="participantRole.participant.mainPhoto.url">
 													</span>
 												</li>
@@ -121,7 +131,7 @@
 										<div class="row mb-5 list-img-wrap" *ngFor="let review of reviews">
 											<div class="col-md-2 list-img">
 												<img class="img-fluid rounded-circle shadow-lg"
-													[src]="review.user.mainPhoto != null ? review.user.mainPhoto.url : ''">
+													[src]="review.user.mainPhoto != null ? review.user.mainPhoto.url : '/assets/images/no-image-user.png'">
 											</div>
 											<div class="col-md-10">
 												<h5 style="cursor: pointer;" [routerLink]="['/user/', review.user.id]" class="text-primary">{{review.user.name}}</h5>
@@ -132,6 +142,33 @@
 										<!-- Pagination -->
 										<pagination (pageChanged)="changeReviewPage($event)" *ngIf="reviewPagination"
 											[pagination]="reviewPagination"></pagination>
+										<!-- Pagination / End -->
+									</div>
+									<div class="tab-pane fade" id="tabs-icons-text-5" role="tabpanel"
+										aria-labelledby="tabs-icons-text-5-tab">
+										<textarea placeholder="Comment" class="form-control form-control-alternative"
+											rows="7" [(ngModel)]="loggedUserComment"></textarea>
+
+										<button class="btn btn-primary mt-3" (click)="comment()"
+											[disabled]="!loggedUserComment">Submit
+										</button>
+									</div>
+									<div class="tab-pane fade" id="tabs-icons-text-6" role="tabpanel"
+										aria-labelledby="tabs-icons-text-6-tab">
+										<div class="row mb-5 list-img-wrap" *ngFor="let comment of comments">
+											<div class="col-md-2 list-img">
+												<img class="img-fluid rounded-circle shadow-lg"
+													[src]="comment.user.mainPhoto != null ? comment.user.mainPhoto.url : '/assets/images/no-image-user.png'">
+											</div>
+											<div class="col-md-10">
+												<h5 style="cursor: pointer;" [routerLink]="['/user/', comment.user.id]" class="text-primary">{{comment.user.name}}</h5>
+												<p class="text-muted">{{comment.user.username}}</p>
+												<p>{{comment.comment}}</p>
+											</div>
+										</div>
+										<!-- Pagination -->
+										<pagination (pageChanged)="changeFilmCommentPage($event)" *ngIf="filmCommentPagination"
+											[pagination]="filmCommentPagination"></pagination>
 										<!-- Pagination / End -->
 									</div>
 								</div>

@@ -13,7 +13,7 @@ namespace Application.Validators.Person
             
             RuleFor(x => x.LastName).NotEmpty();
             
-            RuleFor(x => x.DateOfBirth).GreaterThan(new DateTime(1900, 1, 1)).LessThanOrEqualTo(DateTime.UtcNow);
+            RuleFor(x => x.DateOfBirth).GreaterThan(new DateTime(1776, 1, 1)).LessThanOrEqualTo(DateTime.UtcNow);
 
             RuleFor(x => x.GenderId).GreaterThan(0);
         }

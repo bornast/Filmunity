@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace Application.Services.Review
 {
-
     public class ReviewValidatorService : BaseValidatorService, IReviewValidatorService
     {
         private readonly IUnitOfWork _uow;
@@ -51,5 +50,4 @@ namespace Application.Services.Review
         
         #endregion
     }
-
 }

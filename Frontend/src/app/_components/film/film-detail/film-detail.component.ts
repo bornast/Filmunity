@@ -19,10 +19,14 @@ export class FilmDetail implements OnInit {
 	loggedUserRating: any;
 	gallerySlider: any;
 	film: Film;
-	loggedUserComment: string;
+	loggedUserReview: string;	
 	reviews: any[];
 	reviewPagination: Pagination;
 	reviewPageNumber: any = 1;
+	loggedUserComment: string;
+	filmCommentPagination: Pagination;
+	filmCommentPageNumber: any = 1;
+	comments: any[];
 
 	constructor(private filmService: FilmService, private toast: ToastService, private route: ActivatedRoute, private userService: UserService) { }
 
@@ -42,6 +46,7 @@ export class FilmDetail implements OnInit {
 				this.getLoggedUserRating();
 			
 			this.getReviews();
+			this.getComments();
 		});
 	}
 
@@ -59,15 +64,29 @@ export class FilmDetail implements OnInit {
 		});
 	}
 
+	review() {
+		let reviewObject = {
+			filmId: this.film.id,
+			comment: this.loggedUserReview
+		};
+
+		this.filmService.reviewFilm(reviewObject).subscribe(() => {
+			this.loggedUserReview = "";
+			this.toast.success("Review successfully submitted!");
+			this.getReviews();
+		});
+	}
+
 	comment() {
 		let commentObject = {
 			filmId: this.film.id,
 			comment: this.loggedUserComment
 		};
 
-		this.filmService.reviewFilm(commentObject).subscribe(() => {
+		this.filmService.commentFilm(commentObject).subscribe(() => {
+			this.loggedUserComment = "";
 			this.toast.success("Comment successfully submitted!");
-			this.getReviews();
+			this.getComments();
 		});
 	}
 
@@ -103,9 +122,21 @@ export class FilmDetail implements OnInit {
 		});
 	}
 
+	getComments() {	
+		this.filmService.getFilmComments(this.film.id, this.filmCommentPageNumber, 4).subscribe((comments) => {
+			this.filmCommentPagination = comments.pagination;
+			this.comments = comments.result;
+		});
+	}
+
 	changeReviewPage(pageNumber: number) {
 		this.reviewPageNumber = pageNumber;
 		this.getReviews();
+	}
+
+	changeFilmCommentPage(pageNumber: number) {
+		this.filmCommentPageNumber = pageNumber;
+		this.getComments();
 	}
 
 }

@@ -1,6 +1,7 @@
 ﻿using Application.Dtos.Common;
 using Application.Dtos.Film;
 using AutoMapper;
+using Common.Enums;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -52,7 +53,17 @@ namespace Application.Mappings
                 });
 
             CreateMap<Film, RecordNameDto>()
-                .ForMember(x => x.Name, opt => opt.MapFrom(x => $"{x.Title} ({x.Year})"));
+                .AfterMap((src, dest) =>
+                {
+                    if (src.TypeId == (int)FilmTypes.Movie)
+                    {
+                        dest.Name = src.Title + " " + src.Year;
+                    } 
+                    else
+                    {
+                        dest.Name = src.Title;
+                    }
+                });
         }
 
         private void HandleFilmGenres(FilmForUpdateDto src, Film dest)

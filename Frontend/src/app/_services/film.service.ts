@@ -105,9 +105,33 @@ export class FilmService {
 		return this.http.post(this.baseUrl + "review/", objectToPost);
 	}
 
-	getFilmReviews(filmId: any, pageNumber: any = 1, itemsPerPage: any = 5): Observable<PaginatedResult<any[]>> {
-		// return this.http.post(this.baseUrl + "review/", objectToPost);
+	commentFilm(objectToPost) {
+		return this.http.post(this.baseUrl + "filmComment/", objectToPost);
+	}
 
+	getFilmComments(filmId: any, pageNumber: any = 1, itemsPerPage: any = 5): Observable<PaginatedResult<any[]>> {
+		const paginatedResult: PaginatedResult<any[]> = new PaginatedResult<any[]>();
+
+		let params = new HttpParams();
+		params = params.append('pageSize', itemsPerPage);
+		params = params.append('pageNumber', pageNumber);		
+		params = params.append('filmId', filmId);
+		params = params.append('orderByDescending', "CreatedAt");
+
+		return this.http.get<any[]>(this.baseUrl + "filmComment/", {observe: 'response', params})
+		.pipe(
+			map(response => {
+				paginatedResult.result = response.body;
+				if (response.headers.get('Pagination') != null) {
+					paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+				}
+				return paginatedResult;
+			})
+		);
+
+	}
+
+	getFilmReviews(filmId: any, pageNumber: any = 1, itemsPerPage: any = 5): Observable<PaginatedResult<any[]>> {
 		const paginatedResult: PaginatedResult<any[]> = new PaginatedResult<any[]>();
 
 		let params = new HttpParams();
@@ -127,7 +151,7 @@ export class FilmService {
 			})
 		);
 
-	}	
+	}
 
 	getFilms() {
 		return this.http.get<RecordName[]>(this.baseUrl + "film/recordNames");
