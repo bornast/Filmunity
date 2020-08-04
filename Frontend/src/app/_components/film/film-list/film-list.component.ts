@@ -46,7 +46,8 @@ export class FilmListComponent implements OnInit {
 				description: film.description,
 				image: film.mainPhoto != null ? film.mainPhoto.url : "/assets/images/image-not-found2.jpg",
 				rating: film.rating,
-				imdbRating: film.imdbRating
+				imdbRating: film.imdbRating,
+				isWatched: film.isWatched
 			};
 
 			filmsForList.push(filmForList);

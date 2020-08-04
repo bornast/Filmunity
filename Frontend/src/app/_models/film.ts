@@ -17,5 +17,6 @@ export interface Film {
     duration: string;
 	participants: any[];
 	sequence?: any;
+	isWatched?: any;
 }
 

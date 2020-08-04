@@ -2,6 +2,7 @@
 using Application.Extensions;
 using Application.Interfaces;
 using Application.Interfaces.Common;
+using Application.Interfaces.Film;
 using Application.Interfaces.Photo;
 using Application.Interfaces.Watchlist;
 using Application.Specifications.Watchlist;
@@ -22,18 +23,21 @@ namespace Application.Services.Watchlist
         private readonly ICurrentUserService _currentUserService;
         private readonly IPhotoService _photoService;
         private readonly IHttpContextAccessor _context;
+        private readonly IFilmService _filmService;
 
         public WatchlistService(IUnitOfWork uow, 
             IMapper mapper, 
             ICurrentUserService currentUserService, 
             IPhotoService photoService,
-            IHttpContextAccessor context)
+            IHttpContextAccessor context,
+            IFilmService filmService)
         {
             _uow = uow;
             _mapper = mapper;
             _currentUserService = currentUserService;
             _photoService = photoService;
             _context = context;
+            _filmService = filmService;
         }
 
         public async Task<WatchlistForDetailedDto> GetOne(int id)
@@ -44,6 +48,11 @@ namespace Application.Services.Watchlist
                 return null;
 
             var watchlistToReturn = _mapper.Map<WatchlistForDetailedDto>(watchlist);
+
+            foreach (var film in watchlistToReturn.Films)
+            {
+                film.IsWatched = _filmService.IsFilmWatched(watchlist.Films.Select(x => x.Film).FirstOrDefault(x => x.Id == film.Id));
+            }
 
             await _photoService.IncludeMainPhoto(watchlistToReturn.Films, (int)EntityTypes.Film);
 

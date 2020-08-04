@@ -157,4 +157,8 @@ export class FilmService {
 		return this.http.get<RecordName[]>(this.baseUrl + "film/recordNames");
 	}		
 
+	markAsWatched(filmId) {
+		return this.http.post(this.baseUrl + "film/markAsWatched/" + filmId, {});
+	}
+
 }

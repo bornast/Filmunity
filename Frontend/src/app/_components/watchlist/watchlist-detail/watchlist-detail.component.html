@@ -44,7 +44,14 @@
 						<div class="col-md-10">
 							<h5 style="cursor: pointer;" [routerLink]="['/film', film.id]"
 								routerLinkActive="router-link-active" class="text-primary">
-								{{film.title}}</h5>
+								{{film.title}}
+								<i 
+									*ngIf="film.isWatched"
+									style="color: green;" 
+									class="fa fa-check ml-2" 
+									title="Film is watched!"
+								></i>
+							</h5>
 							<p class="text-muted">{{film.description}}</p>
 						</div>
 					</div>

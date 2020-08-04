@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Api.ActionFilters;
 using Application.Dtos.Rating;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {
@@ -75,6 +76,17 @@ namespace Api.Controllers
         public async Task<IActionResult> GetRecordNames()
         {
             return Ok(await _filmService.GetRecordNames());
+        }
+
+        [Authorize]
+        [HttpPost("markAsWatched/{id}")]
+        public async Task<IActionResult> GetRecordNames(int id)
+        {
+            await _filmValidatorService.ValidateMarkAsWatched(id);
+
+            await _filmService.MarkAsWatched(id);
+
+            return Ok();
         }
 
     }

@@ -12,6 +12,7 @@ namespace Application.Dtos.Film
         public PhotoForDetailedDto MainPhoto { get; set; }
         public float Rating { get; set; }
         public float ImdbRating { get; set; }
+        public bool? IsWatched { get; set; }
         public List<string> Genres { get; set; } = new List<string>();
     }
 }

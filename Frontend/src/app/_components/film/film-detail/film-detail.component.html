@@ -10,8 +10,20 @@
 					<div class="">
 						<div class="detail-tile mb-4 mt-4">
 							<h3>
-								{{film.title}} ({{film.year}})
+								{{film.title}} ({{film.year}}) 
+								<i 
+									*ngIf="film.isWatched"
+									style="color: green;" 
+									class="fa fa-check ml-2" 
+									title="Film is watched!"
+								></i>
 							</h3>
+							<button 
+								style="float: right; margin-top: -40px;" 
+								class="btn btn-info" 
+								(click)="markAsWatched()"
+								*ngIf="loggedUserId && !film.isWatched"
+							>Mark as Watched</button>
 							<span class="text-muted ml-2">{{film.duration}}</span>
 							<span class="text-muted ml-2">{{film.country.name}}</span>
 							<p></p>

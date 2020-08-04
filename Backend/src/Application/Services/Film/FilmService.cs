@@ -47,6 +47,8 @@ namespace Application.Services
 
             var filmToReturn = _mapper.Map<FilmForDetailedDto>(film);
 
+            filmToReturn.IsWatched = IsFilmWatched(film);
+
             await _photoService.IncludePhotos(filmToReturn, (int)EntityTypes.Film);
 
             await _photoService.IncludeMainPhoto(filmToReturn.Participants.Select(x => x.Participant), (int)EntityTypes.Person);
@@ -58,11 +60,16 @@ namespace Application.Services
 
         public async Task<IEnumerable<FilmForListDto>> GetAll(FilmFilterDto filmFilter)
         {
-            var films = await _uow.Repository<Film>().FindAsyncWithPagination(new FilmWithGenresFilterPaginatedSpecification(filmFilter));
+            var films = await _uow.Repository<Film>().FindAsyncWithPagination(new FilmWithGenresAndWatchedByUsersFilterPaginatedSpecification(filmFilter));
 
             _context.HttpContext.Response.AddPagination(films.CurrentPage, films.PageSize, films.TotalCount, films.TotalPages);
 
             var filmsToReturn = _mapper.Map<IEnumerable<FilmForListDto>>(films);
+
+            foreach (var filmToReturn in filmsToReturn)
+            {
+                filmToReturn.IsWatched = IsFilmWatched(films.FirstOrDefault(x => x.Id == filmToReturn.Id));
+            }
 
             await _photoService.IncludeMainPhoto(filmsToReturn, (int)EntityTypes.Film);
 
@@ -115,6 +122,32 @@ namespace Application.Services
             var filmsToReturn = _mapper.Map<IEnumerable<RecordNameDto>>(films);
 
             return filmsToReturn;
+        }
+
+        public async Task MarkAsWatched(int filmId)
+        {            
+            var watchedFilm = new WatchedFilm
+            {
+                FilmId = filmId,
+                UserId = (int)_currentUserService.UserId
+            };
+
+            var film = await _uow.Repository<Film>().FindByIdAsync(filmId);
+
+            film.WatchedByUsers.Add(watchedFilm);
+
+            await _uow.SaveAsync();
+        }
+
+        public bool? IsFilmWatched(Film film)
+        {
+            if (_currentUserService.UserId == null || _currentUserService.UserId == 0)
+                return null;
+
+            if (film.WatchedByUsers.Any(x => x.UserId == _currentUserService.UserId))
+                return true;
+
+            return false;
         }
 
     }

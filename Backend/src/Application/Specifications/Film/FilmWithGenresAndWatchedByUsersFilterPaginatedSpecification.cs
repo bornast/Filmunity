@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace Application.Specifications.Film
 {
-    public class FilmWithGenresFilterPaginatedSpecification : BaseSpecification<Domain.Entities.Film>
+    public class FilmWithGenresAndWatchedByUsersFilterPaginatedSpecification : BaseSpecification<Domain.Entities.Film>
     {
-        public FilmWithGenresFilterPaginatedSpecification(FilmFilterDto filmFilter) 
+        public FilmWithGenresAndWatchedByUsersFilterPaginatedSpecification(FilmFilterDto filmFilter) 
             : base(x => (string.IsNullOrWhiteSpace(filmFilter.Title) || x.Title.ToLower().Contains(filmFilter.Title.ToLower()))
             && (filmFilter.Ids.Count == 0 || filmFilter.Ids.Contains(x.Id))
             && (filmFilter.FilmType == null || x.TypeId == filmFilter.FilmType)
@@ -19,6 +19,7 @@ namespace Application.Specifications.Film
 
             ApplyPaging(filmFilter.Skip, filmFilter.Take, filmFilter.PageNumber);
 
+            AddInclude($"{nameof(Domain.Entities.Film.WatchedByUsers)}");
             AddInclude($"{nameof(Domain.Entities.Film.Genres)}.{nameof(Domain.Entities.FilmGenre.Genre)}");
         }
     }

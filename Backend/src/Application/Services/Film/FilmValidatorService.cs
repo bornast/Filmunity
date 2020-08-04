@@ -4,6 +4,7 @@ using Application.Interfaces;
 using Application.Interfaces.Common;
 using Application.Interfaces.Film;
 using Application.Specifications.Film;
+using Application.Specifications.WatchedFilm;
 using Application.Specifications.Watchlist;
 using Common.Enums;
 using Common.Exceptions;
@@ -80,6 +81,18 @@ namespace Application.Services
             var watchlist = await _uow.Repository<Domain.Entities.Watchlist>().FindOneAsync(new WatchlistFilterSpecification(id));
             if (watchlist != null)
                 AddValidationError("Film", $"Film cannot be delete because it is listed in a existing watchlist!");
+
+            ThrowValidationErrorsIfNotEmpty();
+        }
+
+        public async Task ValidateMarkAsWatched(int filmId)
+        {
+            var film = await _uow.Repository<Film>().FindByIdAsync(filmId);
+            AddValidationErrorIfValueIsNull(film, "Film", $"Id {filmId} not found");
+
+            var watchedFilm = await _uow.Repository<WatchedFilm>().FindOneAsync(new WatchedFilmFilterSpecification(filmId, (int)_currentUserService.UserId));
+            if (watchedFilm != null)
+                AddValidationError("Film", $"You already marked this film as watched!");
 
             ThrowValidationErrorsIfNotEmpty();
         }

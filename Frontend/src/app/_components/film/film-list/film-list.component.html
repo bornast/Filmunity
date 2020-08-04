@@ -19,7 +19,15 @@
 									<div class="listing-item-content">
 
 										<div class="listing-item-inner">
-											<h3>{{list.title}}</h3>
+											<h3>
+												{{list.title}}
+												<i 
+													*ngIf="list.isWatched"
+													style="color: green;" 
+													class="fa fa-check ml-2" 
+													title="Film is watched!"
+												></i>
+											</h3>											
 											<span> <small>{{list.description}}</small> </span>
 											<div class="mt-3">
 												<span *ngFor="let genre of list.genre"

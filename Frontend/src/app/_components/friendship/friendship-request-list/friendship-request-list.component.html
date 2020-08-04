@@ -2,7 +2,7 @@
 <div class="main-wrapper mt-5">
 	<!-- Content -->
 	<div id="content pt-5">
-		<div class="container mt-3">
+		<div class="container mt-3 mb-5">
 			<div class="profile-page">
 				<div class="card card-profile shadow">
 					<br>
@@ -12,7 +12,10 @@
 						</div>
 						<div class="row p-4 list-img-wrap" *ngFor="let friendshipRequest of friendshipRequests">
 							<div class="col-md-2 list-img">
-								<img *ngIf="friendshipRequest.mainPhoto" [src]="friendshipRequest.mainPhoto.url" class="img-fluid rounded-circle shadow-lg">
+								<img 
+									[src]="friendshipRequest.mainPhoto != null ? friendshipRequest.mainPhoto.url : '/assets/images/no-image-user.png'" 
+									class="img-fluid rounded-circle shadow-lg"
+								>
 							</div>
 							<div class="col-md-10">
 								<h5 style="cursor: pointer;" [routerLink]="['/listing/user-view/', friendshipRequest.id]" routerLinkActive="router-link-active"  class="text-primary">{{friendshipRequest.firstName + " " + friendshipRequest.lastName}}</h5>

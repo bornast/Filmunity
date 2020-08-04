@@ -9,7 +9,7 @@ namespace Application.Dtos.Common
         public string Title { get; set; }
         public string Description { get; set; }
         public PhotoForDetailedDto MainPhoto { get; set; }
-        public bool IsWatched { get; set; }
+        public bool? IsWatched { get; set; }
         public int Sequence { get; set; }
     }
 }

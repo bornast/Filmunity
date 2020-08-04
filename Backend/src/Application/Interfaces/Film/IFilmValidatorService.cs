@@ -12,5 +12,6 @@ namespace Application.Interfaces.Film
         Task ValidateForCreation(FilmForCreationDto filmForCreation);
         Task ValidateForUpdate(int id, FilmForUpdateDto filmForUpdate);
         Task ValidateForDeletion(int id);
+        Task ValidateMarkAsWatched(int filmId);
     }
 }

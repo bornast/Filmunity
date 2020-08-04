@@ -139,4 +139,11 @@ export class FilmDetail implements OnInit {
 		this.getComments();
 	}
 
+	markAsWatched() {
+		this.filmService.markAsWatched(this.film.id).subscribe(() => {
+			this.toast.success("Successfully marked as watched!");
+			this.film.isWatched = true;
+		});
+	}
+
 }

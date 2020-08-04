@@ -14,5 +14,7 @@ namespace Application.Interfaces.Film
         Task<FilmForDetailedDto> Update(int id, FilmForUpdateDto filmForUpdate);
         Task Delete(int id);
         Task<IEnumerable<RecordNameDto>> GetRecordNames();
+        Task MarkAsWatched(int filmId);
+        bool? IsFilmWatched(Domain.Entities.Film film);
     }
 }

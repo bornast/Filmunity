@@ -12,7 +12,10 @@
 						</div>
 						<div class="row p-4 list-img-wrap" *ngFor="let friend of friends">
 							<div class="col-md-2 list-img">
-								<img *ngIf="friend.mainPhoto" [src]="friend.mainPhoto.url" class="img-fluid rounded-circle shadow-lg">
+								<img 
+									[src]="friend.mainPhoto != null ? friend.mainPhoto.url : '/assets/images/no-image-user.png'" 
+									class="img-fluid rounded-circle shadow-lg"
+								>
 							</div>
 							<div class="col-md-10">
 								<h5 style="cursor: pointer;" [routerLink]="['/user', friend.id]" routerLinkActive="router-link-active"  class="text-primary">{{friend.firstName + " " + friend.lastName}}</h5>

@@ -20,6 +20,7 @@ namespace Application.Dtos.Film
         public RecordNameDto Type { get; set; }
         public RecordNameDto Country { get; set; }
         public RecordNameDto Language { get; set; }
+        public bool? IsWatched { get; set; }
         public IEnumerable<RecordNameDto> Genres { get; set; } = new List<RecordNameDto>();
         public IEnumerable<ParticipantRoleForDetailedDto> Participants { get; set; } = new List<ParticipantRoleForDetailedDto>();
         public IEnumerable<PhotoForDetailedDto> Photos { get; set; } = new List<PhotoForDetailedDto>();        
