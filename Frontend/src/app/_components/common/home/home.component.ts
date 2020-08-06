@@ -63,8 +63,9 @@ export class HomeComponent implements OnInit{
 			let filmForCarousel = {
 				id: film.id,
 				title: film.title,
-				subTitle : film.rating,
+				subTitle : film.rating > 0 ? 'Rating: ' + film.rating : 'Rating: N/A',
 				image: film.mainPhoto != null ? film.mainPhoto.url : null,
+				isWatched: film.isWatched
 			};
 
 			filmsForCarousel.push(filmForCarousel)

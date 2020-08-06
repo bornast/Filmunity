@@ -46,7 +46,7 @@ namespace Application.Services.Photo
 
             await ValidateWatchlistPhotoPermission(photoForCreation.EntityTypeId, photoForCreation.EntityId);
 
-            await ValidateFilmOrPersonPhotoPermission(photoForCreation.EntityTypeId, photoForCreation.EntityId);
+            await ValidateFilmOrPersonPhotoPermission(photoForCreation.EntityTypeId);
         }
 
         public async Task ValidateForDeletion(int photoId)
@@ -58,7 +58,7 @@ namespace Application.Services.Photo
 
             await ValidateWatchlistPhotoPermission(photo.EntityTypeId, photo.EntityId);
 
-            await ValidateFilmOrPersonPhotoPermission(photo.EntityTypeId, photo.EntityId);
+            await ValidateFilmOrPersonPhotoPermission(photo.EntityTypeId);
         }
 
         public async Task ValidateForSetMain(int photoId)
@@ -70,7 +70,7 @@ namespace Application.Services.Photo
 
             await ValidateWatchlistPhotoPermission(photo.EntityTypeId, photo.EntityId);
 
-            await ValidateFilmOrPersonPhotoPermission(photo.EntityTypeId, photo.EntityId);
+            await ValidateFilmOrPersonPhotoPermission(photo.EntityTypeId);
         }
 
         #region private methods
@@ -107,9 +107,9 @@ namespace Application.Services.Photo
             }
         }
 
-        private async Task ValidateFilmOrPersonPhotoPermission(int entityTypeId, int entityId)
+        private async Task ValidateFilmOrPersonPhotoPermission(int entityTypeId)
         {
-            if (entityTypeId == (int)EntityTypes.Film || entityId == (int)EntityTypes.Person)
+            if (entityTypeId == (int)EntityTypes.Film || entityTypeId == (int)EntityTypes.Person)
             {
                 var user = await _uow.Repository<Domain.Entities.User>().FindOneAsync(new UserWithRolesSpecification((int)_currentUserService.UserId));
 

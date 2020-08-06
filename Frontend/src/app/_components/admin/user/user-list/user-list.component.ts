@@ -57,7 +57,7 @@ export class AdminUserListComponent implements OnInit {
 	}
 
 	delete(id: any) {
-		if (confirm("Are you sure to delete this record")) {
+		if (confirm("Are you sure you want to delete this record?")) {
 			this.userService.deleteUser(id).subscribe(() => {
 				this.pageNumber = 1;
 				this.loadUsers();

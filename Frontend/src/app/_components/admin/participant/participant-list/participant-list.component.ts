@@ -54,7 +54,7 @@ export class AdminParticipantListComponent implements OnInit {
 	}
 
 	delete(id: any) {
-		if (confirm("Are you sure to delete this record")) {
+		if (confirm("Are you sure you want to delete this record?")) {
 			this.filmParticipantService.deleteParticipant(id).subscribe(() => {
 				this.pageNumber = 1;
 				this.loadParticipants();

@@ -17,7 +17,7 @@
 								</div>
 							</div>
 							<div class="col-lg-4 order-lg-3 text-lg-right align-self-lg-center">
-								<div class="card-profile-actions py-4 mt-lg-0">
+								<div class="card-profile-actions py-4 mt-lg-0">									
 									<button 
 										*ngIf="loggedUserId && loggedUserId != user.id && friendshipStatus && friendshipStatus.id == 0"
 										class="btn btn-sm btn-info mr-4"
@@ -28,6 +28,10 @@
 										class="btn btn-sm btn-info mr-4"
 										disabled
 									>Friend Request Sent</button>
+									<button 
+										*ngIf="loggedUserId && loggedUserId != user.id && friendshipStatus && friendshipStatus.id == 2"
+										class="btn btn-sm btn-success mr-4"
+									>Friend</button>
 									<button 
 										*ngIf="loggedUserId && loggedUserId != user.id && friendshipStatus && friendshipStatus.id == 3"
 										class="btn btn-sm btn-danger mr-4"

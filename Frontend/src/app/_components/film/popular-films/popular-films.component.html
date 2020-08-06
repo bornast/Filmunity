@@ -20,7 +20,14 @@
 								<div class="icon-title">
 									<i class="{{item.icon}}"></i>
 								</div>
-								<h3>{{item.title}}</h3>
+								<h3>{{item.title}}
+									<i 
+										*ngIf="item.isWatched"
+										style="color: white;" 
+										class="fa fa-check ml-2" 
+										title="Film is watched!"
+									></i>
+								</h3>
 								<span> <small>{{item.subTitle}}</small> </span>
 							</div>
 							{{item.image | json}}

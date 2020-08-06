@@ -36,7 +36,7 @@ export class UserWatchlistsComponent implements OnInit {
 	}
 
 	delete(id: any) {
-		if (confirm("Are you sure to delete this record")) {
+		if (confirm("Are you sure you want to delete this record?")) {
 			this.watchlistService.deleteWatchlist(id).subscribe(() => {
 				this.pageNumber = 1;
 				this.loadWatchlists();
