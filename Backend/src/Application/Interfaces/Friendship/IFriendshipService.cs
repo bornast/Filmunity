@@ -10,7 +10,7 @@ namespace Application.Interfaces.Friendship
 {
     public interface IFriendshipService
     {
-        Task<IEnumerable<FriendRequestForListDto>> GetAllFriendRequests();
+        Task<IEnumerable<FriendRequestForListDto>> GetAllFriendshipRequests();
         Task<IEnumerable<FriendDto>> GetAllFriends(FriendshipFilterDto friendshipFilter);
         Task SendFriendRequest(int userId);
         Task AcceptFriendRequest(int userId);

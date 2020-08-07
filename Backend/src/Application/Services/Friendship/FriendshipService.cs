@@ -38,7 +38,7 @@ namespace Application.Services.Friendship
             _context = context;
         }
 
-        public async Task<IEnumerable<FriendRequestForListDto>> GetAllFriendRequests()
+        public async Task<IEnumerable<FriendRequestForListDto>> GetAllFriendshipRequests()
         {
             var friendshipSpec = new FriendshipPendingRequestsWithUsersFilterSpecification((int)_currentUserService.UserId);
 

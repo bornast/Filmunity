@@ -80,7 +80,7 @@ namespace Api.Controllers
 
         [Authorize]
         [HttpPost("markAsWatched/{id}")]
-        public async Task<IActionResult> GetRecordNames(int id)
+        public async Task<IActionResult> MarkAsWatched(int id)
         {
             await _filmValidatorService.ValidateMarkAsWatched(id);
 

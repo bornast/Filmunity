@@ -23,9 +23,9 @@ namespace Api.Controllers
         }
 
         [HttpGet("getAllFriendRequests")]
-        public async Task<IActionResult> GetAllFriendRequests()
+        public async Task<IActionResult> GetAllFriendshipRequests()
         {
-            return Ok(await _friendshipService.GetAllFriendRequests());
+            return Ok(await _friendshipService.GetAllFriendshipRequests());
         }
 
         [HttpGet("getAllFriends")]
