@@ -8,7 +8,7 @@ import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 @Component({
 	selector: 'list-with-sidebar',
 	templateUrl: './film-list.component.html',
-	styleUrls: ['./film-list.component.scss'],
+	styleUrls: ['./film-list.component.css'],
 	encapsulation: ViewEncapsulation.None
 })
 export class FilmListComponent implements OnInit {

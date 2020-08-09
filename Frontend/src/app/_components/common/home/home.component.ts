@@ -9,7 +9,7 @@ import { WatchlistService } from 'src/app/_services/watchlist.service';
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  styleUrls: ['./home.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit{

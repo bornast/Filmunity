@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 @Component({
 	selector: 'pagination',
 	templateUrl: './pagination.component.html',
-	styleUrls: ['./pagination.component.scss'],
+	styleUrls: ['./pagination.component.css'],
 	encapsulation: ViewEncapsulation.None
 })
 export class PaginationComponent implements OnInit {

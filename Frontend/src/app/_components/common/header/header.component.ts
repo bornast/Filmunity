@@ -6,7 +6,7 @@ import { filter } from 'rxjs/operators';
 @Component({
   selector: 'app-header',
   templateUrl: './Header.component.html',
-  styleUrls: ['./Header.component.scss'],
+  styleUrls: ['./Header.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 export class HeaderComponent implements OnInit {

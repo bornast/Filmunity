@@ -3,7 +3,7 @@ import { Component, OnInit, Input, Output, AfterViewInit, ViewEncapsulation } fr
 @Component({
 	selector: 'popular-films',
 	templateUrl: './popular-films.component.html',
-	styleUrls: ['./popular-films.component.scss'],
+	styleUrls: ['./popular-films.component.css'],
 	encapsulation: ViewEncapsulation.None
 })
 export class PopularFilmsComponent implements OnInit {

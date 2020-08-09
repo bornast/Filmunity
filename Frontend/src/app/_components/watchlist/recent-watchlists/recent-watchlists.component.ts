@@ -3,7 +3,7 @@ import { Component, OnInit, Input, Output, AfterViewInit, ViewEncapsulation } fr
 @Component({
   selector: 'recent-watchlists',
   templateUrl: './recent-watchlists.component.html',
-  styleUrls: ['./recent-watchlists.component.scss'],
+  styleUrls: ['./recent-watchlists.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 export class RecentWatchlistsComponent implements OnInit {

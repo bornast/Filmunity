@@ -4,7 +4,7 @@ import { AdminMenuItems } from './admin-menu-items';
 @Component({
   selector: 'app-admin-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+  styleUrls: ['./header.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 export class AdminHeaderComponent implements OnInit {

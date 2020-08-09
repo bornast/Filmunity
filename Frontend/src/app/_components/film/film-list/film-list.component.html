@@ -54,8 +54,8 @@
 				</div>
 				<!-- Sidebar-->
 				<div class="col-lg-3 col-md-4">
-					<sidebar-layout-one *ngIf="displayFilterSidebar" sidebar-layout-one [searchTxt]="filters.searchTxt"
-						(filters)="filter($event)"></sidebar-layout-one>
+					<film-filters *ngIf="displayFilterSidebar" [searchTxt]="filters.searchTxt"
+						(filters)="filter($event)"></film-filters>
 				</div>
 				<!-- Sidebar / End -->
 			</div>

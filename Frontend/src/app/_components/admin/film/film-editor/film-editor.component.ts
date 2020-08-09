@@ -11,7 +11,7 @@ import { ENTITYTYPE } from 'src/app/_constants/entityTypeConst';
 @Component({
 	selector: 'admin-film-editor',
 	templateUrl: './film-editor.component.html',
-	styleUrls: ['./film-editor.component.scss'],
+	styleUrls: ['./film-editor.component.css'],
 	encapsulation: ViewEncapsulation.None
 })
 export class AdminFilmEditorComponent implements OnInit {

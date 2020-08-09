@@ -8,7 +8,7 @@ import { ToastService } from 'src/app/_services/toast.service';
 @Component({
 	selector: 'admin-film-list',
 	templateUrl: './film-list.component.html',
-	styleUrls: ['./film-list.component.scss'],
+	styleUrls: ['./film-list.component.css'],
 	encapsulation: ViewEncapsulation.None
 })
 export class AdminFilmListComponent implements OnInit {

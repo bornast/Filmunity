@@ -4,9 +4,9 @@ import { RecordName } from 'src/app/_models/recordName';
 import { filter } from 'rxjs/operators';
 
 @Component({
-	selector: 'sidebar-layout-one',
+	selector: 'film-filters',
 	templateUrl: './film-filters.component.html',
-	styleUrls: ['./film-filters.component.scss'],
+	styleUrls: ['./film-filters.component.css'],
 	encapsulation: ViewEncapsulation.None
 })
 export class FilmFiltersComponent implements OnInit {

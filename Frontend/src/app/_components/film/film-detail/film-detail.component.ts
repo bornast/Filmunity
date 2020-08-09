@@ -10,7 +10,7 @@ import { UserService } from 'src/app/_services/user.service';
 @Component({
 	selector: 'list-detail-one',
 	templateUrl: './film-detail.component.html',
-	styleUrls: ['./film-detail.component.scss'],
+	styleUrls: ['./film-detail.component.css'],
 	encapsulation: ViewEncapsulation.None
 })
 export class FilmDetail implements OnInit {

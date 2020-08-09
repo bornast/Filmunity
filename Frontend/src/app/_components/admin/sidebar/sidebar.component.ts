@@ -5,7 +5,7 @@ declare var $ : any;
 @Component({
   selector: 'app-admin-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss'],
+  styleUrls: ['./sidebar.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 export class AdminSidebarComponent implements OnInit {

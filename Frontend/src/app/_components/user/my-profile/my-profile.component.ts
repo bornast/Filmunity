@@ -14,7 +14,7 @@ declare var $ : any;
 @Component({
   selector: 'my-profile',
   templateUrl: './my-profile.component.html',
-  styleUrls: ['./my-profile.component.scss'],
+  styleUrls: ['./my-profile.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 export class MyProfileComponent implements OnInit{
